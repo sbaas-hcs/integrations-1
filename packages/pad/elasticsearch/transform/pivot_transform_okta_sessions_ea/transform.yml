@@ -39,6 +39,9 @@ pivot:
         term:
           'okta.event_type': "user.session.end"
   group_by:
+    'user.name':
+      terms:
+        field: user.name
     'user.email':
       terms:
         field: user.email
