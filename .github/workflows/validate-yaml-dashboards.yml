@@ -9,7 +9,7 @@ on:
       - 'packages/**/_dev/shared/**/*.yaml'
       - 'packages/**/kibana/dashboard/*.json'
       - '.github/workflows/validate-yaml-dashboards.yml'
-      - '.github/requirements/kb-dashboard.requirements.txt'
+      - '.github/workflows/validate-yaml-dashboards.requirements.txt'
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
   validate-dashboards:
     runs-on: ubuntu-latest
     env:
-      KB_DASHBOARD_REQUIREMENTS: .github/requirements/kb-dashboard.requirements.txt
+      KB_DASHBOARD_REQUIREMENTS: .github/workflows/validate-yaml-dashboards.requirements.txt
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
