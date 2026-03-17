@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'packages/**/_dev/shared/kibana/**/*.yaml'
+      - 'packages/**/_dev/shared/**/*.yaml'
       - 'packages/**/kibana/dashboard/*.json'
       - '.github/workflows/validate-yaml-dashboards.yml'
       - '.github/requirements/kb-dashboard.requirements.txt'
@@ -36,7 +36,7 @@ jobs:
           set -e
           
           # Find YAML files changed in the PR diff
-          CHANGED_YAML_FILES=$(git diff --name-only origin/main...HEAD -- 'packages/**/_dev/shared/kibana/**/*.yaml' 2>/dev/null || true)
+          CHANGED_YAML_FILES=$(git diff --name-only origin/main...HEAD -- 'packages/**/_dev/shared/**/*.yaml' 2>/dev/null || true)
           
           if [ -z "$CHANGED_YAML_FILES" ]; then
             echo "No YAML dashboard files changed in this PR"
