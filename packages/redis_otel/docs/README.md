@@ -1,110 +1,92 @@
-# Redis metrics from OpenTelemetry Collector
+# Redis OpenTelemetry Assets
 
-The Redis metrics from Redis OTel integration allows you to monitor [Redis](https://redis.io/), a high-performance in-memory data store used as a database, cache, message broker, and streaming engine.
+Redis is an open-source, in-memory data structure store used as a database, cache, message broker, and streaming engine. It delivers sub-millisecond latency for most operations and supports a rich set of data structures.
 
-Use the Redis OTel integration to analyze performance metrics from your Redis instances. Then visualize that data in Kibana, create alerts to notify you if something goes wrong, and reference metrics when troubleshooting performance issues.
+This content pack provides dashboards, alert rules, and SLO templates for Redis instances monitored using the OpenTelemetry Redis receiver. The assets cover memory usage, connection management, keyspace health, replication status, persistence metrics, and command latency.
 
-For example, if you want to monitor memory usage, client connections, or command throughput of your Redis server, you can use the [Redis Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/redisreceiver) to collect metrics such as `redis.memory.used`, `redis.clients.connected`, or `redis.commands`, and then the Redis OTel integration to visualize these metrics in Kibana dashboards, set up alerts for high memory usage, or troubleshoot by analyzing metric trends.
+## Compatibility
+
+The Redis OpenTelemetry assets have been tested with OpenTelemetry Redis receiver v0.145.0.
+
+Redis tested against:
+
+- Redis 6.x, 7.x
 
 ## Requirements
 
 You need Elasticsearch for storing and searching your data and Kibana for visualizing and managing it. You can use our hosted Elasticsearch Service on Elastic Cloud, which is recommended, or self-manage the Elastic Stack on your own hardware.
 
-1. **Compatibility and supported versions**: This integration is compatible with systems running either [EDOT Collector](https://www.elastic.co/docs/reference/opentelemetry/quickstart/) or vanilla upstream Collector and Redis server. This integration has been tested with OTEL collector version [v0.129.0](https://github.com/open-telemetry/opentelemetry-collector/tree/v0.129.0), EDOT collector version [9.0](https://www.elastic.co/docs/reference/opentelemetry/compatibility/collectors), and Redis version 7.x.
-
-2. **Permissions required**: The collector requires access to the Redis server endpoint. When running the collector, make sure you have the appropriate permissions to connect to Redis.
-
-3. **Redis configuration**: Redis must be accessible on the configured endpoint. For password-protected instances, provide the appropriate credentials in the collector configuration.
-
 ## Setup
 
-1. Ensure your Redis server is running and accessible.
+### Prerequisites
 
-2. Install and configure the EDOT Collector or upstream Collector to export metrics to Elasticsearch, as shown in the following example:
+The Redis receiver connects to Redis using the `INFO`, `SLOWLOG`, and `CLIENT LIST` commands. Ensure the collector can reach the Redis instance over the network. If Redis is protected by a password, configure it in the receiver (see placeholder table below). No additional Redis-side configuration is required for basic metrics collection.
+
+### Configuration
+
+Add the Redis receiver to your OpenTelemetry Collector or Elastic Distribution of OpenTelemetry (EDOT) Collector configuration. Wire it to the `elasticsearch/otel` exporter with `mapping.mode: otel` so metrics are stored in the correct format for the dashboards, alerts, and SLOs.
+
+| Placeholder | Description | Example |
+|-------------|-------------|---------|
+| `<REDIS_ENDPOINT>` | Redis server address and port | `localhost:6379` |
+| `<ES_ENDPOINT>` | Elasticsearch ingest endpoint URL | `https://my-deployment.es.us-central1.gcp.cloud.es.io:443` |
+| `<ES_API_KEY>` | Elasticsearch API key for authentication | Use `${env:ES_API_KEY}` and set the variable in your environment |
 
 ```yaml
 receivers:
   redis:
-    endpoint: "localhost:6379"
+    endpoint: <REDIS_ENDPOINT>
     collection_interval: 10s
-processors:
-  resourcedetection:
-    detectors: ["system", "ec2"]
+    # password: ${env:REDIS_PASSWORD}  # Uncomment if Redis requires authentication
+    metrics:
+      redis.cmd.latency:           # disabled by default — required for P99 latency SLO
+        enabled: true
+      redis.maxmemory:             # disabled by default — required for Memory approaching maxmemory alert
+        enabled: true
 exporters:
-  debug:
-    verbosity: detailed
   elasticsearch/otel:
-    endpoints: https://localhost:9200
-    user: <userid>
-    password: <pwd>
+    endpoints: [<ES_ENDPOINT>]
+    api_key: <ES_API_KEY>
     mapping:
       mode: otel
-    metrics_dynamic_index:
-      enabled: true
 service:
   pipelines:
     metrics:
       receivers: [redis]
-      processors: [resourcedetection]
-      exporters: [debug, elasticsearch/otel]
+      exporters: [elasticsearch/otel]
 ```
 
-Use this configuration to run the collector.
+> **Note**: If you do not use the P99 command latency SLO or the Memory approaching maxmemory alert, you can omit the `metrics` block and rely on the default metric set.
 
-The `resourcedetection` processor is required to get the host information for the dashboard.
+## Reference
 
-## Metrics reference
+### Metrics
 
-### Redis metrics
+Refer to the [metadata.yaml](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/redisreceiver/metadata.yaml) of the OpenTelemetry Redis receiver for details on available metrics.
 
-The [Redis receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/redisreceiver/documentation.md) collects performance metrics from Redis. Key metrics include:
+## Dashboards
 
-| Metric Name | Description | Type | Attributes |
-|-------------|-------------|------|------------|
-| `redis.clients.blocked` | Clients pending on a blocking call | Sum | - |
-| `redis.clients.connected` | Client connections (excluding replicas) | Sum | - |
-| `redis.clients.max_input_buffer` | Largest input buffer among connections | Gauge | - |
-| `redis.clients.max_output_buffer` | Longest output list among connections | Gauge | - |
-| `redis.commands` | Processed commands per second | Gauge | - |
-| `redis.commands.processed` | Total server commands executed | Sum | - |
-| `redis.connections.received` | Total accepted connections | Sum | - |
-| `redis.connections.rejected` | Connections denied due to maxclients | Sum | - |
-| `redis.cpu.time` | CPU consumed since server start | Sum | `state` |
-| `redis.db.avg_ttl` | Average keyspace keys TTL | Gauge | `db` |
-| `redis.db.expires` | Keys with expiration in keyspace | Gauge | `db` |
-| `redis.db.keys` | Total keyspace keys | Gauge | `db` |
-| `redis.keys.evicted` | Keys removed due to maxmemory limit | Sum | - |
-| `redis.keys.expired` | Total key expiration events | Sum | - |
-| `redis.keyspace.hits` | Successful key lookups | Sum | - |
-| `redis.keyspace.misses` | Failed key lookups | Sum | - |
-| `redis.latest_fork` | Duration of most recent fork operation | Gauge | - |
-| `redis.memory.fragmentation_ratio` | Ratio between RSS and used memory | Gauge | - |
-| `redis.memory.lua` | Memory used by Lua engine | Gauge | - |
-| `redis.memory.peak` | Peak memory consumption | Gauge | - |
-| `redis.memory.rss` | Memory allocated as viewed by OS | Gauge | - |
-| `redis.memory.used` | Bytes allocated by Redis allocator | Gauge | - |
-| `redis.net.input` | Total network bytes read | Sum | - |
-| `redis.net.output` | Total network bytes written | Sum | - |
-| `redis.rdb.changes_since_last_save` | Modifications since last dump | Sum | - |
-| `redis.replication.backlog_first_byte_offset` | Master offset of replication backlog | Gauge | - |
-| `redis.replication.offset` | Server's current replication offset | Gauge | - |
-| `redis.slaves.connected` | Number of connected replicas | Sum | - |
-| `redis.uptime` | Seconds since server start | Sum | - |
+| Dashboard | Description |
+|-----------|-------------|
+| **[Redis OTel] Overview** | Overview of Redis instance health and performance: memory usage, connection counts, command throughput, keyspace hit rate, replication status, and persistence metrics. |
+| **[Redis OTel] Memory & Persistence** | Detailed view of Redis memory usage, fragmentation, CPU consumption, and persistence (RDB, fork duration, replication offset). |
 
-### Metric Attributes
+## Alert rules
 
-| Attribute | Values | Description |
-|-----------|--------|-------------|
-| `state` | `sys`, `sys_children`, `sys_main_thread`, `user`, `user_children`, `user_main_thread` | CPU state |
-| `db` | `db0`, `db1`, etc. | Database index |
+| Alert | Trigger | Severity |
+|-------|---------|----------|
+| **[Redis OTel] Rejected connections** | One or more connections rejected (maxclients reached) | Critical |
+| **[Redis OTel] Memory fragmentation indicates swapping** | Fragmentation ratio below 1.0 (RSS &lt; used memory) | Critical |
+| **[Redis OTel] Memory approaching maxmemory** | Memory usage exceeds 90% of maxmemory | High |
+| **[Redis OTel] High eviction rate** | Evictions exceed 100 in 15 minutes | High |
+| **[Redis OTel] Primary has no connected replicas** | Primary instance has zero connected replicas | High |
 
-These metrics provide insights into:
-- **Memory usage and performance** through memory metrics including fragmentation ratio
-- **Client activity** via connection counts and buffer sizes
-- **Command throughput** using commands per second and total processed
-- **Cache effectiveness** through keyspace hit/miss ratios
-- **Key lifecycle** via eviction and expiration statistics
-- **Network I/O** through input/output byte counters
-- **Replication health** using replication offset and connected replicas
+## SLO templates
 
-For a complete list of all available metrics and their detailed descriptions, refer to the [Redis Receiver documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/redisreceiver/documentation.md) in the upstream OpenTelemetry Collector repository.
+> **Note**: SLO templates require Elastic Stack version 9.4.0 or later.
+
+| SLO | Target | Window | Description |
+|-----|--------|--------|-------------|
+| **[Redis OTel] P99 command latency 99.5% rolling 30 days** | 99.5% | 30-day rolling | Tracks p99 command latency below 10 ms over 1-minute intervals. |
+| **[Redis OTel] Fork duration 99.5% rolling 30 days** | 99.5% | 30-day rolling | Tracks fork duration below 100 ms over 1-minute intervals. |
+| **[Redis OTel] Connection availability 99.5% rolling 30 days** | 99.5% | 30-day rolling | Tracks connection success rate over 1-minute intervals. |
