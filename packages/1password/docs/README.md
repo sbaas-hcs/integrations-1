@@ -4,6 +4,8 @@ With [1Password Business](https://support.1password.com/explore/business/), you 
 
 Get reports about 1Password activity, such as sign-in attempts and item usage, while you manage all your company’s applications and services from a central location.
 
+Check [Setup instructions](#setup-instructions) for details.
+
 With 1Password Events Reporting and Elastic SIEM, you can:
 
 -	Control your 1Password data retention
@@ -11,8 +13,26 @@ With 1Password Events Reporting and Elastic SIEM, you can:
 -	Set up custom alerts that trigger specific actions
 -	Cross-reference 1Password events with the data from other services
 
-You can set up Events Reporting if you’re an owner or administrator.  
+You can set up Events Reporting if you’re an owner or administrator.
 Ready to get started? [Learn how to set up the Elastic Events Reporting integration](https://support.1password.com/events-reporting).
+
+Here is an example configuration:
+
+```hcl
+resource "elastic_integration" "onepassword" {
+  name = "1password"
+}
+```
+
+See also the [pipeline UI](/app/management/ingest/ingest_pipelines/).
+
+Link to [missing file](./missing-file.md).
+
+![Missing image](../img/nonexistent-screenshot.png)
+
+See the {ecloud} documentation for more details.
+
+Link with [empty url]().
 
 ## Agentless Enabled Integration
 
