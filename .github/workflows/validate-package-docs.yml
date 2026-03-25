@@ -22,8 +22,10 @@ jobs:
 
       - name: Find changed package docs
         id: changed-docs
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD \
+          FILES=$(git diff --name-only --diff-filter=d "origin/$BASE_REF"...HEAD \
             | grep '^packages/.*/docs/[^/]*\.md$' \
             | grep -v '_dev/build/' || true)
           echo "files<<EOF" >> $GITHUB_OUTPUT
