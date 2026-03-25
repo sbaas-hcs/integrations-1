@@ -4,6 +4,8 @@ With [1Password Business](https://support.1password.com/explore/business/), you 
 
 Get reports about 1Password activity, such as sign-in attempts and item usage, while you manage all your company’s applications and services from a central location.
 
+<!-- Test edit for docs-builder validation -->
+
 With 1Password Events Reporting and Elastic SIEM, you can:
 
 -	Control your 1Password data retention

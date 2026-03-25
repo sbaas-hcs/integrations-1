@@ -3,6 +3,8 @@
 The AWS integration is used to fetch logs and metrics from [Amazon Web Services](https://aws.amazon.com/).
 
 Use the AWS integration to collect metrics and logs across many AWS services managed by your AWS account.
+
+<!-- Test edit for docs-builder validation -->
 Visualize that data in Kibana, create alerts to notify you if something goes wrong,
 and reference data when troubleshooting an issue.
 
