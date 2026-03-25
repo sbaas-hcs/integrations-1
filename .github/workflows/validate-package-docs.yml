@@ -35,20 +35,40 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate validation docset
+      - name: Validate with docs-builder
         if: steps.changed-docs.outputs.skip != 'true'
         env:
           CHANGED_FILES: ${{ steps.changed-docs.outputs.files }}
         run: |
-          echo "project: 'Package Docs Validation'" > docset.yml
-          echo "toc:" >> docset.yml
+          # Build an isolated directory so docs-builder only sees our
+          # generated docset and not docs/docset.yml or other repo files.
+          mkdir -p .validate
+          git init .validate
           echo "$CHANGED_FILES" | while read f; do
-            [ -n "$f" ] && echo "  - file: $f" >> docset.yml
+            [ -n "$f" ] || continue
+            dir=".validate/$(dirname "$f")"
+            mkdir -p "$dir"
+            # docs-builder requires lowercase filenames
+            base="$(basename "$f" | tr '[:upper:]' '[:lower:]')"
+            cp "$f" "$dir/$base"
           done
-
-      - name: Run docs-builder validation
-        if: steps.changed-docs.outputs.skip != 'true'
-        uses: elastic/docs-builder@main
-        with:
-          metadata-only: 'true'
-          strict: 'true'
+          {
+            echo "project: 'Package Docs Validation'"
+            echo "cross_links:"
+            echo "  - beats"
+            echo "  - docs-content"
+            echo "  - ecs"
+            echo "  - elasticsearch"
+            echo "  - integrations"
+            echo "toc:"
+            echo "$CHANGED_FILES" | while read f; do
+              [ -n "$f" ] || continue
+              dir="$(dirname "$f")"
+              base="$(basename "$f" | tr '[:upper:]' '[:lower:]')"
+              echo "  - file: $dir/$base"
+            done
+          } > .validate/docset.yml
+          cat .validate/docset.yml
+          docker run --rm -v "$PWD/.validate:/app" -w /app \
+            ghcr.io/elastic/docs-builder:edge \
+            --metadata-only --strict
