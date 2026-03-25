@@ -11,7 +11,7 @@
   changes:
     - description: Replace undefined substitution key in docs
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/99999
+      link: https://github.com/elastic/integrations/pull/18042
 - version: "1.5.0-preview05"
   changes:
     - description: Transfer package ownership to elastic/cloud-services team.
