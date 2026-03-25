@@ -39,8 +39,6 @@ jobs:
 
       - name: Validate with docs-builder
         if: steps.changed-docs.outputs.skip != 'true'
-        # TODO: set to false once pre-existing doc issues are fixed
-        continue-on-error: true
         env:
           CHANGED_FILES: ${{ steps.changed-docs.outputs.files }}
         run: |
