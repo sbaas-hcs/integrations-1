@@ -1,4 +1,9 @@
 # newer versions go on top
+- version: "6.4.1"
+  changes:
+    - description: Fix broken links and anchors in docs for docs-builder compatibility
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/18888
 - version: "6.4.0"
   changes:
     - description: Set host.id alongside host.target.entity.id in CloudTrail pipeline for entity store host entity resolution.
@@ -21,11 +26,7 @@
       link: https://github.com/elastic/integrations/pull/17552
 - version: "6.2.0"
   changes:
-    - description: |
-        Add support for the `aws.waf.captcha_response.*`, `aws.waf.challenge_response.*`, `aws.waf.format_version`, `aws.waf.ja4_fingerprint`, 
-        `aws.waf.labels.name`, `aws.waf.oversize_fields`, `aws.waf.request_body_size`, `aws.waf.request_body_size_inspected_by_waf`, `aws.waf.response_code_sent`, 
-        `aws.waf.request_headers_inserted.*`, `host.domain`, `tls.client.ja3`, `url.fragment` and `url.scheme` in waf data stream.
-        `aws.waf.request_headers_inserted.*`, `tls.client.ja3`, `url.registered_domain`, `url.fragment` and `url.scheme` in waf data stream.
+    - description: "Add support for the `aws.waf.captcha_response.*`, `aws.waf.challenge_response.*`, `aws.waf.format_version`, `aws.waf.ja4_fingerprint`, \n`aws.waf.labels.name`, `aws.waf.oversize_fields`, `aws.waf.request_body_size`, `aws.waf.request_body_size_inspected_by_waf`, `aws.waf.response_code_sent`, \n`aws.waf.request_headers_inserted.*`, `host.domain`, `tls.client.ja3`, `url.fragment` and `url.scheme` in waf data stream.\n`aws.waf.request_headers_inserted.*`, `tls.client.ja3`, `url.registered_domain`, `url.fragment` and `url.scheme` in waf data stream.\n"
       type: enhancement
       link: https://github.com/elastic/integrations/pull/17205
 - version: "6.1.1"

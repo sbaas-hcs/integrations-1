@@ -80,7 +80,7 @@ To collect AWS specific metrics, follow these steps:
   # tags:
     # - key: created-by
       # value: foo
-  ```
+   ```
 
 5. Save the integration.
 

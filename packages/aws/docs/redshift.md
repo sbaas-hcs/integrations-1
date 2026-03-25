@@ -14,7 +14,7 @@ For example, you could use the data from this integration to track the health st
 The Amazon Redshift integration collects one type of data: metrics.
 
 **Metrics** give you insight into the state of Amazon Redshift.
-Metrics collected by the Amazon Redshift integration include disk read throughput, storage read latency, query latency, and more. See more details in the [Metrics reference](#metrics-reference).
+Metrics collected by the Amazon Redshift integration include disk read throughput, storage read latency, query latency, and more. See more details in the [Metrics reference](#metrics).
 
 ## What do I need to use this integration?
 
@@ -236,3 +236,4 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | data_stream.type | Data stream type. | constant_keyword |  |
 | event.module | Event module | constant_keyword |  |
 | host | A host is defined as a general computing instance. ECS host.\* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes. | group |  |
+

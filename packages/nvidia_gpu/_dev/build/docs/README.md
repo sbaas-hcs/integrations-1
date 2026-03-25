@@ -50,7 +50,7 @@ See more in the [DCGM Github Repository](https://github.com/NVIDIA/dcgm-exporter
 ### Stats
 
 `stats` give you insight into the state of the NVIDIA GPUs.
-Metric data streams collected by the Nvidia GPU Monitoring integration include `stats`. See more details in the [Metrics](#metrics-reference).
+Metric data streams collected by the Nvidia GPU Monitoring integration include `stats`. See more details in the [Metrics](#stats).
 
 {{event "stats"}}
 

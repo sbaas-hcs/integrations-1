@@ -17,11 +17,11 @@ The IIS integration collects two types of data streams: logs and metrics.
 
 **Logs** help you keep a record of events happening on your IIS Web servers.
 Log data streams collected by the IIS integration include `access` and `error`.
-Find more details in [Logs](#logs-reference).
+Find more details in [Logs](#logs).
 
 **Metrics** give you insight into the state of your IIS Web servers.
 Metric data streams collected by the IIS integration include `webserver`, `website`, and `application_pool`.
-Find more details in [Metrics](#metrics-reference).
+Find more details in [Metrics](#metrics).
 
 ## Requirements
 

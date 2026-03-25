@@ -1,3 +1,8 @@
+- version: "1.9.2"
+  changes:
+    - description: Fix broken links and anchors in docs for docs-builder compatibility
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/18888
 - version: "1.9.1"
   changes:
     - description: Updated the version field description to clarify default protocol versions.

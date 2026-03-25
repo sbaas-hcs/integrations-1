@@ -55,7 +55,7 @@ Once the application is registered, configure or note the following to setup O36
 3. Add permissions to your registered application.
     - Select and add the appropriate permissions from the available tiles.
     - For this package, we primarily use Graph APIs, so you can choose `Microsoft Graph`, which will display the Delegated and Application permission sections.
-    - Refer to the Required Permissions column in the table under [What data does this integration collect?](#what-data-this-integration-collects) section to identify the permissions required for each data stream and select accordingly. You can also refer to the Permissions section in the API documentation for each data stream to determine the necessary permissions.
+    - Refer to the Required Permissions column in the table under [What data does this integration collect?](#what-data-does-this-integration-collect) section to identify the permissions required for each data stream and select accordingly. You can also refer to the Permissions section in the API documentation for each data stream to determine the necessary permissions.
     - Make sure **Reports.Read.All** from Microsoft Graph is added, as most APIs are report-based.
     - After the permissions are added, the admin will need to grant consent for a few permissions.
 

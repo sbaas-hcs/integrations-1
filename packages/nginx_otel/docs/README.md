@@ -203,7 +203,7 @@ Both SLOs are grouped by `host.name`, allowing per-instance tracking.
 ## Metrics reference
 
 ### NGINX metrics
-The [NGINX receiver]((https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/nginxreceiver/documentation.md)) collects performance metrics from the NGINX `stub_status` module. Key metrics include:
+The [NGINX receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/nginxreceiver/documentation.md) collects performance metrics from the NGINX `stub_status` module. Key metrics include:
 
 
 | Metric Name | Description | Type | Attributes |

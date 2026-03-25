@@ -50,7 +50,7 @@ See more in the [DCGM Github Repository](https://github.com/NVIDIA/dcgm-exporter
 ### Stats
 
 `stats` give you insight into the state of the NVIDIA GPUs.
-Metric data streams collected by the Nvidia GPU Monitoring integration include `stats`. See more details in the [Metrics](#metrics-reference).
+Metric data streams collected by the Nvidia GPU Monitoring integration include `stats`. See more details in the [Metrics](#stats).
 
 An example event for `stats` looks as following:
 
@@ -255,3 +255,4 @@ An example event for `stats` looks as following:
 | kubernetes.pod.name | Kubernetes pod name | keyword |  |  |
 | service.address | Address where data about this service was collected from. This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource path (sockets). | keyword |  |  |
 | service.type | The type of the service data is collected from. The type can be used to group and correlate logs and metrics from one service type. Example: If logs or metrics are collected from Elasticsearch, `service.type` would be `elasticsearch`. | keyword |  |  |
+
