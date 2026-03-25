@@ -3,10 +3,6 @@
 The Nginx integration allows you to monitor [Nginx](https://nginx.org/) servers. Time series [index mode](https://www.elastic.co/guide/en/elasticsearch/reference/current/tsds.html) enabled for metrics data stream.
 
 Use the Nginx integration to collect metrics and logs from your server.
-
-<!-- Test edit for docs-builder validation -->
-
-<!-- Test edit for docs-builder validation -->
 Then visualize that data in Kibana, use the Machine Learning app to find unusual activity in HTTP access logs,
 create alerts to notify you if something goes wrong, and reference data when troubleshooting an issue.
 
