@@ -2,7 +2,7 @@
   changes:
     - description: Fix broken anchor link in docs
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/99999
+      link: https://github.com/elastic/integrations/pull/18038
 - version: "2.4.2"
   changes:
     - description: Update documentation for blogs/data views
