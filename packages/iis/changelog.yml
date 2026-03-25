@@ -3,7 +3,7 @@
   changes:
     - description: Fix broken links and anchors in docs for docs-builder compatibility
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/18888
+      link: https://github.com/elastic/integrations/pull/18037
 - version: "1.24.4"
   changes:
     - description: Fix unit type for application pool `cpu_usage_perc` field.

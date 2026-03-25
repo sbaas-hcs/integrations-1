@@ -3,7 +3,7 @@
   changes:
     - description: Fix broken links and anchors in docs for docs-builder compatibility
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/18888
+      link: https://github.com/elastic/integrations/pull/18037
 - version: "0.4.1"
   changes:
     - description: SSL configuration is not expected to have multiple values.

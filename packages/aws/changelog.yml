@@ -3,7 +3,7 @@
   changes:
     - description: Fix broken links and anchors in docs for docs-builder compatibility
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/18888
+      link: https://github.com/elastic/integrations/pull/18037
 - version: "6.4.0"
   changes:
     - description: Set host.id alongside host.target.entity.id in CloudTrail pipeline for entity store host entity resolution.
