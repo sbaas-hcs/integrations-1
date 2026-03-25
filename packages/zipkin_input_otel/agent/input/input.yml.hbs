@@ -4,10 +4,6 @@ receivers:
     parse_string_tags: {{parse_string_tags}}
 {{#if tls_enabled}}
     tls:
-      insecure: {{tls_insecure}}
-{{#if tls_insecure_skip_verify}}
-      insecure_skip_verify: {{tls_insecure_skip_verify}}
-{{/if}}
 {{#if tls_ca_file}}
       ca_file: {{tls_ca_file}}
 {{/if}}
@@ -16,9 +12,6 @@ receivers:
 {{/if}}
 {{#if tls_key_file}}
       key_file: {{tls_key_file}}
-{{/if}}
-{{#if tls_server_name_override}}
-      server_name_override: {{tls_server_name_override}}
 {{/if}}
 {{#if tls_min_version}}
       min_version: "{{tls_min_version}}"

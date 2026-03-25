@@ -46,23 +46,9 @@ policy_templates:
         type: bool
         required: false
         title: Enable TLS Configuration
-        description: Enable TLS configuration for connecting to the server.
+        description: Enable TLS for the Zipkin receiver listener.
         default: false
         show_user: true
-      - name: tls_insecure
-        type: bool
-        required: false
-        title: Disable TLS
-        description: Whether to disable client transport security for the connection. Set to false to enable TLS.
-        default: false
-        show_user: false
-      - name: tls_insecure_skip_verify
-        type: bool
-        required: false
-        title: Skip TLS Verification
-        description: Whether to skip verifying the server certificate when TLS is enabled.
-        default: false
-        show_user: false
       - name: tls_ca_file
         type: text
         required: false
@@ -80,12 +66,6 @@ policy_templates:
         required: false
         title: TLS Key File
         description: Path to the TLS key file for client authentication.
-        show_user: false
-      - name: tls_server_name_override
-        type: text
-        required: false
-        title: TLS Server Name Override
-        description: Override the virtual host name of authority in TLS requests.
         show_user: false
       - name: tls_min_version
         type: select
