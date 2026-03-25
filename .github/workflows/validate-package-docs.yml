@@ -40,6 +40,9 @@ jobs:
         env:
           CHANGED_FILES: ${{ steps.changed-docs.outputs.files }}
         run: |
+          # Remove the developer guide docset so docs-builder only
+          # processes our generated root docset, not docs/**
+          rm -f docs/docset.yml
           echo "project: 'Package Docs Validation'" > docset.yml
           echo "toc:" >> docset.yml
           echo "$CHANGED_FILES" | while read f; do
