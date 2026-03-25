@@ -179,8 +179,8 @@ Also see [Common protocol options](#common-protocol-options).
 The maximum size in bytes of the message displayed in the request or
 response fields. Messages that are bigger than the specified size are
 truncated. Use this option to avoid publishing huge messages when
-[`send_request`](#send-request-option) or
-[`send_response`](#send-response-option) is enabled. The default is
+[`send_request`](#send_request) or
+[`send_response`](#send_response) is enabled. The default is
 1000 bytes.
 
 #### `parse_headers`
@@ -306,8 +306,8 @@ This option replaces query parameters from GET requests and top-level
 parameters from POST requests. If sensitive data is encoded inside a
 parameter that you don’t specify here, Network Packet Capture cannot censor it.
 Also, note that if you configure Network Packet Capture to save the raw request and
-response fields (see the [`send_request`](#send-request-option) and
-the [`send_response`](#send-response-option) options), sensitive data
+response fields (see the [`send_request`](#send_request) and
+the [`send_response`](#send_response) options), sensitive data
 may be present in those fields.
 
 #### `redact_authorization`
@@ -342,9 +342,9 @@ The list of content types for which Network Packet Capture exports the full HTTP
 payload. The HTTP body is available under `http.request.body.content`
 and `http.response.body.content` for these Content-Types.
 
-In addition, if [`send_response`](#send-response-option) option is
+In addition, if [`send_response`](#send_response) option is
 enabled, then the HTTP body is exported together with the HTTP headers
-under `response` and if [`send_request`](#send-request-option)
+under `response` and if [`send_request`](#send_request)
 enabled, then `request` contains the entire HTTP message including the
 body.
 
