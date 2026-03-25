@@ -151,7 +151,7 @@ Add the Azure Resource Metrics integration in Kibana and specify settings.
 
 If you're new to integrations, you can find step-by-step instructions on how to set up an integration in the [Getting started](https://www.elastic.co/guide/en/starting-with-the-elasticsearch-platform-and-its-solutions/current/getting-started-observability.html) guide.
 
-The settings' main section contains all the options needed to access the Azure APIs and collect the monitoring data. You will now use all the values from [App registration](#app-registration) including:
+The settings' main section contains all the options needed to access the Azure APIs and collect the monitoring data. You will now use all the values from [App registration](#register-a-new-azure-app) including:
 
 `Client ID` _string_
 : The unique identifier of the App Registration (sometimes referred to as Application ID).

@@ -415,7 +415,7 @@ An example event for `error` looks as following:
 Ingress Controller is built around the Kubernetes Ingress resource, using a ConfigMap to store the NGINX configuration. Hence a k8s cluster is required before having
 Ingress Controller up and runnning. Docs: https://kubernetes.github.io/ingress-nginx/
 
-0. [Setup a k8s cluster](k8s.md).
+0. Setup a k8s cluster.
 1. Setup ingress controller following https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
 2. Redirect pods' logs to a temporary file: `kubectl -n kube-system logs -f nginx-ingress-controller-6fc5bcc8c9-zm8zv >> /tmp/ingresspod`
 3. Configure Beats module:

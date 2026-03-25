@@ -1,7 +1,7 @@
 # Custom AWS Log Integration
 
 The custom AWS input integration offers users two ways to collect logs from AWS: from an [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html) (with or without SQS notification) and from [CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
-Custom ingest pipelines may be added by adding the name to the pipeline configuration option, creating custom ingest pipelines can be done either through the API or the [Ingest Node Pipeline UI](/app/management/ingest/ingest_pipelines/).
+Custom ingest pipelines may be added by adding the name to the pipeline configuration option, creating custom ingest pipelines can be done either through the API or the [Ingest Node Pipeline UI](docs-content://reference/ingestion-tools/enrich-processor/ingest-pipelines.md).
 
 ## Collecting logs from S3 bucket
 

@@ -1,3 +1,8 @@
+- version: "1.8.4"
+  changes:
+    - description: Fix broken links in docs for docs-builder compatibility
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/99999
 - version: "1.8.3"
   changes:
     - description: Remove fixed value from event.dataset mapping.

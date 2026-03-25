@@ -1,3 +1,8 @@
+- version: "1.11.1"
+  changes:
+    - description: Fix broken links in docs for docs-builder compatibility
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/99999
 - version: 1.11.0
   changes:
     - description: Add `default_timegrain` configuration option.

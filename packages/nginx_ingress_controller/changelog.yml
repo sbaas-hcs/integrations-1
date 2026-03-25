@@ -1,9 +1,14 @@
 # newer versions go on top
+- version: "1.14.1"
+  changes:
+    - description: Fix broken links in docs for docs-builder compatibility
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/99999
 - version: "1.14.0"
   changes:
-  - description: Add fingerprint settings for container-logs being scraped after containerd rotating logs.
-    type: enhancement
-    link: https://github.com/elastic/integrations/pull/16913
+    - description: Add fingerprint settings for container-logs being scraped after containerd rotating logs.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/16913
 - version: "1.13.0"
   changes:
     - description: Add filestream input ids in the data streams. WARNING Updating to this version will cause logs to be re-ingested!
@@ -16,7 +21,7 @@
       link: https://github.com/elastic/integrations/pull/13519
 - version: 1.11.0
   changes:
-    - description: Add support for Kibana `9.0.0` 
+    - description: Add support for Kibana `9.0.0`
       type: enhancement
       link: https://github.com/elastic/integrations/pull/12535
 - version: "1.10.1"
