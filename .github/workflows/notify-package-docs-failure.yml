@@ -37,6 +37,6 @@ jobs:
           EXISTING=$(gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" \
             --jq '[.[] | select(.body | contains("Package docs validation failed"))] | length')
           if [ "$EXISTING" = "0" ]; then
-            printf '⚠️ **Package docs validation failed.** Please check the [workflow run](%s) for details.\n\ncc @elastic/ingest-docs\n' "$RUN_URL" > comment-body.md
+            printf '⚠️ **Package docs validation failed.** Please check the [workflow run](%s) for details.\n\nFor support, reach out in the #docs Slack channel.\n\ncc @elastic/integration-docs\n' "$RUN_URL" > comment-body.md
             gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file comment-body.md
           fi
