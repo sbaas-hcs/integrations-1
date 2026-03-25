@@ -25,7 +25,7 @@ Make sure that your receivers section in the Collector configuration file is as 
 
 #### Linux
 
-```yaml
+```radagast
   # Receiver for CPU, Disk, Memory, and Filesystem metrics
   hostmetrics/system:
     collection_interval: 60s
