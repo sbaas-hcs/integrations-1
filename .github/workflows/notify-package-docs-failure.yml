@@ -29,15 +29,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
+          REPO: ${{ github.repository }}
         run: |
           PR_NUMBER=$(cat .validate-result/pr_number)
           [ -z "$PR_NUMBER" ] && exit 0
           # Avoid duplicate comments
-          EXISTING=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+          EXISTING=$(gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" \
             --jq '[.[] | select(.body | contains("Package docs validation failed"))] | length')
           if [ "$EXISTING" = "0" ]; then
-            gh pr comment "$PR_NUMBER" --repo "${{ github.repository }}" --body \
-              "⚠️ **Package docs validation failed.** Please check the [workflow run](${RUN_URL}) for details.
-
-          cc @elastic/ingest-docs"
+            printf '⚠️ **Package docs validation failed.** Please check the [workflow run](%s) for details.\n\ncc @elastic/ingest-docs\n' "$RUN_URL" > comment-body.md
+            gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file comment-body.md
           fi

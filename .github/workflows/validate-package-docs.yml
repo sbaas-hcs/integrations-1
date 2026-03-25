@@ -84,9 +84,11 @@ jobs:
 
       - name: Signal failure for notification workflow
         if: steps.validate.outcome == 'failure'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           mkdir -p .validate-result
-          echo "${{ github.event.pull_request.number }}" > .validate-result/pr_number
+          echo "$PR_NUMBER" > .validate-result/pr_number
 
       - name: Upload failure signal
         if: steps.validate.outcome == 'failure'
