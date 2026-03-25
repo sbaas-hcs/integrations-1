@@ -3,7 +3,7 @@
   changes:
     - description: Fix broken links in docs for docs-builder compatibility
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/99999
+      link: https://github.com/elastic/integrations/pull/18039
 - version: "1.14.0"
   changes:
     - description: Add fingerprint settings for container-logs being scraped after containerd rotating logs.
