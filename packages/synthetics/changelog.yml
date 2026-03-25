@@ -3,7 +3,7 @@
   changes:
     - description: Fix broken Kibana app link in docs
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/99999
+      link: https://github.com/elastic/integrations/pull/18043
 - version: "1.6.1"
   changes:
     - description: Add monitor interval field to synthetics package

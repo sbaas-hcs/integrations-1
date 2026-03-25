@@ -111,7 +111,7 @@
   changes:
     - description: Enable Agentless deployment.
       type: enhancement
-      link: https://github.com/elastic/integrations/pull/999999
+      link: https://github.com/elastic/integrations/pull/180439
 - version: "3.6.2"
   changes:
     - description: Updated SSL description in package manifest.yml to be uniform and to include links to documentation.
