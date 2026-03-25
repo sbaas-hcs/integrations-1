@@ -37,14 +37,18 @@ If you are running version 8.18+, the Defend integration only collects a [subset
         - Index pattern : `.ml-anomalies-shared*`
         - Select **Show Advanced settings** enable **Allow hidden and system indices**
         - Custom data view ID: `.ml-anomalies-shared`
-    
+
     _**Warning**_: When creating the data views for the dashboards, ensure that the `Custom data view ID` is set to the value specified above and is not left empty. Omitting or misconfiguring this field may result in broken visualizations, as illustrated by the error message below.
     ![Dashboard Error](../img/dashboard-lmd-error.png)
-1. **Enabling detection rules**:  You can also enable detection rules to alert on Lateral Movement activity in your environment, based on anomalies flagged by the above ML jobs. As of version 2.0.0 of this package, these rules are available as part of the Detection Engine, and can be found using the tag `Use Case: Lateral Movement Detection`. See this [documentation](https://www.elastic.co/guide/en/security/current/prebuilt-rules-management.html#load-prebuilt-rules) for more information on importing and enabling the rules.
+
+### Enabling detection rules
+
+You can also enable detection rules to alert on Lateral Movement activity in your environment, based on anomalies flagged by the above ML jobs. As of version 2.0.0 of this package, these rules are available as part of the Detection Engine, and can be found using the tag `Use Case: Lateral Movement Detection`. See this [documentation](https://www.elastic.co/guide/en/security/current/prebuilt-rules-management.html#load-prebuilt-rules) for more information on importing and enabling the rules.
+
 1. **Use with Living off the Land Detection**: This integration package can be used along with Living off the Land detection, see the section Install Living off the Land package to detect malicious processes.
 
 ![Data Exfiltration Detection Rules](../img/lmdrules.png)
-*In Security > Rules, filtering with the “Use Case: Lateral Movement Detection” tag*
+*In Security > Rules, filtering with the "Use Case: Lateral Movement Detection" tag*
 
 ## Dashboard
 
@@ -67,7 +71,7 @@ To customize filters in the Lateral Movement Detection transform, follow the bel
 
 ### Install ProblemChild package to detect malicious processes
 
-To detect malicious RDP processes started in a session, install the [Living off the Land Attack (LotL) Detection package](https://docs.elastic.co/integrations/problemchild). Follow the steps under the package [overview](https://docs.elastic.co/integrations/problemchild) to install the related assets. Use the below filter query to examine model predictions on RDP events only. 
+To detect malicious RDP processes started in a session, install the [Living off the Land Attack (LotL) Detection package](https://docs.elastic.co/integrations/problemchild). Follow the steps under the package [overview](https://docs.elastic.co/integrations/problemchild) to install the related assets. Use the below filter query to examine model predictions on RDP events only.
 
 Clone the anomaly detection jobs available under the Living off the Land Attack (LotL) Detection package and follow the below steps to customize them only to process Windows RDP events in the datafeed:
 1. Click on the **Actions** panel at the right-most corner of the anomaly detection job and then select the **Edit job** option.
@@ -128,7 +132,7 @@ Clone the anomaly detection jobs available under the Living off the Land Attack 
 }
 ````
 
-## Anomaly Detection Jobs 
+## Anomaly Detection Jobs
 
 Detects potential lateral movement activity by identifying malicious file transfers and RDP sessions in an environment.
 
@@ -159,7 +163,7 @@ To customize the datafeed query and other settings such as model memory limit, f
 ![Lateral Movement Detection jobs](../img/lmd_ml_job_4.png)
 1. In the cloned job, you can update datafeed settings such as **Frequency** and **Query delay**, which help control how often data is analyzed and account for ingestion delays.
 ![Lateral Movement Detection jobs](../img/lmd_ml_job_5.png)
-1. You can also modify the job configuration by adjusting the **Bucket span** and by adding or removing **Influencers** to improve anomaly attribution. 
+1. You can also modify the job configuration by adjusting the **Bucket span** and by adding or removing **Influencers** to improve anomaly attribution.
 ![Lateral Movement Detection jobs](../img/lmd_ml_job_6.png)
 1. Finally, assign a new Job ID, and click on **Create job**, and start the datafeed to apply the updated settings.
 
@@ -193,7 +197,7 @@ Depending on the version of the package you're using, you might also be able to 
     - Unusually high number of process arguments in an RDP session
     - Spike in number of connections made to a source IP
     - Spike in number of connections made to a destination IP
-    - Unusual time or day for an RDP session start 
+    - Unusual time or day for an RDP session start
 
 Depending on the version of the package you're using, you might also be able to search for the above rules using the tag `Lateral Movement`.
 - Upgrade the Lateral Movement Detection package to v2.0.0 using the steps [here](https://www.elastic.co/guide/en/fleet/current/upgrade-integration.html)
