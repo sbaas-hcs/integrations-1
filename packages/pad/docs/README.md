@@ -125,11 +125,11 @@ To customize filters in the Privileged Access Detection transform, follow the be
 | pad_windows_rare_region_name_by_user_ea                       | Detects an unusual region name for a user.                                                     | Windows              |
 | pad_linux_high_count_privileged_process_events_by_user_ea     | Detects a spike in privileged commands executed by a user.                                     | Linux                |
 | pad_linux_rare_process_executed_by_user_ea                    | Detects a rare process executed by a user.                                                     | Linux                |
-| pad_linux_high_median_process_command_line_entropy_by_user_ea | Detects process command lines executed by a user with an abnormally high median entropy value. | Okta Integration     |
+| pad_linux_high_median_process_command_line_entropy_by_user_ea | Detects process command lines executed by a user with an abnormally high median entropy value. | Linux                |
 | pad_okta_spike_in_group_membership_changes_ea                 | Detects spike in group membership change events by a user.                                     | Okta Integration     |
 | pad_okta_spike_in_user_lifecycle_management_changes_ea        | Detects spike in user lifecycle management change events by a user.                            | Okta Integration     |
 | pad_okta_spike_in_group_privilege_changes_ea                  | Detects spike in group privilege change events by a user.                                      | Okta Integration     |
-| pad_okta_spike_in_group_application_assignment_change      | Detects spike in group application assignment change events by a user.                         | Okta Integration     |
+| pad_okta_spike_in_group_application_assignment_changes_ea      | Detects spike in group application assignment change events by a user.                         | Okta Integration     |
 | pad_okta_spike_in_group_lifecycle_changes_ea                  | Detects spike in group lifecycle change events by a user.                                      | Okta Integration     |
 | pad_okta_high_sum_concurrent_sessions_by_user_ea              | Detects an unusual sum of active sessions started by a user.                                   | Okta Integration     |
 | pad_okta_rare_source_ip_by_user_ea                            | Detects an unusual source IP address accessed by a user.                                       | Okta Integration     |
