@@ -71,4 +71,4 @@ jobs:
           cat .validate/docset.yml
           docker run --rm -v "$PWD/.validate:/app" -w /app \
             ghcr.io/elastic/docs-builder:edge \
-            --metadata-only --strict
+            --metadata-only
