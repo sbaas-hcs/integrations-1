@@ -78,7 +78,8 @@
                             "destination.ip",
                             "destination.geo.continent_name",
                             "destination.geo.country_name",
-                            "destination.geo.country_iso_code"
+                            "destination.geo.country_iso_code",
+                            "source.bytes"
                         ]
                     },
                     "data_description": {
@@ -117,7 +118,8 @@
                             "user.id",
                             "process.name",
                             "source.ip",
-                            "destination.ip"
+                            "destination.ip",
+                            "source.bytes"
                         ]
                     },
                     "data_description": {
@@ -157,7 +159,8 @@
                             "process.name",
                             "source.ip",
                             "destination.ip",
-                            "destination.port"
+                            "destination.port",
+                            "source.bytes"
                         ]
                     },
                     "data_description": {
@@ -198,7 +201,8 @@
                             "source.ip",
                             "destination.ip",
                             "destination.geo.city_name",
-                            "destination.geo.region_name"
+                            "destination.geo.region_name",
+                            "source.bytes"
                         ]
                     },
                     "data_description": {
@@ -238,7 +242,8 @@
                             "file.name",
                             "file.path",
                             "file.Ext.device.bus_type",
-                            "process.name"
+                            "process.name",
+                            "file.size"
                         ]
                     },
                     "data_description": {
@@ -317,7 +322,8 @@
                             "user.id",
                             "file.name",
                             "file.path",
-                            "process.name"
+                            "process.name",
+                            "file.size"
                         ]
                     },
                     "data_description": {

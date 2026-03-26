@@ -104,7 +104,8 @@
                             "user.name",
                             "event.module",
                             "user.id",
-                            "process.command_line"
+                            "process.command_line",
+                            "blocklist_label"
                         ]
                     },
                     "data_description": {
@@ -226,7 +227,8 @@
                             "user.id",
                             "host.name",
                             "host.id",
-                            "process.command_line"
+                            "process.command_line",
+                            "blocklist_label"
                         ]
                     },
                     "data_description": {
@@ -272,7 +274,8 @@
                             "host.id",
                             "user.name",
                             "event.module",
-                            "user.id"
+                            "user.id",
+                            "blocklist_label"
                         ]
                     },
                     "data_description": {

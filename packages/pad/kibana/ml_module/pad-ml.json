@@ -542,7 +542,8 @@
                 "user.name",
                 "event.module",
                 "user.id",
-                "process.command_line"
+                "process.command_line",
+                "process.command_line_entropy"
               ]
             },
             "data_description": {
@@ -785,7 +786,8 @@
                   "event.module",
                   "host.name",
                   "agent.name",
-                  "source.user.full_name"
+                  "source.user.full_name",
+                  "okta_distinct_ips"
               ]
             },
             "data_description": {

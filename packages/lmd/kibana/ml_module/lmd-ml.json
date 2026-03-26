@@ -101,7 +101,8 @@
                             "user.name",
                             "event.module",
                             "user.id",
-                            "process.name"
+                            "process.name",
+                            "file.size"
                         ]
                     },
                     "data_description": {
@@ -222,7 +223,8 @@
                             "event.module",
                             "user.id",
                             "source.ip",
-                            "destination.ip"
+                            "destination.ip",
+                            "session.duration"
                         ]
                     },
                     "data_description": {
@@ -267,7 +269,8 @@
                             "event.module",
                             "user.id",
                             "source.ip",
-                            "destination.ip"
+                            "destination.ip",
+                            "session.duration"
                         ]
                     },
                     "data_description": {
@@ -312,7 +315,8 @@
                             "event.module",
                             "user.id",
                             "source.ip",
-                            "destination.ip"
+                            "destination.ip",
+                            "number_processes_per_session"
                         ]
                     },
                     "data_description": {
@@ -386,7 +390,8 @@
                             "user.name",
                             "event.module",
                             "user.id",
-                            "destination.ip"
+                            "destination.ip",
+                            "source.ip"
                         ]
                     },
                     "data_description": {
@@ -423,7 +428,8 @@
                             "user.name",
                             "event.module",
                             "user.id",
-                            "source.ip"
+                            "source.ip",
+                            "destination.ip"
                         ]
                     },
                     "data_description": {
@@ -468,7 +474,8 @@
                             "event.module",
                             "user.id",
                             "source.ip",
-                            "destination.ip"
+                            "destination.ip",
+                            "total_length_process_args"
                         ]
                     },
                     "data_description": {
