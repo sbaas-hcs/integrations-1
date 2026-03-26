@@ -420,6 +420,7 @@
                 "user.name",
                 "event.module",
                 "user.id",
+                "source.geo.region_name",
                 "source.geo.city_name",
                 "source.geo.country_name",
                 "winlog.event_data.PrivilegeList",
