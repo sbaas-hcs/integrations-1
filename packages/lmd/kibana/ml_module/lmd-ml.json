@@ -63,6 +63,7 @@
                             "user.name",
                             "event.module",
                             "user.id",
+                            "event.action",
                             "process.name"
                         ]
                     },
@@ -137,6 +138,7 @@
                             "user.name",
                             "event.module",
                             "user.id",
+                            "file.extension",
                             "file.name"
                         ]
                     },
@@ -174,6 +176,7 @@
                             "user.name",
                             "event.module",
                             "user.id",
+                            "file_directory",
                             "file.path"
                         ]
                     },

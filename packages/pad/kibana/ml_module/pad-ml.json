@@ -101,6 +101,7 @@
                 "user.name",
                 "event.module",
                 "user.id",
+                "event.action",
                 "winlog.event_data.SubjectUserName",
                 "winlog.event_data.PrivilegeList",
                 "winlog.event_data.TargetUserName",
@@ -142,6 +143,7 @@
                 "user.name",
                 "event.module",
                 "user.id",
+                "event.action",
                 "winlog.event_data.SubjectUserName",
                 "winlog.event_data.PrivilegeList",
                 "process.name"
@@ -182,6 +184,7 @@
                 "user.name",
                 "event.module",
                 "user.id",
+                "event.action",
                 "winlog.event_data.SubjectUserName",
                 "group.name",
                 "winlog.event_data.TargetUserName"
@@ -222,6 +225,7 @@
                 "user.name",
                 "event.module",
                 "user.id",
+                "event.action",
                 "winlog.event_data.SubjectUserName",
                 "winlog.event_data.TargetUserName"
               ]
@@ -576,6 +580,7 @@
                   "user.name",
                   "user.email",
                   "event.module",
+                  "okta.event_type",
                   "source.user.full_name",
                   "user.target.full_name",
                   "user.target.group.name"
@@ -616,6 +621,7 @@
                   "user.name",
                   "user.email",
                   "event.module",
+                  "okta.event_type",
                   "source.user.full_name",
                   "user.target.full_name",
                   "user.target.group.name"
@@ -656,6 +662,7 @@
                   "user.name",
                   "user.email",
                   "event.module",
+                  "okta.event_type",
                   "source.user.full_name",
                   "user.target.full_name",
                   "user.target.group.name",
@@ -698,6 +705,7 @@
                   "user.name",
                   "user.email",
                   "event.module",
+                  "okta.event_type",
                   "source.user.full_name",
                   "user.target.group.name"
               ]
@@ -737,6 +745,7 @@
                   "user.name",
                   "user.email",
                   "event.module",
+                  "okta.event_type",
                   "source.user.full_name",
                   "user.target.group.name"
               ]
@@ -813,6 +822,7 @@
                 "agent.name",
                 "user.name",
                 "user.email",
+                "source.ip",
                 "source.user.full_name",
                 "user.target.group.name",
                 "okta.event_type"
@@ -852,6 +862,7 @@
                 "agent.name",
                 "user.name",
                 "user.email",
+                "client.geo.region_name",
                 "source.user.full_name",
                 "user.target.group.name",
                 "okta.event_type",
