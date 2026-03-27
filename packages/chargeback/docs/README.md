@@ -16,7 +16,7 @@ The Chargeback integration assists organisations in addressing a crucial questio
 
 > **"How is my organisation consuming the Elastic solution, and to which tenants can I allocate these costs?"**
 
-The integration provides a breakdown of Elastic Consumption Units (ECUs) per:
+The integration provides a breakdown of chargeable units (ECU/ERU) per:
 
 - Deployment
 - Data tier
@@ -30,7 +30,7 @@ Currently, Chargeback calculations consider only Elasticsearch data nodes. Contr
 
 This default weighting means storage contributes most to the blended cost calculation, with indexing considered only on the hot tier. Adjust these weights based on your organisation's needs and best judgment.
 
-Chargeback costs are presented based on a configured rate and unit. These are used to display cost in your local currency, for instance `EUR`, with a rate of `0.85` per ECU.
+Chargeback costs are presented based on a configured rate and unit. These are used to display cost in your local currency, for instance `EUR`, with a rate of `0.85` per chargeable unit (ECU/ERU).
 
 ## Configuration
 
@@ -44,8 +44,8 @@ Using `_update/config` updates the document with ID `config`:
 POST chargeback_conf_lookup/_update/config
 {
   "doc": {
-    "conf_ecu_rate": 0.85,
-    "conf_ecu_rate_unit": "EUR",
+    "conf_chargeable_unit_rate": 0.85,
+    "conf_chargeable_unit_rate_unit": "EUR",
     "conf_indexing_weight": 20,
     "conf_query_weight": 20,
     "conf_storage_weight": 40,
@@ -62,8 +62,8 @@ Using `_doc` creates a new document with an auto-generated ID:
 ```
 POST chargeback_conf_lookup/_doc
 {
-  "conf_ecu_rate": 0.95,
-  "conf_ecu_rate_unit": "EUR",
+  "conf_chargeable_unit_rate": 0.95,
+  "conf_chargeable_unit_rate_unit": "EUR",
   "conf_indexing_weight": 20,
   "conf_query_weight": 20,
   "conf_storage_weight": 40,
@@ -75,8 +75,8 @@ POST chargeback_conf_lookup/_doc
 This allows you to have different rates for different time periods (e.g., quarterly or annual rate changes).
 
 **Configuration Options:**
-- `conf_ecu_rate`: The monetary value per ECU (e.g., 0.85)
-- `conf_ecu_rate_unit`: The currency code (e.g., "EUR", "USD", "GBP")
+- `conf_chargeable_unit_rate`: The monetary value per chargeable unit (ECU/ERU) (e.g., 0.85)
+- `conf_chargeable_unit_rate_unit`: The currency code (e.g., "EUR", "USD", "GBP")
 - `conf_indexing_weight`: Weight for indexing operations (default: 20, only applies to hot tier)
 - `conf_query_weight`: Weight for query operations (default: 20)
 - `conf_storage_weight`: Weight for storage (default: 40)
@@ -87,7 +87,7 @@ This allows you to have different rates for different time periods (e.g., quarte
 
 The integration creates the following transforms to aggregate cost and usage data:
 
-1. **billing_cluster_cost** - Aggregates daily ECU usage per deployment from ESS Billing data, with support for deployment groups via `chargeback_group` tags
+1. **billing_cluster_cost** - Aggregates daily chargeable units (ECU/ERU) per deployment from ESS Billing data, with support for deployment groups via `chargeback_group` tags
 2. **cluster_deployment_contribution** - Calculates per-deployment usage metrics (indexing time, query time, storage) from Elasticsearch monitoring data
 3. **cluster_datastream_contribution** - Aggregates usage per data stream for detailed cost attribution
 4. **cluster_tier_contribution** - Aggregates usage per data tier (hot, warm, cold, frozen)
