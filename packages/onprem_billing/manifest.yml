@@ -15,5 +15,5 @@ conditions:
   elastic:
     subscription: "basic"
 owner:
-  github: elastic/elasticsearch-chargeback
+  github: elastic/customer-architects
   type: elastic
