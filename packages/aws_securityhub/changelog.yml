@@ -1,4 +1,8 @@
 # newer versions go on top
+- version: "1.0.0"
+  changes:
+    - description: Promote integration to GA.
+      type: enhancement
 - version: "0.2.1"
   changes:
     - description: Use triple-brace Mustache templating when referencing variables in ingest pipelines.
