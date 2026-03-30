@@ -2,7 +2,7 @@
     "attributes": {
         "description": "Forensic pack for process execution and Amcache analysis \u2014 prefetch, shimcache, process listing, suspicious process detection across all platforms, plus Windows Amcache application inventory, driver forensics, shortcuts, device PnP, and enriched views.",
         "name": "forensic-process-execution",
-        "version": 1,
+        "version": 2,
         "queries": [
             {
                 "id": "prefetch_windows_elastic",
@@ -1470,7 +1470,7 @@
             }
         ]
     },
-    "coreMigrationVersion": "9.3.0",
+    "coreMigrationVersion": "9.4.0",
     "id": "osquery_manager-c8a1b2d3-e4f5-4a6b-8c7d-9e0f1a2b3c4d",
     "references": [],
     "type": "osquery-pack-asset"
