@@ -1,3 +1,8 @@
+- version: "1.37.0"
+  changes:
+    - description: Flatten `additional_details` key-value array into a queryable map and add name-keyed `modified_properties_by_name` field for auditlogs target resources.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/XXXXX
 - version: "1.36.1"
   changes:
     - description: Add missing event.kind pipeline_error handling to ingest pipeline on_failure handlers.

@@ -109,6 +109,10 @@
                   type: keyword
                   description: |
                     Old value
+            - name: modified_properties_by_name
+              type: flattened
+              description: |
+                Modified properties keyed by display name. Each key maps to an object with new_value and/or old_value fields.
         - name: initiated_by
           type: group
           fields:
@@ -155,17 +159,9 @@
                   description: |
                     User roles
         - name: additional_details
-          type: group
-          fields:
-            - name: user_agent
-              type: keyword
-              description: User agent name.
-            - name: key
-              type: keyword
-              description: Additional details key
-            - name: value
-              type: keyword
-              description: Additional details value
+          type: flattened
+          description: |
+            Additional details of the audit log event, stored as a key-value map. Common keys include AppId, AppOwnerOrganizationId, ServicePrincipalProvisioningType, User-Agent, and others.
         - name: authentication_protocol
           type: keyword
           description: Authentication protocol type.

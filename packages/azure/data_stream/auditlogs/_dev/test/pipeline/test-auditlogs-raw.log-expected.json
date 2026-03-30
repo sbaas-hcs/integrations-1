@@ -36,6 +36,12 @@
                                         "old_value": ""
                                     }
                                 },
+                                "modified_properties_by_name": {
+                                    "Included Updated Properties": {
+                                        "new_value": "\"\"",
+                                        "old_value": ""
+                                    }
+                                },
                                 "type": "Device"
                             }
                         }
@@ -107,6 +113,12 @@
                                 "modified_properties": {
                                     "0": {
                                         "display_name": "Included Updated Properties",
+                                        "new_value": "\"\"",
+                                        "old_value": ""
+                                    }
+                                },
+                                "modified_properties_by_name": {
+                                    "Included Updated Properties": {
                                         "new_value": "\"\"",
                                         "old_value": ""
                                     }
@@ -185,6 +197,7 @@
                                         "old_value": ""
                                     }
                                 },
+                                "modified_properties_by_name": {},
                                 "type": "Device"
                             }
                         }

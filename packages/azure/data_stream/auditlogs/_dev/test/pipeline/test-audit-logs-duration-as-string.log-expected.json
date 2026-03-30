@@ -12,16 +12,10 @@
                     "properties": {
                         "activity_datetime": "2022-01-22T18:15:02.3875429+00:00",
                         "activity_display_name": "Update service principal",
-                        "additional_details": [
-                            {
-                                "key": "User-Agent",
-                                "value": "Microsoft Azure Graph Client Library 2.1.17-internal"
-                            },
-                            {
-                                "key": "AppId",
-                                "value": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
-                            }
-                        ],
+                        "additional_details": {
+                            "User-Agent": "Microsoft Azure Graph Client Library 2.1.17-internal",
+                            "AppId": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
+                        },
                         "category": "ApplicationManagement",
                         "correlation_id": "87979703-118b-498f-99c2-ccd1a56f1a5a",
                         "id": "Directory_87979703-118b-498f-99c2-ccd1a56f1a5a_ULAYA_144938566",
@@ -41,6 +35,11 @@
                                 "modified_properties": {
                                     "0": {
                                         "display_name": "TargetId.ServicePrincipalNames",
+                                        "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
+                                    }
+                                },
+                                "modified_properties_by_name": {
+                                    "TargetId.ServicePrincipalNames": {
                                         "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
                                     }
                                 },

@@ -121,6 +121,17 @@ processors:
       field: azure.auditlogs.properties.additionalDetails
       target_field: azure.auditlogs.properties.additional_details
       ignore_missing: true
+  - script:
+      description: "Turns the additional_details array elements into key/value pairs. For example, the array element ``{key: 'AppId', value: 'some-id'}`` becomes ``{AppId: 'some-id'}``."
+      lang: painless
+      source: |
+        def tmp = [:];
+        for (item in ctx.azure.auditlogs.properties.additional_details) {
+            tmp[item.key] = item.value;
+        }
+        ctx.azure.auditlogs.properties.additional_details = tmp;
+      if: ctx.azure?.auditlogs?.properties?.additional_details != null && ctx.azure.auditlogs.properties.additional_details instanceof List
+      ignore_failure: true
   - convert:
       field: azure.auditlogs.callerIpAddress
       target_field: source.ip
@@ -184,10 +195,6 @@ processors:
       field: azure.auditlogs.Level
       target_field: azure.auditlogs.level
       ignore_missing: true
-  - rename:
-      field: azure.auditlogs.properties.additional_details.userAgent
-      target_field: azure.auditlogs.properties.additional_details.user_agent
-      ignore_missing: true
   - remove:
       description: Drop displayName field if value is null.
       if: ctx?.azure?.auditlogs?.properties?.initiatedBy?.user?.displayName == null
@@ -213,17 +220,27 @@ processors:
               ctx.azure.auditlogs.properties.target_resources[index].user_principal_name = ctx.azure.auditlogs.properties.targetResources[i].userPrincipalName;
             }
             ctx.azure.auditlogs.properties.target_resources[index].modified_properties = new HashMap();
+            ctx.azure.auditlogs.properties.target_resources[index].modified_properties_by_name = new HashMap();
             for (def j = 0; j < ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties.length; j++) {
               String n = String.valueOf(j);
               ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n] = new HashMap();
 
-              ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].display_name = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].displayName;
-              
-              if (ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].newValue != null) {
-                ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].new_value = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].newValue;
+              def displayName = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].displayName;
+              ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].display_name = displayName;
+
+              def newVal = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].newValue;
+              def oldVal = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].oldValue;
+              if (newVal != null) {
+                ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].new_value = newVal;
               }
-              if (ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].oldValue != null) {
-                ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].old_value = ctx.azure.auditlogs.properties.targetResources[i].modifiedProperties[j].oldValue;
+              if (oldVal != null) {
+                ctx.azure.auditlogs.properties.target_resources[index].modified_properties[n].old_value = oldVal;
+              }
+              if (displayName != null && displayName != '') {
+                def entry = new HashMap();
+                if (newVal != null) { entry.new_value = newVal; }
+                if (oldVal != null) { entry.old_value = oldVal; }
+                ctx.azure.auditlogs.properties.target_resources[index].modified_properties_by_name[displayName] = entry;
               }
             }
           }

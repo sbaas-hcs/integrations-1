@@ -12,16 +12,10 @@
                     "properties": {
                         "activity_datetime": "2022-01-22T18:15:02.5168093+00:00",
                         "activity_display_name": "Add service principal credentials",
-                        "additional_details": [
-                            {
-                                "key": "User-Agent",
-                                "value": "Microsoft Azure Graph Client Library 2.1.17-internal"
-                            },
-                            {
-                                "key": "AppId",
-                                "value": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
-                            }
-                        ],
+                        "additional_details": {
+                            "User-Agent": "Microsoft Azure Graph Client Library 2.1.17-internal",
+                            "AppId": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
+                        },
                         "category": "ApplicationManagement",
                         "correlation_id": "53161141-e3f4-4944-85b6-7b953f17265e",
                         "id": "Directory_53161141-e3f4-4944-85b6-7b953f17265e_6X649_134684731",
@@ -50,6 +44,18 @@
                                     },
                                     "2": {
                                         "display_name": "TargetId.ServicePrincipalNames",
+                                        "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
+                                    }
+                                },
+                                "modified_properties_by_name": {
+                                    "KeyDescription": {
+                                        "new_value": "[\"[KeyIdentifier=c9c0b961-a80a-4a71-9c3a-b67b33edf874,KeyType=AsymmetricX509Cert,KeyUsage=Verify,DisplayName=CN=a70a7931-c387-4dce-9f35-fbf95bdcc91e]\",\"[KeyIdentifier=7dffcdc5-f2d5-43ae-86f1-682561befd4b,KeyType=AsymmetricX509Cert,KeyUsage=Verify,DisplayName=CN=a70a7931-c387-4dce-9f35-fbf95bdcc91e]\",\"[KeyIdentifier=d747da7e-e11b-4af2-aede-0487c44067af,KeyType=AsymmetricX509Cert,KeyUsage=Verify,DisplayName=CN=a70a7931-c387-4dce-9f35-fbf95bdcc91e]\"]",
+                                        "old_value": "[\"[KeyIdentifier=7dffcdc5-f2d5-43ae-86f1-682561befd4b,KeyType=AsymmetricX509Cert,KeyUsage=Verify,DisplayName=CN=a70a7931-c387-4dce-9f35-fbf95bdcc91e]\",\"[KeyIdentifier=c9c0b961-a80a-4a71-9c3a-b67b33edf874,KeyType=AsymmetricX509Cert,KeyUsage=Verify,DisplayName=CN=a70a7931-c387-4dce-9f35-fbf95bdcc91e]\"]"
+                                    },
+                                    "Included Updated Properties": {
+                                        "new_value": "\"KeyDescription\""
+                                    },
+                                    "TargetId.ServicePrincipalNames": {
                                         "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
                                     }
                                 },
@@ -116,16 +122,10 @@
                     "properties": {
                         "activity_datetime": "2022-01-22T18:15:02.5168093+00:00",
                         "activity_display_name": "Update service principal",
-                        "additional_details": [
-                            {
-                                "key": "User-Agent",
-                                "value": "Microsoft Azure Graph Client Library 2.1.17-internal"
-                            },
-                            {
-                                "key": "AppId",
-                                "value": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
-                            }
-                        ],
+                        "additional_details": {
+                            "User-Agent": "Microsoft Azure Graph Client Library 2.1.17-internal",
+                            "AppId": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
+                        },
                         "category": "ApplicationManagement",
                         "correlation_id": "53161141-e3f4-4944-85b6-7b953f17265e",
                         "id": "Directory_53161141-e3f4-4944-85b6-7b953f17265e_6X649_134684743",
@@ -149,6 +149,14 @@
                                     },
                                     "1": {
                                         "display_name": "Included Updated Properties",
+                                        "new_value": "\"KeyDescription\""
+                                    }
+                                },
+                                "modified_properties_by_name": {
+                                    "TargetId.ServicePrincipalNames": {
+                                        "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
+                                    },
+                                    "Included Updated Properties": {
                                         "new_value": "\"KeyDescription\""
                                     }
                                 },
@@ -215,16 +223,10 @@
                     "properties": {
                         "activity_datetime": "2022-01-22T18:15:02.3875429+00:00",
                         "activity_display_name": "Update service principal",
-                        "additional_details": [
-                            {
-                                "key": "User-Agent",
-                                "value": "Microsoft Azure Graph Client Library 2.1.17-internal"
-                            },
-                            {
-                                "key": "AppId",
-                                "value": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
-                            }
-                        ],
+                        "additional_details": {
+                            "User-Agent": "Microsoft Azure Graph Client Library 2.1.17-internal",
+                            "AppId": "a70a7931-c387-4dce-9f35-fbf95bdcc91e"
+                        },
                         "category": "ApplicationManagement",
                         "correlation_id": "87979703-118b-498f-99c2-ccd1a56f1a5a",
                         "id": "Directory_87979703-118b-498f-99c2-ccd1a56f1a5a_ULAYA_144938566",
@@ -244,6 +246,11 @@
                                 "modified_properties": {
                                     "0": {
                                         "display_name": "TargetId.ServicePrincipalNames",
+                                        "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
+                                    }
+                                },
+                                "modified_properties_by_name": {
+                                    "TargetId.ServicePrincipalNames": {
                                         "new_value": "\"a70a7931-c387-4dce-9f35-fbf95bdcc91e;https://identity.azure.net/N8CUySpCeRFU3iB/PEuFlON4zd8+n8d3qgzrF1MviSY=\""
                                     }
                                 },
