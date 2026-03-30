@@ -1,0 +1,87 @@
+{
+    "attributes": {
+        "author": [
+            "Elastic"
+        ],
+        "description": "Detects when a large AI model file (>100MB) appears on an endpoint for the first time. Model files appearing on disk indicate someone is downloading and running local LLMs, which may violate data handling policies or consume significant storage and compute resources. This rule triggers on osquery results from the AI Asset Discovery pack's ai_model_files queries.",
+        "from": "now-25h",
+        "history_window_start": "now-14d",
+        "index": [
+            "logs-osquery_manager.result*"
+        ],
+        "language": "kuery",
+        "license": "Elastic License v2",
+        "name": "Large AI Model File Downloaded",
+        "new_terms_fields": [
+            "host.name",
+            "file.path"
+        ],
+        "query": "event.dataset:\"osquery.ai_discovery\" AND tags:\"model_files\" AND file.path:*",
+        "related_integrations": [
+            {
+                "package": "osquery_manager",
+                "version": "^1.0.0"
+            }
+        ],
+        "required_fields": [
+            {
+                "ecs": true,
+                "name": "event.dataset",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "host.name",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "file.path",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "file.size",
+                "type": "long"
+            },
+            {
+                "ecs": true,
+                "name": "tags",
+                "type": "keyword"
+            }
+        ],
+        "risk_score": 21,
+        "rule_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a",
+        "severity": "low",
+        "tags": [
+            "Domain: Endpoint",
+            "Use Case: Shadow AI Discovery",
+            "Tactic: Discovery",
+            "Data Source: Osquery",
+            "OS: macOS",
+            "OS: Linux",
+            "OS: Windows"
+        ],
+        "threat": [
+            {
+                "framework": "MITRE ATT&CK",
+                "tactic": {
+                    "id": "TA0007",
+                    "name": "Discovery",
+                    "reference": "https://attack.mitre.org/tactics/TA0007/"
+                },
+                "technique": [
+                    {
+                        "id": "T1083",
+                        "name": "File and Directory Discovery",
+                        "reference": "https://attack.mitre.org/techniques/T1083/"
+                    }
+                ]
+            }
+        ],
+        "type": "new_terms",
+        "version": 1
+    },
+    "id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a_1",
+    "type": "security-rule"
+}

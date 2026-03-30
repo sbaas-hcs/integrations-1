@@ -1,0 +1,704 @@
+{
+    "attributes": {
+        "description": "Fleet-wide visibility into Shadow AI tools detected by the AI Asset Discovery osquery pack. Shows running LLMs, installed AI applications, MCP servers, AI model files, browser extensions, Docker containers, and auto-start services across all managed endpoints.",
+        "kibanaSavedObjectMeta": {
+            "searchSourceJSON": {
+                "filter": [
+                    {
+                        "meta": {
+                            "alias": "AI Discovery Pack Results",
+                            "disabled": false,
+                            "key": "event.dataset",
+                            "negate": false,
+                            "type": "phrase"
+                        },
+                        "query": {
+                            "match_phrase": {
+                                "event.dataset": "osquery.ai_discovery"
+                            }
+                        }
+                    }
+                ],
+                "query": {
+                    "language": "kuery",
+                    "query": ""
+                }
+            }
+        },
+        "optionsJSON": {
+            "hidePanelTitles": false,
+            "syncColors": true,
+            "syncCursor": true,
+            "syncTooltips": true,
+            "useMargins": true
+        },
+        "panelsJSON": [
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "Total AI Tools Detected",
+                        "visualizationType": "lnsMetric",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["metric1"],
+                                            "columns": {
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Total AI Tools",
+                                                    "operationType": "unique_count",
+                                                    "sourceField": "process.name"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "metricAccessor": "metric1"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 8,
+                    "i": "panel_metric_total",
+                    "w": 12,
+                    "x": 0,
+                    "y": 0
+                },
+                "panelIndex": "panel_metric_total",
+                "title": "Total AI Tools Detected",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "Hosts with AI Tools",
+                        "visualizationType": "lnsMetric",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["metric1"],
+                                            "columns": {
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Hosts with AI",
+                                                    "operationType": "unique_count",
+                                                    "sourceField": "host.name"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "metricAccessor": "metric1"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 8,
+                    "i": "panel_metric_hosts",
+                    "w": 12,
+                    "x": 12,
+                    "y": 0
+                },
+                "panelIndex": "panel_metric_hosts",
+                "title": "Hosts with AI Tools",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "MCP Servers Detected",
+                        "visualizationType": "lnsMetric",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["metric1"],
+                                            "columns": {
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "MCP Servers",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:\"mcp_server\" OR tags:\"mcp_config\""
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "metricAccessor": "metric1"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 8,
+                    "i": "panel_metric_mcp",
+                    "w": 12,
+                    "x": 24,
+                    "y": 0
+                },
+                "panelIndex": "panel_metric_mcp",
+                "title": "MCP Servers Detected",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "AI Model Files",
+                        "visualizationType": "lnsMetric",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["metric1"],
+                                            "columns": {
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Model Files",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:\"model_files\""
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "metricAccessor": "metric1"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 8,
+                    "i": "panel_metric_models",
+                    "w": 12,
+                    "x": 36,
+                    "y": 0
+                },
+                "panelIndex": "panel_metric_models",
+                "title": "AI Model Files",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "AI Tool Distribution",
+                        "visualizationType": "lnsPie",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["bucket1", "metric1"],
+                                            "columns": {
+                                                "bucket1": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Category",
+                                                    "operationType": "terms",
+                                                    "sourceField": "tags",
+                                                    "params": {
+                                                        "size": 10,
+                                                        "orderBy": { "type": "column", "columnId": "metric1" },
+                                                        "orderDirection": "desc",
+                                                        "includeIsRegex": false,
+                                                        "include": ["llm_runtime", "installed_apps", "installed_packages", "mcp_server", "mcp_config", "model_files", "python_packages", "browser_extensions", "docker_containers", "auto_start", "mcp_packages"]
+                                                    }
+                                                },
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Count",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layers": [
+                                    {
+                                        "layerId": "layer1",
+                                        "primaryGroups": ["bucket1"],
+                                        "metrics": ["metric1"],
+                                        "layerType": "data"
+                                    }
+                                ],
+                                "shape": "donut"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_pie_distribution",
+                    "w": 16,
+                    "x": 0,
+                    "y": 8
+                },
+                "panelIndex": "panel_pie_distribution",
+                "title": "AI Tool Distribution by Category",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "AI Tools by Platform",
+                        "visualizationType": "lnsXY",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["bucket1", "metric1"],
+                                            "columns": {
+                                                "bucket1": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Platform",
+                                                    "operationType": "terms",
+                                                    "sourceField": "host.os.type",
+                                                    "params": {
+                                                        "size": 5,
+                                                        "orderBy": { "type": "column", "columnId": "metric1" },
+                                                        "orderDirection": "desc"
+                                                    }
+                                                },
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Count",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "preferredSeriesType": "bar_horizontal",
+                                "layers": [
+                                    {
+                                        "layerId": "layer1",
+                                        "accessors": ["metric1"],
+                                        "xAccessor": "bucket1",
+                                        "layerType": "data"
+                                    }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_bar_platform",
+                    "w": 16,
+                    "x": 16,
+                    "y": 8
+                },
+                "panelIndex": "panel_bar_platform",
+                "title": "AI Tools by Platform",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "New Detections Over Time",
+                        "visualizationType": "lnsXY",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["date1", "metric1"],
+                                            "columns": {
+                                                "date1": {
+                                                    "dataType": "date",
+                                                    "isBucketed": true,
+                                                    "label": "Timestamp",
+                                                    "operationType": "date_histogram",
+                                                    "sourceField": "@timestamp",
+                                                    "params": {
+                                                        "interval": "auto"
+                                                    }
+                                                },
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Detections",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "preferredSeriesType": "area",
+                                "layers": [
+                                    {
+                                        "layerId": "layer1",
+                                        "accessors": ["metric1"],
+                                        "xAccessor": "date1",
+                                        "layerType": "data"
+                                    }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_timeline",
+                    "w": 16,
+                    "x": 32,
+                    "y": 8
+                },
+                "panelIndex": "panel_timeline",
+                "title": "New Detections Over Time",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "AI Tools by Host",
+                        "visualizationType": "lnsDatatable",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["col_host", "col_process", "col_tags", "col_count"],
+                                            "columns": {
+                                                "col_host": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Host",
+                                                    "operationType": "terms",
+                                                    "sourceField": "host.name",
+                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_process": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Tool",
+                                                    "operationType": "terms",
+                                                    "sourceField": "process.name",
+                                                    "params": { "size": 20, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_tags": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Category",
+                                                    "operationType": "terms",
+                                                    "sourceField": "tags",
+                                                    "params": { "size": 5, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_count": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Observations",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "columns": [
+                                    { "columnId": "col_host" },
+                                    { "columnId": "col_process" },
+                                    { "columnId": "col_tags" },
+                                    { "columnId": "col_count" }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_table_hosts",
+                    "w": 48,
+                    "x": 0,
+                    "y": 24
+                },
+                "panelIndex": "panel_table_hosts",
+                "title": "AI Tools by Host",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "MCP Servers",
+                        "visualizationType": "lnsDatatable",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["col_host", "col_cmdline", "col_user", "col_count"],
+                                            "columns": {
+                                                "col_host": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Host",
+                                                    "operationType": "terms",
+                                                    "sourceField": "host.name",
+                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_cmdline": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Command",
+                                                    "operationType": "terms",
+                                                    "sourceField": "process.command_line",
+                                                    "params": { "size": 20, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_user": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "User",
+                                                    "operationType": "terms",
+                                                    "sourceField": "user.name",
+                                                    "params": { "size": 10, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_count": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Observations",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "columns": [
+                                    { "columnId": "col_host" },
+                                    { "columnId": "col_cmdline" },
+                                    { "columnId": "col_user" },
+                                    { "columnId": "col_count" }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {},
+                    "hidePanelTitles": false
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_table_mcp",
+                    "w": 24,
+                    "x": 0,
+                    "y": 40
+                },
+                "panelIndex": "panel_table_mcp",
+                "title": "MCP Servers",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "AI Model Files",
+                        "visualizationType": "lnsDatatable",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": ["col_host", "col_path", "col_size", "col_count"],
+                                            "columns": {
+                                                "col_host": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Host",
+                                                    "operationType": "terms",
+                                                    "sourceField": "host.name",
+                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_path": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "File Path",
+                                                    "operationType": "terms",
+                                                    "sourceField": "file.path",
+                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                },
+                                                "col_size": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Size (bytes)",
+                                                    "operationType": "max",
+                                                    "sourceField": "file.size"
+                                                },
+                                                "col_count": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Observations",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "columns": [
+                                    { "columnId": "col_host" },
+                                    { "columnId": "col_path" },
+                                    { "columnId": "col_size" },
+                                    { "columnId": "col_count" }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_table_models",
+                    "w": 24,
+                    "x": 24,
+                    "y": 40
+                },
+                "panelIndex": "panel_table_models",
+                "title": "AI Model Files",
+                "type": "lens"
+            }
+        ],
+        "timeRestore": false,
+        "title": "[Osquery] AI Asset Discovery Overview",
+        "version": 2
+    },
+    "coreMigrationVersion": "9.3.0",
+    "id": "osquery_manager-e7a1b2c3-ai-discovery-dashboard",
+    "references": [],
+    "type": "dashboard"
+}

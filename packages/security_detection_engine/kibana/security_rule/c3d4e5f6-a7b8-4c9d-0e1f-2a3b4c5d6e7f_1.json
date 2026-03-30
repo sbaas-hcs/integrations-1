@@ -1,0 +1,82 @@
+{
+    "attributes": {
+        "author": [
+            "Elastic"
+        ],
+        "description": "Detects when an AI tool is observed running on an endpoint for the first time. This rule uses new terms detection to identify previously unseen combinations of host and AI process, providing baseline awareness of AI tool adoption across the fleet. This rule triggers on osquery results from the AI Asset Discovery pack.",
+        "from": "now-70m",
+        "history_window_start": "now-14d",
+        "index": [
+            "logs-osquery_manager.result*"
+        ],
+        "language": "kuery",
+        "license": "Elastic License v2",
+        "name": "New AI Tool Detected on Endpoint",
+        "new_terms_fields": [
+            "host.name",
+            "process.name"
+        ],
+        "query": "event.dataset:\"osquery.ai_discovery\" AND tags:\"llm_runtime\" AND process.name:*",
+        "related_integrations": [
+            {
+                "package": "osquery_manager",
+                "version": "^1.0.0"
+            }
+        ],
+        "required_fields": [
+            {
+                "ecs": true,
+                "name": "event.dataset",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "host.name",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "process.name",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "tags",
+                "type": "keyword"
+            }
+        ],
+        "risk_score": 21,
+        "rule_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+        "severity": "low",
+        "tags": [
+            "Domain: Endpoint",
+            "Use Case: Shadow AI Discovery",
+            "Tactic: Discovery",
+            "Data Source: Osquery",
+            "OS: macOS",
+            "OS: Linux",
+            "OS: Windows"
+        ],
+        "threat": [
+            {
+                "framework": "MITRE ATT&CK",
+                "tactic": {
+                    "id": "TA0007",
+                    "name": "Discovery",
+                    "reference": "https://attack.mitre.org/tactics/TA0007/"
+                },
+                "technique": [
+                    {
+                        "id": "T1518",
+                        "name": "Software Discovery",
+                        "reference": "https://attack.mitre.org/techniques/T1518/"
+                    }
+                ]
+            }
+        ],
+        "type": "new_terms",
+        "version": 1
+    },
+    "id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f_1",
+    "type": "security-rule"
+}

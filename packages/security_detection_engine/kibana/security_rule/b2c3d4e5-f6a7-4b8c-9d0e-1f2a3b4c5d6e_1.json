@@ -1,0 +1,82 @@
+{
+    "attributes": {
+        "author": [
+            "Elastic"
+        ],
+        "description": "Detects running Model Context Protocol (MCP) server processes. MCP servers bridge AI tools to local resources including filesystems, databases, and APIs. An unmanaged MCP server is an unmonitored data access channel that may bypass security controls. This rule triggers on osquery results from the AI Asset Discovery pack's mcp_server_processes query.",
+        "from": "now-70m",
+        "index": [
+            "logs-osquery_manager.result*"
+        ],
+        "language": "kuery",
+        "license": "Elastic License v2",
+        "name": "Unauthorized MCP Server Running",
+        "query": "event.dataset:\"osquery.ai_discovery\" AND tags:\"mcp_server\" AND process.command_line:(*modelcontextprotocol* OR *mcp-server-* OR *mcp_server* OR *fastmcp*)",
+        "related_integrations": [
+            {
+                "package": "osquery_manager",
+                "version": "^1.0.0"
+            }
+        ],
+        "required_fields": [
+            {
+                "ecs": true,
+                "name": "event.dataset",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "process.name",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "process.command_line",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "user.name",
+                "type": "keyword"
+            },
+            {
+                "ecs": true,
+                "name": "tags",
+                "type": "keyword"
+            }
+        ],
+        "risk_score": 47,
+        "rule_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+        "severity": "medium",
+        "tags": [
+            "Domain: Endpoint",
+            "Use Case: Shadow AI Discovery",
+            "Tactic: Discovery",
+            "Data Source: Osquery",
+            "OS: macOS",
+            "OS: Linux",
+            "OS: Windows"
+        ],
+        "threat": [
+            {
+                "framework": "MITRE ATT&CK",
+                "tactic": {
+                    "id": "TA0007",
+                    "name": "Discovery",
+                    "reference": "https://attack.mitre.org/tactics/TA0007/"
+                },
+                "technique": [
+                    {
+                        "id": "T1057",
+                        "name": "Process Discovery",
+                        "reference": "https://attack.mitre.org/techniques/T1057/"
+                    }
+                ]
+            }
+        ],
+        "type": "query",
+        "version": 1
+    },
+    "id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e_1",
+    "type": "security-rule"
+}

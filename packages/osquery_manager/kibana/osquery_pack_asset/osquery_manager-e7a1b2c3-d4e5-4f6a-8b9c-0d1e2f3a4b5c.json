@@ -1,0 +1,2106 @@
+{
+    "attributes": {
+        "description": "Detect and inventory Shadow AI tools across your fleet \u2014 local LLMs, AI applications, MCP servers, AI model files, Python/npm AI packages, browser extensions, Docker containers, and auto-start services. Provides fleet-wide visibility into unauthorized or unmanaged AI deployments on endpoints.",
+        "name": "ai-asset-discovery",
+        "version": 1,
+        "queries": [
+            {
+                "id": "ai_llm_processes",
+                "query": "-- Running LLM Runtime Detection\n-- Identifies local LLM servers and inference engines running on endpoints\n-- Use case: Shadow AI discovery, unauthorized model serving, resource usage\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN ('ollama', 'lms', 'gpt4all', 'jan', 'msty', 'local-ai', 'koboldcpp', 'llama-server', 'llama-cli', 'vllm')\n    OR p.cmdline LIKE '%ollama serve%'\n    OR p.cmdline LIKE '%vllm.entrypoints%'\n    OR p.cmdline LIKE '%text-generation-launcher%'\n    OR p.cmdline LIKE '%koboldcpp%'\n    OR p.cmdline LIKE '%llama-server%';",
+                "interval": 3600,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "process"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "process.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "process.executable",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "process.command_line",
+                        "value": {
+                            "field": "cmdline"
+                        }
+                    },
+                    {
+                        "key": "process.pid",
+                        "value": {
+                            "field": "pid"
+                        }
+                    },
+                    {
+                        "key": "user.name",
+                        "value": {
+                            "field": "username"
+                        }
+                    },
+                    {
+                        "key": "process.start",
+                        "value": {
+                            "field": "start_time"
+                        }
+                    },
+                    {
+                        "key": "process.parent.pid",
+                        "value": {
+                            "field": "ppid"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "llm_runtime",
+                                "shadow_ai",
+                                "mitre_t1057"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1057"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Process Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_listening_ports",
+                "query": "-- AI API Servers Exposed on Network\n-- Detects AI services listening on non-loopback addresses (network-exposed)\n-- Known AI ports: 11434 (Ollama), 1234 (LM Studio), 4891 (Jan), 1337 (LocalAI), 5001 (GPT4All), 7860 (Gradio/HuggingFace)\nSELECT\n    l.port,\n    l.address,\n    l.protocol,\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid\nFROM listening_ports l\nJOIN processes p ON l.pid = p.pid\nWHERE l.port IN (11434, 1234, 4891, 1337, 5001, 7860)\n    AND l.address != '127.0.0.1'\n    AND l.address != '::1';",
+                "interval": 3600,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "network"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "server.port",
+                        "value": {
+                            "field": "port"
+                        }
+                    },
+                    {
+                        "key": "server.address",
+                        "value": {
+                            "field": "address"
+                        }
+                    },
+                    {
+                        "key": "network.transport",
+                        "value": {
+                            "field": "protocol"
+                        }
+                    },
+                    {
+                        "key": "process.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "process.executable",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "process.command_line",
+                        "value": {
+                            "field": "cmdline"
+                        }
+                    },
+                    {
+                        "key": "process.pid",
+                        "value": {
+                            "field": "pid"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "network_exposure",
+                                "shadow_ai",
+                                "mitre_t1046"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1046"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Network Service Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_apps_macos",
+                "query": "-- Installed AI Applications (macOS)\n-- Detects AI desktop applications via the apps table\nSELECT\n    name,\n    path,\n    bundle_identifier,\n    bundle_short_version AS version,\n    datetime(last_opened_time, 'unixepoch') AS last_opened_time\nFROM apps\nWHERE name IN ('Ollama', 'LM Studio', 'ChatGPT', 'Claude', 'Perplexity', 'Cursor', 'Windsurf', 'Jan', 'Msty', 'GPT4All', 'DeepSeek')\n    OR bundle_identifier IN ('com.openai.chat', 'com.anthropic.claudedesktop', 'ai.perplexity.app', 'com.todesktop.230313mzl4w4u92');",
+                "interval": 86400,
+                "platform": "darwin",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "installed_apps",
+                                "shadow_ai",
+                                "darwin",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_programs_windows",
+                "query": "-- Installed AI Applications (Windows)\n-- Detects AI desktop applications via the programs table\nSELECT\n    name,\n    version,\n    install_location,\n    publisher,\n    install_date\nFROM programs\nWHERE name LIKE '%Ollama%' OR name LIKE '%LM Studio%' OR name LIKE '%ChatGPT%'\n    OR name LIKE '%Claude%' OR name LIKE '%Cursor%' OR name LIKE '%GPT4All%'\n    OR name LIKE '%Perplexity%' OR name LIKE '%Windsurf%' OR name LIKE '%DeepSeek%'\n    OR name LIKE '%Copilot%' OR name LIKE '%Jan%' OR name LIKE '%Msty%';",
+                "interval": 86400,
+                "platform": "windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "windows"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.path",
+                        "value": {
+                            "field": "install_location"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "installed_apps",
+                                "shadow_ai",
+                                "windows",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_packages_linux",
+                "query": "-- Installed AI Packages (Linux)\n-- Detects AI-related system packages via deb and rpm package managers\nSELECT name, version, source FROM deb_packages\nWHERE name LIKE '%ollama%' OR name LIKE '%nvidia-cuda%'\nUNION ALL\nSELECT name, version, source FROM rpm_packages\nWHERE name LIKE '%ollama%' OR name LIKE '%cuda%';",
+                "interval": 86400,
+                "platform": "linux",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "installed_packages",
+                                "shadow_ai",
+                                "linux",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mcp_server_processes",
+                "query": "-- Running MCP Server Processes\n-- Detects Model Context Protocol servers bridging AI tools to local resources\n-- MCP servers provide filesystem, database, and API access to AI assistants\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    datetime(p.start_time, 'unixepoch') AS start_time\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.cmdline LIKE '%@modelcontextprotocol/%'\n    OR p.cmdline LIKE '%mcp-server-%'\n    OR p.cmdline LIKE '%mcp_server%'\n    OR p.cmdline LIKE '%fastmcp%'\n    OR p.cmdline LIKE '%modelcontextprotocol%';",
+                "interval": 3600,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "process"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "process.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "process.executable",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "process.command_line",
+                        "value": {
+                            "field": "cmdline"
+                        }
+                    },
+                    {
+                        "key": "process.pid",
+                        "value": {
+                            "field": "pid"
+                        }
+                    },
+                    {
+                        "key": "user.name",
+                        "value": {
+                            "field": "username"
+                        }
+                    },
+                    {
+                        "key": "process.start",
+                        "value": {
+                            "field": "start_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "mcp_server",
+                                "shadow_ai",
+                                "mitre_t1057"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1057"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Process Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mcp_config_files_macos",
+                "query": "-- MCP Configuration Files (macOS)\n-- Detects MCP config files for Claude Desktop, Cursor, and VS Code\n-- Presence indicates MCP servers are configured (even if not currently running)\nSELECT\n    path,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE path LIKE '/Users/%/Library/Application Support/Claude/claude_desktop_config.json'\n    OR path LIKE '/Users/%/.claude.json'\n    OR path LIKE '/Users/%/.cursor/mcp.json'\n    OR path LIKE '/Users/%/.vscode/mcp.json';",
+                "interval": 86400,
+                "platform": "darwin",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "mcp_config",
+                                "shadow_ai",
+                                "darwin",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mcp_config_files_linux",
+                "query": "-- MCP Configuration Files (Linux)\n-- Detects MCP config files for Claude Desktop, Cursor, and VS Code\nSELECT\n    path,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE path LIKE '/home/%/.config/Claude/claude_desktop_config.json'\n    OR path LIKE '/home/%/.claude.json'\n    OR path LIKE '/home/%/.cursor/mcp.json'\n    OR path LIKE '/home/%/.vscode/mcp.json';",
+                "interval": 86400,
+                "platform": "linux",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "mcp_config",
+                                "shadow_ai",
+                                "linux",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mcp_config_files_windows",
+                "query": "-- MCP Configuration Files (Windows)\n-- Detects MCP config files for Claude Desktop, Cursor, and VS Code\nSELECT\n    path,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE path LIKE 'C:\\Users\\%\\AppData\\Roaming\\Claude\\claude_desktop_config.json'\n    OR path LIKE 'C:\\Users\\%\\.claude.json'\n    OR path LIKE 'C:\\Users\\%\\.cursor\\mcp.json'\n    OR path LIKE 'C:\\Users\\%\\.vscode\\mcp.json';",
+                "interval": 86400,
+                "platform": "windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "windows"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "mcp_config",
+                                "shadow_ai",
+                                "windows",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_model_files_macos",
+                "query": "-- AI Model Files (macOS)\n-- Detects large model files (>100MB) in known AI model storage directories\n-- Covers: Ollama, LM Studio, HuggingFace, llama.cpp, GPT4All, Jan\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/.ollama/models/blobs/%'\n    OR path LIKE '/Users/%/.lmstudio/models/%'\n    OR path LIKE '/Users/%/.cache/lm-studio/%'\n    OR path LIKE '/Users/%/.cache/huggingface/hub/%'\n    OR path LIKE '/Users/%/.cache/llama.cpp/%'\n    OR path LIKE '/Users/%/.local/share/nomic.ai/GPT4All/%'\n    OR path LIKE '/Users/%/jan/models/%'\n)\nAND size > 100000000;",
+                "interval": 86400,
+                "platform": "darwin",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.name",
+                        "value": {
+                            "field": "filename"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "model_files",
+                                "shadow_ai",
+                                "darwin",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_model_files_linux",
+                "query": "-- AI Model Files (Linux)\n-- Detects large model files (>100MB) in known AI model storage directories\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE '/home/%/.ollama/models/blobs/%'\n    OR path LIKE '/home/%/.lmstudio/models/%'\n    OR path LIKE '/home/%/.cache/huggingface/hub/%'\n    OR path LIKE '/home/%/.cache/llama.cpp/%'\n    OR path LIKE '/home/%/.local/share/nomic.ai/GPT4All/%'\n    OR path LIKE '/opt/models/%'\n)\nAND size > 100000000;",
+                "interval": 86400,
+                "platform": "linux",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.name",
+                        "value": {
+                            "field": "filename"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "model_files",
+                                "shadow_ai",
+                                "linux",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_model_files_windows",
+                "query": "-- AI Model Files (Windows)\n-- Detects large model files (>100MB) in known AI model storage directories\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE 'C:\\Users\\%\\.ollama\\models\\blobs\\%'\n    OR path LIKE 'C:\\Users\\%\\.lmstudio\\models\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\huggingface\\hub\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\llama.cpp\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\nomic.ai\\GPT4All\\%'\n)\nAND size > 100000000;",
+                "interval": 86400,
+                "platform": "windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "windows"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.name",
+                        "value": {
+                            "field": "filename"
+                        }
+                    },
+                    {
+                        "key": "file.size",
+                        "value": {
+                            "field": "size"
+                        }
+                    },
+                    {
+                        "key": "file.mtime",
+                        "value": {
+                            "field": "modified_time"
+                        }
+                    },
+                    {
+                        "key": "file.accessed",
+                        "value": {
+                            "field": "accessed_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "model_files",
+                                "shadow_ai",
+                                "windows",
+                                "mitre_t1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1083"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "File and Directory Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_python_packages",
+                "query": "-- AI/ML Python Packages\n-- Detects installed AI frameworks, model libraries, and agent toolkits\nSELECT\n    name,\n    version,\n    directory\nFROM python_packages\nWHERE name IN ('torch', 'tensorflow', 'transformers', 'langchain', 'langchain-core',\n    'openai', 'anthropic', 'llama-cpp-python', 'ollama', 'vllm', 'diffusers',\n    'sentence-transformers', 'chromadb', 'qdrant-client', 'autogen', 'crewai',\n    'onnxruntime', 'accelerate', 'peft', 'trl', 'bitsandbytes', 'auto-gptq',\n    'fastmcp', 'mcp');",
+                "interval": 86400,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.path",
+                        "value": {
+                            "field": "directory"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "python_packages",
+                                "shadow_ai",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_chrome_extensions",
+                "query": "-- AI Browser Extensions (Chrome/Chromium)\n-- Detects AI-related browser extensions that may access browsing data\nSELECT\n    ce.name,\n    ce.identifier,\n    ce.version,\n    ce.description,\n    ce.path,\n    u.username\nFROM chrome_extensions ce\nLEFT JOIN users u ON ce.uid = u.uid\nWHERE ce.name LIKE '%Copilot%' OR ce.name LIKE '%Cody%'\n    OR ce.name LIKE '%ChatGPT%' OR ce.name LIKE '%Claude%'\n    OR ce.name LIKE '%Tabnine%' OR ce.name LIKE '%Perplexity%'\n    OR ce.name LIKE '%DeepSeek%' OR ce.name LIKE '%Gemini%'\n    OR ce.name LIKE '%Grammarly%AI%';",
+                "interval": 86400,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.description",
+                        "value": {
+                            "field": "description"
+                        }
+                    },
+                    {
+                        "key": "user.name",
+                        "value": {
+                            "field": "username"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "browser_extensions",
+                                "shadow_ai",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_docker_containers",
+                "query": "-- AI Docker Containers\n-- Detects running Docker containers with AI/ML images\nSELECT\n    id,\n    name,\n    image,\n    status,\n    command,\n    started_at\nFROM docker_containers\nWHERE image LIKE '%ollama%' OR image LIKE '%vllm%'\n    OR image LIKE '%text-generation%' OR image LIKE '%localai%'\n    OR image LIKE '%pytorch%' OR image LIKE '%tensorflow%'\n    OR image LIKE '%triton%' OR image LIKE '%huggingface%';",
+                "interval": 3600,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "host"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "container.id",
+                        "value": {
+                            "field": "id"
+                        }
+                    },
+                    {
+                        "key": "container.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "container.image.name",
+                        "value": {
+                            "field": "image"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "docker_containers",
+                                "shadow_ai",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_launchd_services",
+                "query": "-- AI Auto-Start Services (macOS launchd)\n-- Detects AI tools configured to start automatically\nSELECT\n    label,\n    path,\n    program_arguments,\n    run_at_load\nFROM launchd\nWHERE label LIKE '%ollama%' OR label LIKE '%lmstudio%'\n    OR label LIKE '%gpt4all%' OR label LIKE '%jan%'\n    OR program_arguments LIKE '%ollama%';",
+                "interval": 86400,
+                "platform": "darwin",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "configuration"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
+                        }
+                    },
+                    {
+                        "key": "service.name",
+                        "value": {
+                            "field": "label"
+                        }
+                    },
+                    {
+                        "key": "file.path",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "auto_start",
+                                "shadow_ai",
+                                "darwin",
+                                "mitre_t1543"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_windows_services",
+                "query": "-- AI Auto-Start Services (Windows)\n-- Detects AI tools registered as Windows services\nSELECT\n    name,\n    display_name,\n    path,\n    start_type,\n    status,\n    user_account\nFROM services\nWHERE name LIKE '%ollama%' OR name LIKE '%lmstudio%'\n    OR display_name LIKE '%Ollama%' OR display_name LIKE '%LM Studio%'\n    OR path LIKE '%ollama%';",
+                "interval": 86400,
+                "platform": "windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "configuration"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "windows"
+                        }
+                    },
+                    {
+                        "key": "service.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "process.executable",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "service.state",
+                        "value": {
+                            "field": "status"
+                        }
+                    },
+                    {
+                        "key": "user.name",
+                        "value": {
+                            "field": "user_account"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "auto_start",
+                                "shadow_ai",
+                                "windows",
+                                "mitre_t1543"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "mcp_npm_packages",
+                "query": "-- MCP npm Packages\n-- Detects installed Model Context Protocol npm packages\nSELECT\n    name,\n    version,\n    directory,\n    description\nFROM npm_packages\nWHERE name LIKE '@modelcontextprotocol/%'\n    OR name LIKE 'mcp-server-%'\n    OR name LIKE '%fastmcp%';",
+                "interval": 86400,
+                "platform": "linux,darwin,windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "package"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.module",
+                        "value": {
+                            "value": "osquery"
+                        }
+                    },
+                    {
+                        "key": "event.dataset",
+                        "value": {
+                            "value": "osquery.ai_discovery"
+                        }
+                    },
+                    {
+                        "key": "package.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.path",
+                        "value": {
+                            "field": "directory"
+                        }
+                    },
+                    {
+                        "key": "package.description",
+                        "value": {
+                            "field": "description"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "mcp_packages",
+                                "shadow_ai",
+                                "mitre_t1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.framework",
+                        "value": {
+                            "value": "MITRE ATT&CK"
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.id",
+                        "value": {
+                            "value": [
+                                "TA0007"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.tactic.name",
+                        "value": {
+                            "value": [
+                                "Discovery"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.id",
+                        "value": {
+                            "value": [
+                                "T1518"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "threat.technique.name",
+                        "value": {
+                            "value": [
+                                "Software Discovery"
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "coreMigrationVersion": "9.3.0",
+    "id": "osquery_manager-e7a1b2c3-d4e5-4f6a-8b9c-0d1e2f3a4b5c",
+    "references": [],
+    "type": "osquery-pack-asset"
+}
