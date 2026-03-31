@@ -6,7 +6,7 @@
         "queries": [
             {
                 "id": "ai_llm_processes",
-                "query": "-- Running LLM Runtime Detection\n-- Identifies local LLM servers, inference engines, and AI model serving processes\n-- Covers: Ollama, LM Studio, llama.cpp, vLLM, GPT4All, Jan, LocalAI, KoboldCpp,\n-- text-generation-webui, Open WebUI, AnythingLLM, LiteLLM, llamafile, MLC LLM, ComfyUI\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'ollama', 'lms', 'gpt4all', 'jan', 'msty', 'local-ai',\n    'koboldcpp', 'llama-server', 'llama-cli', 'vllm',\n    'mlc_llm', 'mlc_chat', 'anythingllm', 'anything-llm',\n    'litellm', 'open-webui', 'llamafile', 'text-generation-launcher',\n    'text-generation-router', 'comfyui', 'invokeai'\n)\n    OR p.cmdline LIKE '%ollama serve%'\n    OR p.cmdline LIKE '%vllm.entrypoints%'\n    OR p.cmdline LIKE '%text-generation-launcher%'\n    OR p.cmdline LIKE '%koboldcpp%'\n    OR p.cmdline LIKE '%llama-server%'\n    OR p.cmdline LIKE '%llama.cpp%server%'\n    OR p.cmdline LIKE '%llamafile%'\n    OR p.cmdline LIKE '%mlc_llm%'\n    OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%open-webui%'\n    OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%text-generation-webui%'\n    OR p.cmdline LIKE '%oobabooga%'\n    OR p.cmdline LIKE '%comfyui%'\n    OR p.cmdline LIKE '%invokeai%'\n    OR p.cmdline LIKE '%stable-diffusion-webui%'\n    OR p.cmdline LIKE '%whisper%server%';",
+                "query": "-- Running LLM Runtime Detection\n-- Identifies local LLM servers, inference engines, and AI model serving processes\n-- Covers: Ollama, LM Studio, llama.cpp, vLLM, GPT4All, Jan, LocalAI, KoboldCpp,\n-- text-generation-webui, Open WebUI, AnythingLLM, LiteLLM, llamafile, MLC LLM, ComfyUI\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'ollama', 'ollama.exe', 'lms', 'lms.exe',\n    'gpt4all', 'gpt4all.exe', 'jan', 'jan.exe',\n    'msty', 'msty.exe', 'local-ai', 'local-ai.exe',\n    'koboldcpp', 'koboldcpp.exe', 'llama-server', 'llama-server.exe',\n    'llama-cli', 'llama-cli.exe', 'vllm', 'vllm.exe',\n    'mlc_llm', 'mlc_llm.exe', 'mlc_chat', 'mlc_chat.exe',\n    'anythingllm', 'anythingllm.exe', 'anything-llm', 'anything-llm.exe',\n    'litellm', 'litellm.exe', 'open-webui', 'open-webui.exe',\n    'llamafile', 'llamafile.exe',\n    'text-generation-launcher', 'text-generation-launcher.exe',\n    'text-generation-router', 'text-generation-router.exe',\n    'comfyui', 'comfyui.exe', 'invokeai', 'invokeai.exe'\n)\n    -- Path-based detection for Windows tray apps (e.g., Ollama.exe with capital O)\n    OR p.path LIKE '%\\\\Ollama\\\\%'\n    OR p.path LIKE '%\\\\LM Studio\\\\%'\n    OR p.path LIKE '%\\\\GPT4All\\\\%'\n    OR p.cmdline LIKE '%ollama serve%'\n    OR p.cmdline LIKE '%vllm.entrypoints%'\n    OR p.cmdline LIKE '%text-generation-launcher%'\n    OR p.cmdline LIKE '%koboldcpp%'\n    OR p.cmdline LIKE '%llama-server%'\n    OR p.cmdline LIKE '%llama.cpp%server%'\n    OR p.cmdline LIKE '%llamafile%'\n    OR p.cmdline LIKE '%mlc_llm%'\n    OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%open-webui%'\n    OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%text-generation-webui%'\n    OR p.cmdline LIKE '%oobabooga%'\n    OR p.cmdline LIKE '%comfyui%'\n    OR p.cmdline LIKE '%invokeai%'\n    OR p.cmdline LIKE '%stable-diffusion-webui%'\n    OR p.cmdline LIKE '%whisper%server%';",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -84,14 +84,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_llm_processes"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_coding_agents",
-                "query": "-- Running AI Coding Agent Processes\n-- Detects AI coding assistants, agents, and AI-powered terminals\n-- These tools can read/write files, execute code, and interact with internal systems\n-- Covers: Claude Code, Cursor, Windsurf, Copilot, Aider, Cline, Roo Code,\n-- Continue, Codeium, Tabnine, Amazon Q, Sourcegraph Cody, Codex, Warp, Zed,\n-- Pieces, ShellGPT, OpenHands, Supermaven\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'claude', 'cursor', 'windsurf', 'warp', 'zed',\n    'tabnine', 'TabNine', 'WasmTabNine',\n    'codeium_language_server', 'supermaven',\n    'amazon-q', 'pieces-os', 'Pieces OS',\n    'codex', 'aider', 'sgpt'\n)\n    -- Claude Code / Claude Desktop\n    OR p.cmdline LIKE '%claude-code%'\n    OR p.cmdline LIKE '%@anthropic/claude-code%'\n    OR p.cmdline LIKE '%@anthropic-ai/claude-code%'\n    OR p.cmdline LIKE '%claude_desktop%'\n    OR p.cmdline LIKE '%com.anthropic.claudedesktop%'\n    -- Cursor\n    OR p.cmdline LIKE '%Cursor.app%'\n    OR p.cmdline LIKE '%Cursor Helper%'\n    OR p.cmdline LIKE '%cursor-retrieval%'\n    -- Windsurf / Codeium\n    OR p.cmdline LIKE '%Windsurf%'\n    OR p.cmdline LIKE '%codeium_language_server%'\n    OR p.cmdline LIKE '%codeium%enterprise%'\n    -- GitHub Copilot\n    OR p.cmdline LIKE '%github.copilot%'\n    OR p.cmdline LIKE '%copilot-agent%'\n    OR p.cmdline LIKE '%copilot-language-server%'\n    -- OpenAI Codex CLI\n    OR p.cmdline LIKE '%@openai/codex%'\n    -- Aider\n    OR p.cmdline LIKE '%aider-chat%'\n    OR p.cmdline LIKE '%aider%--model%'\n    -- Cline / Roo Code (VS Code extensions spawn node)\n    OR p.cmdline LIKE '%saoudrizwan.claude-dev%'\n    OR p.cmdline LIKE '%rooveterinaryinc.roo-cline%'\n    -- Continue.dev\n    OR p.cmdline LIKE '%continue.continue%'\n    OR p.cmdline LIKE '%continuedev%'\n    -- Amazon Q / CodeWhisperer\n    OR p.cmdline LIKE '%amazon-q%'\n    OR p.cmdline LIKE '%codewhisperer%'\n    OR p.cmdline LIKE '%AmazonWebServices.amazon-q%'\n    -- Sourcegraph Cody\n    OR p.cmdline LIKE '%sourcegraph.cody%'\n    -- Tabnine\n    OR p.cmdline LIKE '%tabnine%'\n    -- Warp terminal (has AI built in)\n    OR p.cmdline LIKE '%dev.warp.Warp%'\n    -- Zed editor (has AI built in)\n    OR p.cmdline LIKE '%dev.zed.Zed%'\n    -- ShellGPT\n    OR p.cmdline LIKE '%shell_gpt%'\n    OR p.cmdline LIKE '%shell-gpt%'\n    -- OpenHands / SWE-agent\n    OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%swe-agent%'\n    -- Pieces\n    OR p.cmdline LIKE '%pieces-os%'\n    -- Supermaven\n    OR p.cmdline LIKE '%supermaven%';",
+                "query": "-- Running AI Coding Agent Processes\n-- Detects AI coding assistants, agents, and AI-powered terminals\n-- These tools can read/write files, execute code, and interact with internal systems\n-- Covers: Claude Code, Cursor, Windsurf, Copilot, Aider, Cline, Roo Code,\n-- Continue, Codeium, Tabnine, Amazon Q, Sourcegraph Cody, Codex, Warp, Zed,\n-- Pieces, ShellGPT, OpenHands, Supermaven\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'claude', 'claude.exe', 'cursor', 'cursor.exe',\n    'windsurf', 'windsurf.exe', 'warp', 'warp.exe',\n    'zed', 'zed.exe', 'tabnine', 'tabnine.exe',\n    'TabNine', 'TabNine.exe', 'WasmTabNine', 'WasmTabNine.exe',\n    'codeium_language_server', 'codeium_language_server.exe',\n    'supermaven', 'supermaven.exe',\n    'amazon-q', 'amazon-q.exe', 'pieces-os', 'pieces-os.exe',\n    'Pieces OS', 'Pieces OS.exe',\n    'codex', 'codex.exe', 'aider', 'aider.exe',\n    'sgpt', 'sgpt.exe'\n)\n    -- Claude Code / Claude Desktop\n    OR p.cmdline LIKE '%claude-code%'\n    OR p.cmdline LIKE '%@anthropic/claude-code%'\n    OR p.cmdline LIKE '%@anthropic-ai/claude-code%'\n    OR p.cmdline LIKE '%claude_desktop%'\n    OR p.cmdline LIKE '%com.anthropic.claudedesktop%'\n    -- Cursor\n    OR p.cmdline LIKE '%Cursor.app%'\n    OR p.cmdline LIKE '%Cursor Helper%'\n    OR p.cmdline LIKE '%cursor-retrieval%'\n    -- Windsurf / Codeium\n    OR p.cmdline LIKE '%Windsurf%'\n    OR p.cmdline LIKE '%codeium_language_server%'\n    OR p.cmdline LIKE '%codeium%enterprise%'\n    -- GitHub Copilot\n    OR p.cmdline LIKE '%github.copilot%'\n    OR p.cmdline LIKE '%copilot-agent%'\n    OR p.cmdline LIKE '%copilot-language-server%'\n    -- OpenAI Codex CLI\n    OR p.cmdline LIKE '%@openai/codex%'\n    -- Aider\n    OR p.cmdline LIKE '%aider-chat%'\n    OR p.cmdline LIKE '%aider%--model%'\n    -- Cline / Roo Code (VS Code extensions spawn node)\n    OR p.cmdline LIKE '%saoudrizwan.claude-dev%'\n    OR p.cmdline LIKE '%rooveterinaryinc.roo-cline%'\n    -- Continue.dev\n    OR p.cmdline LIKE '%continue.continue%'\n    OR p.cmdline LIKE '%continuedev%'\n    -- Amazon Q / CodeWhisperer\n    OR p.cmdline LIKE '%amazon-q%'\n    OR p.cmdline LIKE '%codewhisperer%'\n    OR p.cmdline LIKE '%AmazonWebServices.amazon-q%'\n    -- Sourcegraph Cody\n    OR p.cmdline LIKE '%sourcegraph.cody%'\n    -- Tabnine\n    OR p.cmdline LIKE '%tabnine%'\n    -- Warp terminal (has AI built in)\n    OR p.cmdline LIKE '%dev.warp.Warp%'\n    -- Zed editor (has AI built in)\n    OR p.cmdline LIKE '%dev.zed.Zed%'\n    -- ShellGPT\n    OR p.cmdline LIKE '%shell_gpt%'\n    OR p.cmdline LIKE '%shell-gpt%'\n    -- OpenHands / SWE-agent\n    OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%swe-agent%'\n    -- Pieces\n    OR p.cmdline LIKE '%pieces-os%'\n    -- Supermaven\n    OR p.cmdline LIKE '%supermaven%';",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -169,7 +169,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_coding_agents"
                         }
                     }
                 ]
@@ -254,7 +254,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports"
                         }
                     }
                 ]
@@ -339,7 +339,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports_local"
                         }
                     }
                 ]
@@ -365,12 +365,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -406,7 +400,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_programs_windows"
                         }
                     }
                 ]
@@ -485,7 +479,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_server_processes"
                         }
                     }
                 ]
@@ -511,12 +505,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -558,7 +546,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_config_files_windows"
                         }
                     }
                 ]
@@ -584,12 +572,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -637,14 +619,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_files_windows"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_model_file_extensions_windows",
-                "query": "-- AI Model Files by Extension (Windows)\n-- Detects model weight files by extension in user directories\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE 'C:\\Users\\%\\%.gguf'\n    OR path LIKE 'C:\\Users\\%\\%.safetensors'\n    OR path LIKE 'C:\\Users\\%\\%.llamafile'\n    OR path LIKE 'C:\\Users\\%\\%.ggml'\n    OR path LIKE 'C:\\Users\\%\\%.onnx'\n)\nAND size > 100000000;",
+                "query": "-- AI Model Files by Extension (Windows)\n-- Detects model weight files by extension in user directories\n-- NOTE: osquery file table '%' matches one directory level, so we need\n-- both shallow paths (user home) and known deep paths for full coverage\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    -- Shallow: files directly in user home or one level down\n    path LIKE 'C:\\Users\\%\\%.gguf'\n    OR path LIKE 'C:\\Users\\%\\%.safetensors'\n    OR path LIKE 'C:\\Users\\%\\%.llamafile'\n    OR path LIKE 'C:\\Users\\%\\%.ggml'\n    OR path LIKE 'C:\\Users\\%\\%.onnx'\n    -- Deep: known model directories (recursive via %\\%)\n    OR path LIKE 'C:\\Users\\%\\.ollama\\models\\%\\%'\n    OR path LIKE 'C:\\Users\\%\\.lmstudio\\models\\%\\%\\%\\%.gguf'\n    OR path LIKE 'C:\\Users\\%\\.cache\\huggingface\\hub\\%\\%\\%\\%.safetensors'\n    OR path LIKE 'C:\\Users\\%\\.cache\\llama.cpp\\%.gguf'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\nomic.ai\\GPT4All\\%.gguf'\n    -- Downloads folder (common drop location)\n    OR path LIKE 'C:\\Users\\%\\Downloads\\%.gguf'\n    OR path LIKE 'C:\\Users\\%\\Downloads\\%.safetensors'\n)\nAND size > 100000000;",
                 "interval": 86400,
                 "platform": "windows",
                 "timeout": 180,
@@ -702,22 +684,16 @@
                         }
                     },
                     {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
-                        }
-                    },
-                    {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_file_extensions_windows"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_python_packages",
-                "query": "-- AI/ML Python Packages\n-- Detects installed AI frameworks, model libraries, agent toolkits, and AI SDKs\nSELECT\n    name,\n    version,\n    directory\nFROM python_packages\nWHERE name IN (\n    -- Core ML frameworks\n    'torch', 'tensorflow', 'onnxruntime', 'jax', 'flax',\n    -- HuggingFace ecosystem\n    'transformers', 'diffusers', 'accelerate', 'peft', 'trl',\n    'huggingface-hub', 'tokenizers', 'datasets', 'sentence-transformers',\n    'safetensors',\n    -- AI provider SDKs\n    'openai', 'anthropic', 'google-generativeai', 'cohere', 'replicate',\n    'groq', 'mistralai', 'together', 'fireworks-ai', 'deepseek-sdk',\n    -- Agent/orchestration frameworks\n    'langchain', 'langchain-core', 'langchain-community',\n    'llama-index', 'llama-index-core',\n    'autogen', 'crewai', 'semantic-kernel', 'haystack-ai', 'dspy-ai',\n    'instructor', 'guidance', 'outlines',\n    -- Local inference\n    'llama-cpp-python', 'ollama', 'vllm', 'ctransformers',\n    'bitsandbytes', 'auto-gptq', 'exllama',\n    -- MCP\n    'fastmcp', 'mcp',\n    -- Vector databases\n    'chromadb', 'qdrant-client', 'weaviate-client', 'pinecone-client',\n    'pymilvus', 'faiss-cpu', 'faiss-gpu',\n    -- AI coding agents\n    'aider-chat', 'shell-gpt', 'mentat',\n    -- AI app frameworks\n    'gradio', 'streamlit',\n    -- Audio/speech\n    'openai-whisper', 'whisper', 'elevenlabs', 'bark',\n    -- Proxy/gateway\n    'litellm',\n    -- LLM CLI tools\n    'llm'\n);",
+                "query": "-- AI/ML Python Packages\n-- Detects installed AI frameworks, model libraries, agent toolkits, and AI SDKs\n-- NOTE: osquery runs as SYSTEM on Windows. python_packages requires Python\n-- to be in the system PATH. The provisioning script adds it automatically.\nSELECT\n    name,\n    version,\n    directory\nFROM python_packages\nWHERE name IN (\n    'torch', 'tensorflow', 'onnxruntime', 'jax', 'flax',\n    'transformers', 'diffusers', 'accelerate', 'peft', 'trl',\n    'huggingface-hub', 'tokenizers', 'datasets', 'sentence-transformers',\n    'safetensors',\n    'openai', 'anthropic', 'google-generativeai', 'cohere', 'replicate',\n    'groq', 'mistralai', 'together', 'fireworks-ai', 'deepseek-sdk',\n    'langchain', 'langchain-core', 'langchain-community',\n    'llama-index', 'llama-index-core',\n    'autogen', 'crewai', 'semantic-kernel', 'haystack-ai', 'dspy-ai',\n    'instructor', 'guidance', 'outlines',\n    'llama-cpp-python', 'ollama', 'vllm', 'ctransformers',\n    'bitsandbytes', 'auto-gptq', 'exllama',\n    'fastmcp', 'mcp',\n    'chromadb', 'qdrant-client', 'weaviate-client', 'pinecone-client',\n    'pymilvus', 'faiss-cpu', 'faiss-gpu',\n    'aider-chat', 'shell-gpt', 'mentat',\n    'gradio', 'streamlit',\n    'openai-whisper', 'whisper', 'elevenlabs', 'bark',\n    'litellm', 'llm'\n);",
                 "interval": 86400,
                 "platform": "windows",
                 "timeout": 180,
@@ -771,7 +747,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_python_packages"
                         }
                     }
                 ]
@@ -838,14 +814,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_chrome_extensions"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_docker_containers",
-                "query": "-- AI Docker Containers\n-- Detects containers with AI/ML, MCP, vector DB, or image generation images\nSELECT\n    id,\n    name,\n    image,\n    status,\n    command,\n    started_at\nFROM docker_containers\nWHERE\n    -- LLM serving\n    image LIKE '%ollama%' OR image LIKE '%vllm%'\n    OR image LIKE '%text-generation%' OR image LIKE '%localai%'\n    OR image LIKE '%llama.cpp%' OR image LIKE '%litellm%'\n    -- ML frameworks\n    OR image LIKE '%pytorch%' OR image LIKE '%tensorflow%'\n    OR image LIKE '%triton%' OR image LIKE '%huggingface%'\n    -- MCP servers\n    OR image LIKE '%mcp%' OR image LIKE '%modelcontextprotocol%'\n    -- AI apps\n    OR image LIKE '%open-webui%' OR image LIKE '%anythingllm%'\n    OR image LIKE '%flowise%' OR image LIKE '%langflow%'\n    -- Vector databases\n    OR image LIKE '%chromadb%' OR image LIKE '%chroma%'\n    OR image LIKE '%qdrant%' OR image LIKE '%weaviate%'\n    OR image LIKE '%milvus%' OR image LIKE '%pinecone%'\n    -- Image generation\n    OR image LIKE '%comfyui%' OR image LIKE '%stable-diffusion%'\n    OR image LIKE '%invokeai%' OR image LIKE '%automatic1111%'\n    -- AI workflow/agents\n    OR image LIKE '%n8n%' OR image LIKE '%openhands%'\n    OR image LIKE '%sweepai%' OR image LIKE '%pr-agent%';",
+                "query": "-- AI Docker Containers (Windows-compatible)\n-- Detects AI container processes via process table since docker_containers\n-- table requires a Unix socket and is not available on Windows.\n-- Falls back to detecting docker/podman processes with AI-related image names.\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    datetime(p.start_time, 'unixepoch') AS started_at\nFROM processes p\nWHERE (p.name IN ('docker.exe', 'docker', 'podman.exe', 'podman')\n    OR p.path LIKE '%docker%' OR p.path LIKE '%podman%')\n    AND (\n    -- LLM serving\n    p.cmdline LIKE '%ollama%' OR p.cmdline LIKE '%vllm%'\n    OR p.cmdline LIKE '%text-generation%' OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%llama.cpp%' OR p.cmdline LIKE '%litellm%'\n    -- ML frameworks\n    OR p.cmdline LIKE '%pytorch%' OR p.cmdline LIKE '%tensorflow%'\n    OR p.cmdline LIKE '%triton%' OR p.cmdline LIKE '%huggingface%'\n    -- MCP servers\n    OR p.cmdline LIKE '%mcp%' OR p.cmdline LIKE '%modelcontextprotocol%'\n    -- AI apps\n    OR p.cmdline LIKE '%open-webui%' OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%flowise%' OR p.cmdline LIKE '%langflow%'\n    -- Vector databases\n    OR p.cmdline LIKE '%chromadb%' OR p.cmdline LIKE '%chroma%'\n    OR p.cmdline LIKE '%qdrant%' OR p.cmdline LIKE '%weaviate%'\n    OR p.cmdline LIKE '%milvus%' OR p.cmdline LIKE '%pinecone%'\n    -- Image generation\n    OR p.cmdline LIKE '%comfyui%' OR p.cmdline LIKE '%stable-diffusion%'\n    OR p.cmdline LIKE '%invokeai%' OR p.cmdline LIKE '%automatic1111%'\n    -- AI workflow/agents\n    OR p.cmdline LIKE '%n8n%' OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%sweepai%' OR p.cmdline LIKE '%pr-agent%'\n    );",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -867,21 +843,27 @@
                         }
                     },
                     {
-                        "key": "container.id",
-                        "value": {
-                            "field": "id"
-                        }
-                    },
-                    {
-                        "key": "container.name",
+                        "key": "process.name",
                         "value": {
                             "field": "name"
                         }
                     },
                     {
-                        "key": "container.image.name",
+                        "key": "process.executable",
                         "value": {
-                            "field": "image"
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "process.command_line",
+                        "value": {
+                            "field": "cmdline"
+                        }
+                    },
+                    {
+                        "key": "process.pid",
+                        "value": {
+                            "field": "pid"
                         }
                     },
                     {
@@ -899,7 +881,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_docker_containers"
                         }
                     }
                 ]
@@ -925,12 +907,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -972,14 +948,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_windows_services"
                         }
                     }
                 ]
             },
             {
                 "id": "mcp_npm_packages",
-                "query": "-- MCP npm Packages\n-- Detects installed Model Context Protocol npm packages\nSELECT\n    name,\n    version,\n    directory,\n    description\nFROM npm_packages\nWHERE name LIKE '@modelcontextprotocol/%'\n    OR name LIKE 'mcp-server-%'\n    OR name LIKE '%fastmcp%';",
+                "query": "-- MCP npm Packages (Windows)\n-- Detects installed Model Context Protocol npm packages\n-- Uses file table to scan for package.json in node_modules because\n-- osquery runs as SYSTEM and cannot discover user npm installs\nSELECT\n    f.directory,\n    f.path,\n    f.filename\nFROM file f\nWHERE (\n    -- Global npm (Roaming)\n    f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\npm\\node_modules\\mcp-server-%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\npm\\node_modules\\@anthropic-ai\\%\\package.json'\n    -- User home node_modules\n    OR f.path LIKE 'C:\\Users\\%\\node_modules\\@modelcontextprotocol\\%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\node_modules\\mcp-server-%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\node_modules\\@anthropic-ai\\%\\package.json'\n    -- Program Files nodejs\n    OR f.path LIKE 'C:\\Program Files\\nodejs\\node_modules\\@modelcontextprotocol\\%\\package.json'\n    OR f.path LIKE 'C:\\Program Files\\nodejs\\node_modules\\mcp-server-%\\package.json'\n    OR f.path LIKE 'C:\\Program Files\\nodejs\\node_modules\\@anthropic-ai\\%\\package.json'\n    -- NVM for Windows\n    OR f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\nvm\\%\\node_modules\\@modelcontextprotocol\\%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\nvm\\%\\node_modules\\mcp-server-%\\package.json'\n    OR f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\nvm\\%\\node_modules\\@anthropic-ai\\%\\package.json'\n);",
                 "interval": 86400,
                 "platform": "windows",
                 "timeout": 180,
@@ -1001,27 +977,21 @@
                         }
                     },
                     {
-                        "key": "package.name",
+                        "key": "file.path",
                         "value": {
-                            "field": "name"
+                            "field": "path"
                         }
                     },
                     {
-                        "key": "package.version",
-                        "value": {
-                            "field": "version"
-                        }
-                    },
-                    {
-                        "key": "package.path",
+                        "key": "file.directory",
                         "value": {
                             "field": "directory"
                         }
                     },
                     {
-                        "key": "package.description",
+                        "key": "file.name",
                         "value": {
-                            "field": "description"
+                            "field": "filename"
                         }
                     },
                     {
@@ -1039,14 +1009,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_npm_packages"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_gpu_systems",
-                "query": "-- GPU-Equipped Systems (AI Inference Capability)\n-- Detects NVIDIA, AMD, and Apple Silicon GPUs capable of running local LLMs\n-- GPU presence + AI software = high-confidence shadow AI indicator\nSELECT\n    vendor,\n    model,\n    pci_class,\n    pci_subclass,\n    driver\nFROM pci_devices\nWHERE\n    (vendor LIKE '%NVIDIA%' AND (pci_class = '0300' OR pci_class = '0302'))\n    OR (vendor LIKE '%Advanced Micro Devices%' AND pci_class = '0300')\n    OR vendor LIKE '%Apple%GPU%';",
+                "query": "-- GPU-Equipped Systems (AI Inference Capability) \u2014 Windows\n-- Detects NVIDIA and AMD GPUs capable of running local LLMs\n-- Uses video_info table (Windows-native) instead of pci_devices (unavailable on Windows)\n-- GPU presence + AI software = high-confidence shadow AI indicator\nSELECT\n    model,\n    manufacturer AS vendor,\n    driver_version AS driver,\n    series\nFROM video_info\nWHERE manufacturer LIKE '%NVIDIA%'\n    OR manufacturer LIKE '%Advanced Micro Devices%'\n    OR manufacturer LIKE '%AMD%'\n    OR model LIKE '%NVIDIA%'\n    OR model LIKE '%GeForce%'\n    OR model LIKE '%Radeon%'\n    OR model LIKE '%RTX%'\n    OR model LIKE '%GTX%';",
                 "interval": 86400,
                 "platform": "windows",
                 "timeout": 180,
@@ -1068,6 +1038,18 @@
                         }
                     },
                     {
+                        "key": "host.gpu.model",
+                        "value": {
+                            "field": "model"
+                        }
+                    },
+                    {
+                        "key": "host.gpu.vendor",
+                        "value": {
+                            "field": "vendor"
+                        }
+                    },
+                    {
                         "key": "tags",
                         "value": {
                             "value": [
@@ -1082,7 +1064,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_gpu_systems"
                         }
                     }
                 ]
@@ -1150,7 +1132,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_firefox_extensions"
                         }
                     }
                 ]
@@ -1176,12 +1158,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1223,14 +1199,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_credential_files_windows"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_jupyter_servers",
-                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter-lab', 'jupyter-notebook',\n    'jupyter-server', 'jupyterhub', 'jupyterhub-singleuser'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%';",
+                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter.exe', 'jupyter-lab', 'jupyter-lab.exe',\n    'jupyter-notebook', 'jupyter-notebook.exe',\n    'jupyter-server', 'jupyter-server.exe',\n    'jupyterhub', 'jupyterhub.exe',\n    'jupyterhub-singleuser', 'jupyterhub-singleuser.exe'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%';",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 120,
@@ -1308,7 +1284,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_jupyter_servers"
                         }
                     }
                 ]
@@ -1334,12 +1310,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1375,7 +1345,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_vscode_extensions_windows"
                         }
                     }
                 ]
@@ -1401,12 +1371,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1436,7 +1400,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_dns_cache_windows"
                         }
                     }
                 ]
@@ -1462,12 +1426,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1510,14 +1468,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_scheduled_tasks_windows"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_config_directories_windows",
-                "query": "-- AI Tool Configuration Directories (Windows)\n-- Detects AI tool config/cache dirs even when tools are not running\n-- Closes the Windows gap (macOS and Linux already covered)\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE 'C:\\Users\\%\\.ollama'\n    OR path LIKE 'C:\\Users\\%\\.cache\\lm-studio'\n    OR path LIKE 'C:\\Users\\%\\.cache\\huggingface'\n    OR path LIKE 'C:\\Users\\%\\.cache\\gpt4all'\n    OR path LIKE 'C:\\Users\\%\\.cache\\llama.cpp'\n    OR path LIKE 'C:\\Users\\%\\jan'\n    OR path LIKE 'C:\\Users\\%\\.continue'\n    OR path LIKE 'C:\\Users\\%\\.cursor'\n    OR path LIKE 'C:\\Users\\%\\.codeium'\n    OR path LIKE 'C:\\Users\\%\\.tabnine'\n    OR path LIKE 'C:\\Users\\%\\.claude'\n    OR path LIKE 'C:\\Users\\%\\.config\\github-copilot'\n    OR path LIKE 'C:\\Users\\%\\.config\\shell_gpt'\n    OR path LIKE 'C:\\Users\\%\\.supermaven'\n    OR path LIKE 'C:\\Users\\%\\.anythingllm'\n    OR path LIKE 'C:\\Users\\%\\.invokeai'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\LM Studio'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\AnythingLLM'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Ollama'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\GPT4All'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Roaming\\Jan'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Pieces'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Cursor'\n)\nAND type = 'directory';",
+                "query": "-- AI Tool Configuration Directories (Windows)\n-- Detects AI tool config/cache dirs even when tools are not running\n-- Closes the Windows gap (macOS and Linux already covered)\n-- NOTE: Uses trailing '%' so osquery file table correctly enumerates each directory\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE 'C:\\Users\\%\\.ollama\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\lm-studio\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\huggingface\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\gpt4all\\%'\n    OR path LIKE 'C:\\Users\\%\\.cache\\llama.cpp\\%'\n    OR path LIKE 'C:\\Users\\%\\jan\\%'\n    OR path LIKE 'C:\\Users\\%\\.continue\\%'\n    OR path LIKE 'C:\\Users\\%\\.cursor\\%'\n    OR path LIKE 'C:\\Users\\%\\.codeium\\%'\n    OR path LIKE 'C:\\Users\\%\\.tabnine\\%'\n    OR path LIKE 'C:\\Users\\%\\.claude\\%'\n    OR path LIKE 'C:\\Users\\%\\.config\\github-copilot\\%'\n    OR path LIKE 'C:\\Users\\%\\.config\\shell_gpt\\%'\n    OR path LIKE 'C:\\Users\\%\\.supermaven\\%'\n    OR path LIKE 'C:\\Users\\%\\.anythingllm\\%'\n    OR path LIKE 'C:\\Users\\%\\.invokeai\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\LM Studio\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\AnythingLLM\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Ollama\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\GPT4All\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Roaming\\Jan\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Pieces\\%'\n    OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Cursor\\%'\n);",
                 "interval": 86400,
                 "platform": "windows",
                 "timeout": 120,
@@ -1536,12 +1494,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1577,7 +1529,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_config_directories_windows"
                         }
                     }
                 ]
