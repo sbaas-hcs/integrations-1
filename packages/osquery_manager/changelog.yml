@@ -3,7 +3,7 @@
   changes:
     - description: Add Shadow AI Discovery prebuilt pack with 18 queries detecting AI tools, LLMs, MCP servers, model files, and AI packages across macOS, Windows, and Linux. Add AI Asset Discovery Overview dashboard.
       type: enhancement
-      link: https://github.com/elastic/integrations/pull/XXXXX
+      link: https://github.com/elastic/integrations/pull/18123
 
 - version: "1.25.0"
   changes:

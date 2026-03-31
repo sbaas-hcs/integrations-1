@@ -43,7 +43,9 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["metric1"],
+                                            "columnOrder": [
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "metric1": {
                                                     "dataType": "number",
@@ -76,7 +78,7 @@
                 "gridData": {
                     "h": 8,
                     "i": "panel_metric_total",
-                    "w": 12,
+                    "w": 8,
                     "x": 0,
                     "y": 0
                 },
@@ -94,7 +96,9 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["metric1"],
+                                            "columnOrder": [
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "metric1": {
                                                     "dataType": "number",
@@ -127,8 +131,8 @@
                 "gridData": {
                     "h": 8,
                     "i": "panel_metric_hosts",
-                    "w": 12,
-                    "x": 12,
+                    "w": 8,
+                    "x": 8,
                     "y": 0
                 },
                 "panelIndex": "panel_metric_hosts",
@@ -145,7 +149,9 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["metric1"],
+                                            "columnOrder": [
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "metric1": {
                                                     "dataType": "number",
@@ -182,8 +188,8 @@
                 "gridData": {
                     "h": 8,
                     "i": "panel_metric_mcp",
-                    "w": 12,
-                    "x": 24,
+                    "w": 8,
+                    "x": 16,
                     "y": 0
                 },
                 "panelIndex": "panel_metric_mcp",
@@ -200,7 +206,9 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["metric1"],
+                                            "columnOrder": [
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "metric1": {
                                                     "dataType": "number",
@@ -255,7 +263,10 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["bucket1", "metric1"],
+                                            "columnOrder": [
+                                                "bucket1",
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "bucket1": {
                                                     "dataType": "string",
@@ -265,10 +276,25 @@
                                                     "sourceField": "tags",
                                                     "params": {
                                                         "size": 10,
-                                                        "orderBy": { "type": "column", "columnId": "metric1" },
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "metric1"
+                                                        },
                                                         "orderDirection": "desc",
                                                         "includeIsRegex": false,
-                                                        "include": ["llm_runtime", "installed_apps", "installed_packages", "mcp_server", "mcp_config", "model_files", "python_packages", "browser_extensions", "docker_containers", "auto_start", "mcp_packages"]
+                                                        "include": [
+                                                            "llm_runtime",
+                                                            "installed_apps",
+                                                            "installed_packages",
+                                                            "mcp_server",
+                                                            "mcp_config",
+                                                            "model_files",
+                                                            "python_packages",
+                                                            "browser_extensions",
+                                                            "docker_containers",
+                                                            "auto_start",
+                                                            "mcp_packages"
+                                                        ]
                                                     }
                                                 },
                                                 "metric1": {
@@ -287,8 +313,12 @@
                                 "layers": [
                                     {
                                         "layerId": "layer1",
-                                        "primaryGroups": ["bucket1"],
-                                        "metrics": ["metric1"],
+                                        "primaryGroups": [
+                                            "bucket1"
+                                        ],
+                                        "metrics": [
+                                            "metric1"
+                                        ],
                                         "layerType": "data"
                                     }
                                 ],
@@ -326,7 +356,10 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["bucket1", "metric1"],
+                                            "columnOrder": [
+                                                "bucket1",
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "bucket1": {
                                                     "dataType": "string",
@@ -336,7 +369,10 @@
                                                     "sourceField": "host.os.type",
                                                     "params": {
                                                         "size": 5,
-                                                        "orderBy": { "type": "column", "columnId": "metric1" },
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "metric1"
+                                                        },
                                                         "orderDirection": "desc"
                                                     }
                                                 },
@@ -357,7 +393,9 @@
                                 "layers": [
                                     {
                                         "layerId": "layer1",
-                                        "accessors": ["metric1"],
+                                        "accessors": [
+                                            "metric1"
+                                        ],
                                         "xAccessor": "bucket1",
                                         "layerType": "data"
                                     }
@@ -395,7 +433,10 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["date1", "metric1"],
+                                            "columnOrder": [
+                                                "date1",
+                                                "metric1"
+                                            ],
                                             "columns": {
                                                 "date1": {
                                                     "dataType": "date",
@@ -424,7 +465,9 @@
                                 "layers": [
                                     {
                                         "layerId": "layer1",
-                                        "accessors": ["metric1"],
+                                        "accessors": [
+                                            "metric1"
+                                        ],
                                         "xAccessor": "date1",
                                         "layerType": "data"
                                     }
@@ -462,7 +505,12 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["col_host", "col_process", "col_tags", "col_count"],
+                                            "columnOrder": [
+                                                "col_host",
+                                                "col_process",
+                                                "col_tags",
+                                                "col_count"
+                                            ],
                                             "columns": {
                                                 "col_host": {
                                                     "dataType": "string",
@@ -470,7 +518,14 @@
                                                     "label": "Host",
                                                     "operationType": "terms",
                                                     "sourceField": "host.name",
-                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 50,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_process": {
                                                     "dataType": "string",
@@ -478,7 +533,14 @@
                                                     "label": "Tool",
                                                     "operationType": "terms",
                                                     "sourceField": "process.name",
-                                                    "params": { "size": 20, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 20,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_tags": {
                                                     "dataType": "string",
@@ -486,7 +548,14 @@
                                                     "label": "Category",
                                                     "operationType": "terms",
                                                     "sourceField": "tags",
-                                                    "params": { "size": 5, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 5,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_count": {
                                                     "dataType": "number",
@@ -504,10 +573,18 @@
                                 "layerId": "layer1",
                                 "layerType": "data",
                                 "columns": [
-                                    { "columnId": "col_host" },
-                                    { "columnId": "col_process" },
-                                    { "columnId": "col_tags" },
-                                    { "columnId": "col_count" }
+                                    {
+                                        "columnId": "col_host"
+                                    },
+                                    {
+                                        "columnId": "col_process"
+                                    },
+                                    {
+                                        "columnId": "col_tags"
+                                    },
+                                    {
+                                        "columnId": "col_count"
+                                    }
                                 ]
                             }
                         },
@@ -542,7 +619,12 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["col_host", "col_cmdline", "col_user", "col_count"],
+                                            "columnOrder": [
+                                                "col_host",
+                                                "col_cmdline",
+                                                "col_user",
+                                                "col_count"
+                                            ],
                                             "columns": {
                                                 "col_host": {
                                                     "dataType": "string",
@@ -550,7 +632,14 @@
                                                     "label": "Host",
                                                     "operationType": "terms",
                                                     "sourceField": "host.name",
-                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 50,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_cmdline": {
                                                     "dataType": "string",
@@ -558,7 +647,14 @@
                                                     "label": "Command",
                                                     "operationType": "terms",
                                                     "sourceField": "process.command_line",
-                                                    "params": { "size": 20, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 20,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_user": {
                                                     "dataType": "string",
@@ -566,7 +662,14 @@
                                                     "label": "User",
                                                     "operationType": "terms",
                                                     "sourceField": "user.name",
-                                                    "params": { "size": 10, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 10,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_count": {
                                                     "dataType": "number",
@@ -584,10 +687,18 @@
                                 "layerId": "layer1",
                                 "layerType": "data",
                                 "columns": [
-                                    { "columnId": "col_host" },
-                                    { "columnId": "col_cmdline" },
-                                    { "columnId": "col_user" },
-                                    { "columnId": "col_count" }
+                                    {
+                                        "columnId": "col_host"
+                                    },
+                                    {
+                                        "columnId": "col_cmdline"
+                                    },
+                                    {
+                                        "columnId": "col_user"
+                                    },
+                                    {
+                                        "columnId": "col_count"
+                                    }
                                 ]
                             }
                         },
@@ -623,7 +734,12 @@
                                 "formBased": {
                                     "layers": {
                                         "layer1": {
-                                            "columnOrder": ["col_host", "col_path", "col_size", "col_count"],
+                                            "columnOrder": [
+                                                "col_host",
+                                                "col_path",
+                                                "col_size",
+                                                "col_count"
+                                            ],
                                             "columns": {
                                                 "col_host": {
                                                     "dataType": "string",
@@ -631,7 +747,14 @@
                                                     "label": "Host",
                                                     "operationType": "terms",
                                                     "sourceField": "host.name",
-                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 50,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_path": {
                                                     "dataType": "string",
@@ -639,7 +762,14 @@
                                                     "label": "File Path",
                                                     "operationType": "terms",
                                                     "sourceField": "file.path",
-                                                    "params": { "size": 50, "orderBy": { "type": "column", "columnId": "col_count" }, "orderDirection": "desc" }
+                                                    "params": {
+                                                        "size": 50,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_count"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
                                                 },
                                                 "col_size": {
                                                     "dataType": "number",
@@ -664,10 +794,18 @@
                                 "layerId": "layer1",
                                 "layerType": "data",
                                 "columns": [
-                                    { "columnId": "col_host" },
-                                    { "columnId": "col_path" },
-                                    { "columnId": "col_size" },
-                                    { "columnId": "col_count" }
+                                    {
+                                        "columnId": "col_host"
+                                    },
+                                    {
+                                        "columnId": "col_path"
+                                    },
+                                    {
+                                        "columnId": "col_size"
+                                    },
+                                    {
+                                        "columnId": "col_count"
+                                    }
                                 ]
                             }
                         },
@@ -690,6 +828,185 @@
                 },
                 "panelIndex": "panel_table_models",
                 "title": "AI Model Files",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "High-Risk AI Findings",
+                        "visualizationType": "lnsMetric",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": [
+                                                "metric1"
+                                            ],
+                                            "columns": {
+                                                "metric1": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "High-Risk Findings",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:(\"network_exposure\" OR \"credential_exposure\" OR \"mcp_server\") OR (tags:\"ai_discovery\" AND server.port:*)"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "metricAccessor": "metric1",
+                                "color": "#EF4444"
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 8,
+                    "i": "panel_metric_risk",
+                    "w": 12,
+                    "x": 24,
+                    "y": 0
+                },
+                "panelIndex": "panel_metric_risk",
+                "title": "High-Risk AI Findings",
+                "type": "lens"
+            },
+            {
+                "embeddableConfig": {
+                    "attributes": {
+                        "title": "Risk Breakdown by Host",
+                        "visualizationType": "lnsDatatable",
+                        "state": {
+                            "datasourceStates": {
+                                "formBased": {
+                                    "layers": {
+                                        "layer1": {
+                                            "columnOrder": [
+                                                "col_host",
+                                                "col_network",
+                                                "col_cred",
+                                                "col_mcp",
+                                                "col_total"
+                                            ],
+                                            "columns": {
+                                                "col_host": {
+                                                    "dataType": "string",
+                                                    "isBucketed": true,
+                                                    "label": "Host",
+                                                    "operationType": "terms",
+                                                    "sourceField": "host.name",
+                                                    "params": {
+                                                        "size": 20,
+                                                        "orderBy": {
+                                                            "type": "column",
+                                                            "columnId": "col_total"
+                                                        },
+                                                        "orderDirection": "desc"
+                                                    }
+                                                },
+                                                "col_network": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Network Exposed",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:\"network_exposure\""
+                                                    }
+                                                },
+                                                "col_cred": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Credential Files",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:\"credential_exposure\""
+                                                    }
+                                                },
+                                                "col_mcp": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "MCP Servers",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___",
+                                                    "filter": {
+                                                        "language": "kuery",
+                                                        "query": "tags:\"mcp_server\" OR tags:\"mcp_config\""
+                                                    }
+                                                },
+                                                "col_total": {
+                                                    "dataType": "number",
+                                                    "isBucketed": false,
+                                                    "label": "Total Findings",
+                                                    "operationType": "count",
+                                                    "sourceField": "___records___"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "visualization": {
+                                "layerId": "layer1",
+                                "layerType": "data",
+                                "columns": [
+                                    {
+                                        "columnId": "col_host"
+                                    },
+                                    {
+                                        "columnId": "col_network"
+                                    },
+                                    {
+                                        "columnId": "col_cred"
+                                    },
+                                    {
+                                        "columnId": "col_mcp"
+                                    },
+                                    {
+                                        "columnId": "col_total"
+                                    }
+                                ]
+                            }
+                        },
+                        "references": [
+                            {
+                                "id": "logs-*",
+                                "name": "indexpattern-datasource-layer-layer1",
+                                "type": "index-pattern"
+                            }
+                        ]
+                    },
+                    "enhancements": {}
+                },
+                "gridData": {
+                    "h": 16,
+                    "i": "panel_table_risk",
+                    "w": 48,
+                    "x": 0,
+                    "y": 56
+                },
+                "panelIndex": "panel_table_risk",
+                "title": "Risk Breakdown by Host",
                 "type": "lens"
             }
         ],

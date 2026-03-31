@@ -4,7 +4,7 @@
   changes:
     - description: Add 4 Shadow AI Discovery detection rules — Network-Exposed AI Server (high), Unauthorized MCP Server (medium), New AI Tool Detected (low), Large AI Model File Downloaded (low)
       type: enhancement
-      link: https://github.com/elastic/integrations/pull/XXXXX
+      link: https://github.com/elastic/integrations/pull/18123
 - version: 9.3.7
   changes:
     - description: Release security rules update
