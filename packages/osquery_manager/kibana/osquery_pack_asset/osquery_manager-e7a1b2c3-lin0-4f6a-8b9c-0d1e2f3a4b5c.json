@@ -84,7 +84,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_llm_processes"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -169,7 +169,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_coding_agents"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -254,7 +254,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_listening_ports"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -339,7 +339,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_listening_ports_local"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -365,6 +365,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -400,7 +406,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_packages_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -479,7 +485,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_server_processes"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -505,6 +511,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -546,7 +558,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_config_files_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -572,6 +584,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -619,14 +637,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_model_files_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_model_file_extensions_linux",
-                "query": "-- AI Model Files by Extension (Linux)\n-- Detects model weight files by extension in user and opt directories\n-- Includes both shallow (home dir) and known deep paths for full coverage\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    -- Shallow: files directly in user home or one level down\n    path LIKE '/home/%/%.gguf'\n    OR path LIKE '/home/%/%.safetensors'\n    OR path LIKE '/home/%/%.llamafile'\n    OR path LIKE '/home/%/%.ggml'\n    OR path LIKE '/home/%/%.onnx'\n    OR path LIKE '/opt/%/%.gguf'\n    OR path LIKE '/opt/%/%.safetensors'\n    -- Deep: known model cache directories\n    OR path LIKE '/home/%/.cache/huggingface/hub/%.safetensors'\n    OR path LIKE '/home/%/.cache/llama.cpp/%.gguf'\n    OR path LIKE '/home/%/.local/share/nomic.ai/GPT4All/%.gguf'\n    -- Downloads folder (common drop location)\n    OR path LIKE '/home/%/Downloads/%.gguf'\n    OR path LIKE '/home/%/Downloads/%.safetensors'\n)\nAND size > 100000000;",
+                "query": "-- AI Model Files by Extension (Linux)\n-- Detects model weight files by extension in user and opt directories\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/home/%/%.gguf'\n    OR path LIKE '/home/%/%.safetensors'\n    OR path LIKE '/home/%/%.llamafile'\n    OR path LIKE '/home/%/%.ggml'\n    OR path LIKE '/home/%/%.onnx'\n    OR path LIKE '/opt/%/%.gguf'\n    OR path LIKE '/opt/%/%.safetensors'\n)\nAND size > 100000000;",
                 "interval": 86400,
                 "platform": "linux",
                 "timeout": 180,
@@ -684,9 +702,15 @@
                         }
                     },
                     {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
+                        }
+                    },
+                    {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_model_file_extensions_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -747,7 +771,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_python_packages"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -814,7 +838,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_chrome_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -875,14 +899,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_docker_containers"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "mcp_npm_packages",
-                "query": "-- MCP npm Packages (Linux)\n-- Detects installed Model Context Protocol npm packages\n-- Uses file table to scan for package.json because osquery runs as root\n-- and npm_packages table may not discover global/user installs\nSELECT\n    f.directory,\n    f.path,\n    f.filename\nFROM file f\nWHERE (\n    -- Global npm (npm install -g)\n    f.path LIKE '/usr/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/usr/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/usr/lib/node_modules/@anthropic-ai/%/package.json'\n    OR f.path LIKE '/usr/local/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/usr/local/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/usr/local/lib/node_modules/@anthropic-ai/%/package.json'\n    -- NVM installs\n    OR f.path LIKE '/home/%/.nvm/versions/node/%/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/home/%/.nvm/versions/node/%/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/home/%/.nvm/versions/node/%/lib/node_modules/@anthropic-ai/%/package.json'\n    -- User home node_modules\n    OR f.path LIKE '/home/%/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/home/%/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/home/%/node_modules/@anthropic-ai/%/package.json'\n    -- Root home\n    OR f.path LIKE '/root/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/root/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/root/node_modules/@anthropic-ai/%/package.json'\n);",
+                "query": "-- MCP npm Packages\n-- Detects installed Model Context Protocol npm packages\nSELECT\n    name,\n    version,\n    directory,\n    description\nFROM npm_packages\nWHERE name LIKE '@modelcontextprotocol/%'\n    OR name LIKE 'mcp-server-%'\n    OR name LIKE '%fastmcp%';",
                 "interval": 86400,
                 "platform": "linux",
                 "timeout": 180,
@@ -904,21 +928,27 @@
                         }
                     },
                     {
-                        "key": "file.path",
+                        "key": "package.name",
                         "value": {
-                            "field": "path"
+                            "field": "name"
                         }
                     },
                     {
-                        "key": "file.directory",
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.path",
                         "value": {
                             "field": "directory"
                         }
                     },
                     {
-                        "key": "file.name",
+                        "key": "package.description",
                         "value": {
-                            "field": "filename"
+                            "field": "description"
                         }
                     },
                     {
@@ -936,7 +966,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_npm_packages"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -979,14 +1009,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_gpu_systems"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_config_directories_linux",
-                "query": "-- AI Tool Configuration Directories (Linux)\n-- Detects AI tool config directories in user home directories\n-- Note: osquery file table path LIKE '/home/%/.dirname' does NOT work\n-- (mid-path % only works for end-of-path enumeration).\n-- Instead use directory column with LIKE '/home/%/' to enumerate user homes,\n-- then filter by filename.\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/home/%/'\nAND (\n    (type = 'directory' AND filename IN (\n        '.ollama', 'jan', '.continue', '.cursor', '.codeium',\n        '.tabnine', '.claude', '.supermaven', '.anythingllm',\n        '.invokeai'\n    ))\n    OR filename = '.aider.conf.yml'\n)\nUNION\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/home/%/.cache/'\nAND type = 'directory'\nAND filename IN (\n    'lm-studio', 'huggingface', 'gpt4all', 'llama.cpp'\n)\nUNION\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/home/%/.config/'\nAND type = 'directory'\nAND filename IN (\n    'github-copilot', 'shell_gpt'\n);",
+                "query": "-- AI Tool Configuration Directories (Linux)\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE '/home/%/.ollama'\n    OR path LIKE '/home/%/.cache/lm-studio'\n    OR path LIKE '/home/%/.cache/huggingface'\n    OR path LIKE '/home/%/.cache/gpt4all'\n    OR path LIKE '/home/%/.cache/llama.cpp'\n    OR path LIKE '/home/%/jan'\n    OR path LIKE '/home/%/.continue'\n    OR path LIKE '/home/%/.cursor'\n    OR path LIKE '/home/%/.codeium'\n    OR path LIKE '/home/%/.tabnine'\n    OR path LIKE '/home/%/.claude'\n    OR path LIKE '/home/%/.config/github-copilot'\n    OR path LIKE '/home/%/.config/shell_gpt'\n    OR path LIKE '/home/%/.supermaven'\n    OR path LIKE '/home/%/.anythingllm'\n    OR path LIKE '/home/%/.invokeai'\n    OR path LIKE '/home/%/.aider.conf.yml'\n)\nAND type = 'directory'\n    OR path LIKE '/home/%/.aider.conf.yml';",
                 "interval": 86400,
                 "platform": "linux",
                 "timeout": 180,
@@ -1005,6 +1035,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -1040,7 +1076,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_config_directories_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1108,7 +1144,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_firefox_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1134,6 +1170,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -1175,14 +1217,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_credential_files_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_jupyter_servers",
-                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\n-- Note: jupyter often runs as python3 interpreter, so cmdline matching is essential\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter-lab', 'jupyter-notebook',\n    'jupyter-server', 'jupyterhub', 'jupyterhub-singleuser'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%'\n    OR p.cmdline LIKE '%jupyter-notebook%'\n    OR p.cmdline LIKE '%jupyter_core%'\n    OR (p.name = 'python3' AND p.cmdline LIKE '%jupyter%')\n    OR (p.name = 'python' AND p.cmdline LIKE '%jupyter%');",
+                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter-lab', 'jupyter-notebook',\n    'jupyter-server', 'jupyterhub', 'jupyterhub-singleuser'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%';",
                 "interval": 3600,
                 "platform": "linux",
                 "timeout": 120,
@@ -1260,14 +1302,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_jupyter_servers"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_vscode_extensions",
-                "query": "-- AI VS Code Extensions (Linux)\n-- Detects AI-related VS Code extensions installed on the system\n-- VS Code extensions are stored as directories under ~/.vscode/extensions/\nSELECT\n    path,\n    filename AS extension_id,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/home/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/home/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/home/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/home/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/home/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/home/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/home/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/home/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/home/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/home/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/home/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/home/%/.vscode/extensions/pieces.pieces-vscode%'\n)\nAND type = 'directory';",
+                "query": "-- AI VS Code Extensions\n-- Detects AI-related VS Code extensions installed on the system\n-- VS Code extensions are stored as directories under ~/.vscode/extensions/\nSELECT\n    path,\n    filename AS extension_id,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/Users/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/Users/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/Users/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/Users/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/Users/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/Users/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/Users/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/Users/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/Users/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/Users/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/Users/%/.vscode/extensions/pieces.pieces-vscode%'\n    OR path LIKE '/Users/%/.vscode/extensions/phind.phind%'\n    OR path LIKE '/Users/%/.vscode/extensions/bito.bito%'\n    OR path LIKE '/home/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/home/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/home/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/home/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/home/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/home/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/home/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/home/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/home/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/home/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/home/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/home/%/.vscode/extensions/pieces.pieces-vscode%'\n)\nAND type = 'directory';",
                 "interval": 86400,
                 "platform": "linux",
                 "timeout": 120,
@@ -1321,7 +1363,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_vscode_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1347,6 +1389,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -1389,7 +1437,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_systemd_services"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1415,6 +1463,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "linux"
                         }
                     },
                     {
@@ -1445,7 +1499,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_crontab_linux"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]

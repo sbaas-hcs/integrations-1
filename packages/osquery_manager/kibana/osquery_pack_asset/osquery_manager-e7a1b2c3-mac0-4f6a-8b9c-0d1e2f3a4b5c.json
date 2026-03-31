@@ -84,7 +84,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_llm_processes"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -169,7 +169,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_coding_agents"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -254,7 +254,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_listening_ports"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -339,7 +339,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_listening_ports_local"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -365,6 +365,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -400,7 +406,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_apps_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -479,7 +485,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_server_processes"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -505,6 +511,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -546,7 +558,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_config_files_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -572,6 +584,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -619,14 +637,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_model_files_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_model_file_extensions_macos",
-                "query": "-- AI Model Files by Extension (macOS)\n-- Detects model weight files by extension in user directories\n-- Catches models outside standard tool directories (manual downloads, custom paths)\n-- Extensions: .gguf (llama.cpp), .safetensors (HuggingFace), .llamafile (llamafile),\n-- .ggml (legacy), .onnx (ONNX Runtime)\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/%.gguf'\n    OR path LIKE '/Users/%/%.safetensors'\n    OR path LIKE '/Users/%/%.llamafile'\n    OR path LIKE '/Users/%/%.ggml'\n    OR path LIKE '/Users/%/%.onnx'\n    OR path LIKE '/Users/%/Downloads/%.gguf'\n    OR path LIKE '/Users/%/Downloads/%.safetensors'\n    OR path LIKE '/Users/%/Downloads/%.llamafile'\n    OR path LIKE '/Users/%/Downloads/%.ggml'\n    OR path LIKE '/Users/%/Downloads/%.onnx'\n    OR path LIKE '/Users/%/.cache/huggingface/hub/%.gguf'\n    OR path LIKE '/Users/%/.cache/huggingface/hub/%.safetensors'\n    OR path LIKE '/Users/%/.cache/llama.cpp/%.gguf'\n    OR path LIKE '/Users/%/.local/share/nomic.ai/GPT4All/%.gguf'\n)\nAND size > 100000000;",
+                "query": "-- AI Model Files by Extension (macOS)\n-- Detects model weight files by extension in user directories\n-- Catches models outside standard tool directories (manual downloads, custom paths)\n-- Extensions: .gguf (llama.cpp), .safetensors (HuggingFace), .llamafile (llamafile),\n-- .ggml (legacy), .onnx (ONNX Runtime)\nSELECT\n    path,\n    filename,\n    size,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/%.gguf'\n    OR path LIKE '/Users/%/%.safetensors'\n    OR path LIKE '/Users/%/%.llamafile'\n    OR path LIKE '/Users/%/%.ggml'\n    OR path LIKE '/Users/%/%.onnx'\n)\nAND size > 100000000;",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 180,
@@ -684,9 +702,15 @@
                         }
                     },
                     {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
+                        }
+                    },
+                    {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_model_file_extensions_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -747,7 +771,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_python_packages"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -814,7 +838,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_chrome_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -875,7 +899,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_docker_containers"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -901,6 +925,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -930,14 +960,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_launchd_services"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "mcp_npm_packages",
-                "query": "-- MCP npm Packages (macOS)\n-- Uses file table to scan for package.json because npm_packages table\n-- may not discover global/user installs in all contexts\nSELECT\n    f.directory,\n    f.path,\n    f.filename\nFROM file f\nWHERE (\n    -- Global npm (Homebrew ARM64)\n    f.path LIKE '/opt/homebrew/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/opt/homebrew/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/opt/homebrew/lib/node_modules/@anthropic-ai/%/package.json'\n    -- Global npm (Homebrew Intel / system)\n    OR f.path LIKE '/usr/local/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/usr/local/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/usr/local/lib/node_modules/@anthropic-ai/%/package.json'\n    -- User npm global (~/.npm-global)\n    OR f.path LIKE '/Users/%/.npm-global/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/Users/%/.npm-global/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/Users/%/.npm-global/lib/node_modules/@anthropic-ai/%/package.json'\n    -- NVM installs\n    OR f.path LIKE '/Users/%/.nvm/versions/node/%/lib/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/Users/%/.nvm/versions/node/%/lib/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/Users/%/.nvm/versions/node/%/lib/node_modules/@anthropic-ai/%/package.json'\n    -- User local node_modules\n    OR f.path LIKE '/Users/%/node_modules/@modelcontextprotocol/%/package.json'\n    OR f.path LIKE '/Users/%/node_modules/mcp-server-%/package.json'\n    OR f.path LIKE '/Users/%/node_modules/@anthropic-ai/%/package.json'\n);",
+                "query": "-- MCP npm Packages\n-- Detects installed Model Context Protocol npm packages\nSELECT\n    name,\n    version,\n    directory,\n    description\nFROM npm_packages\nWHERE name LIKE '@modelcontextprotocol/%'\n    OR name LIKE 'mcp-server-%'\n    OR name LIKE '%fastmcp%';",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 180,
@@ -959,21 +989,27 @@
                         }
                     },
                     {
-                        "key": "file.path",
+                        "key": "package.name",
                         "value": {
-                            "field": "path"
+                            "field": "name"
                         }
                     },
                     {
-                        "key": "file.directory",
+                        "key": "package.version",
+                        "value": {
+                            "field": "version"
+                        }
+                    },
+                    {
+                        "key": "package.path",
                         "value": {
                             "field": "directory"
                         }
                     },
                     {
-                        "key": "file.name",
+                        "key": "package.description",
                         "value": {
-                            "field": "filename"
+                            "field": "description"
                         }
                     },
                     {
@@ -991,14 +1027,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.mcp_npm_packages"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_gpu_systems",
-                "query": "-- GPU/AI-Capable Hardware Detection (macOS)\n-- Detects Apple Silicon (M1/M2/M3/M4) which has unified GPU and Neural Engine\n-- capable of running local LLMs efficiently via Metal acceleration\n-- Also detects any discrete NVIDIA/AMD GPUs on older Intel Macs\nSELECT\n    cpu_brand AS model,\n    cpu_type AS vendor,\n    hardware_model,\n    physical_memory\nFROM system_info\nWHERE cpu_brand LIKE '%Apple M%'\n    OR hardware_model LIKE '%Mac%'\nUNION\nSELECT\n    model,\n    vendor,\n    '' AS hardware_model,\n    '' AS physical_memory\nFROM pci_devices\nWHERE\n    (vendor LIKE '%NVIDIA%' AND (pci_class = '0300' OR pci_class = '0302'))\n    OR (vendor LIKE '%Advanced Micro Devices%' AND pci_class = '0300');",
+                "query": "-- GPU-Equipped Systems (AI Inference Capability)\n-- Detects NVIDIA, AMD, and Apple Silicon GPUs capable of running local LLMs\n-- GPU presence + AI software = high-confidence shadow AI indicator\nSELECT\n    vendor,\n    model,\n    pci_class,\n    pci_subclass,\n    driver\nFROM pci_devices\nWHERE\n    (vendor LIKE '%NVIDIA%' AND (pci_class = '0300' OR pci_class = '0302'))\n    OR (vendor LIKE '%Advanced Micro Devices%' AND pci_class = '0300')\n    OR vendor LIKE '%Apple%GPU%';",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 180,
@@ -1034,14 +1070,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_gpu_systems"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_config_directories_macos",
-                "query": "-- AI Tool Configuration Directories (macOS)\n-- Detects AI tool config/cache dirs even when tools are not running\n-- Presence indicates the tool was installed and used at some point\n-- Uses directory+filename approach because mid-path % in LIKE doesn't work with osquery file table\nSELECT path, type, datetime(mtime, 'unixepoch') AS modified_time, datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/Users/%/'\nAND (\n    (type = 'directory' AND filename IN (\n        '.ollama', 'jan', '.continue', '.cursor', '.codeium',\n        '.tabnine', '.claude', '.supermaven', '.anythingllm',\n        '.invokeai'\n    ))\n    OR filename = '.aider.conf.yml'\n)\nUNION\nSELECT path, type, datetime(mtime, 'unixepoch') AS modified_time, datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/Users/%/.cache/'\nAND type = 'directory'\nAND filename IN (\n    'lm-studio', 'huggingface', 'gpt4all', 'llama.cpp'\n)\nUNION\nSELECT path, type, datetime(mtime, 'unixepoch') AS modified_time, datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE directory LIKE '/Users/%/.config/'\nAND type = 'directory'\nAND filename IN (\n    'github-copilot', 'shell_gpt'\n);",
+                "query": "-- AI Tool Configuration Directories (macOS)\n-- Detects AI tool config/cache dirs even when tools are not running\n-- Presence indicates the tool was installed and used at some point\nSELECT\n    path,\n    type,\n    datetime(mtime, 'unixepoch') AS modified_time,\n    datetime(atime, 'unixepoch') AS accessed_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/.ollama'\n    OR path LIKE '/Users/%/.cache/lm-studio'\n    OR path LIKE '/Users/%/.cache/huggingface'\n    OR path LIKE '/Users/%/.cache/gpt4all'\n    OR path LIKE '/Users/%/.cache/llama.cpp'\n    OR path LIKE '/Users/%/jan'\n    OR path LIKE '/Users/%/.continue'\n    OR path LIKE '/Users/%/.cursor'\n    OR path LIKE '/Users/%/.codeium'\n    OR path LIKE '/Users/%/.tabnine'\n    OR path LIKE '/Users/%/.claude'\n    OR path LIKE '/Users/%/.config/github-copilot'\n    OR path LIKE '/Users/%/.config/shell_gpt'\n    OR path LIKE '/Users/%/.supermaven'\n    OR path LIKE '/Users/%/.anythingllm'\n    OR path LIKE '/Users/%/.invokeai'\n    OR path LIKE '/Users/%/.aider.conf.yml'\n)\nAND type = 'directory'\n    OR path LIKE '/Users/%/.aider.conf.yml';",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 180,
@@ -1060,6 +1096,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -1095,7 +1137,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_config_directories_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1163,7 +1205,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_firefox_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1189,6 +1231,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -1225,7 +1273,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_safari_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
@@ -1251,6 +1299,12 @@
                             "value": [
                                 "info"
                             ]
+                        }
+                    },
+                    {
+                        "key": "host.os.type",
+                        "value": {
+                            "value": "macos"
                         }
                     },
                     {
@@ -1292,14 +1346,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_credential_files_macos"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_jupyter_servers",
-                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter-lab', 'jupyter-notebook',\n    'jupyter-server', 'jupyterhub', 'jupyterhub-singleuser'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%'\n    OR p.cmdline LIKE '%jupyter-notebook%'\n    OR p.cmdline LIKE '%jupyter_core%'\n    OR (p.name = 'python3' AND p.cmdline LIKE '%jupyter%')\n    OR (p.name = 'python' AND p.cmdline LIKE '%jupyter%')\n    OR (p.name = 'Python' AND p.cmdline LIKE '%jupyter%');",
+                "query": "-- Running Jupyter Notebook/Lab Servers\n-- Detects Jupyter servers which are common AI development environments\n-- Jupyter servers may expose notebooks with sensitive data, model training code,\n-- and API credentials to the network\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'jupyter', 'jupyter-lab', 'jupyter-notebook',\n    'jupyter-server', 'jupyterhub', 'jupyterhub-singleuser'\n)\n    OR p.cmdline LIKE '%jupyter%notebook%'\n    OR p.cmdline LIKE '%jupyter%lab%'\n    OR p.cmdline LIKE '%jupyter%server%'\n    OR p.cmdline LIKE '%jupyterhub%';",
                 "interval": 3600,
                 "platform": "darwin",
                 "timeout": 120,
@@ -1377,14 +1431,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_jupyter_servers"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_vscode_extensions",
-                "query": "-- AI VS Code Extensions\n-- Detects AI-related VS Code extensions installed on the system\n-- VS Code extensions are stored as directories under ~/.vscode/extensions/\nSELECT\n    path,\n    filename AS extension_id,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/Users/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/Users/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/Users/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/Users/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/Users/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/Users/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/Users/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/Users/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/Users/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/Users/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/Users/%/.vscode/extensions/pieces.pieces-vscode%'\n    OR path LIKE '/Users/%/.vscode/extensions/phind.phind%'\n    OR path LIKE '/Users/%/.vscode/extensions/bito.bito%'\n)\nAND type = 'directory';",
+                "query": "-- AI VS Code Extensions\n-- Detects AI-related VS Code extensions installed on the system\n-- VS Code extensions are stored as directories under ~/.vscode/extensions/\nSELECT\n    path,\n    filename AS extension_id,\n    datetime(mtime, 'unixepoch') AS modified_time\nFROM file\nWHERE (\n    path LIKE '/Users/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/Users/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/Users/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/Users/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/Users/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/Users/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/Users/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/Users/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/Users/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/Users/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/Users/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/Users/%/.vscode/extensions/pieces.pieces-vscode%'\n    OR path LIKE '/Users/%/.vscode/extensions/phind.phind%'\n    OR path LIKE '/Users/%/.vscode/extensions/bito.bito%'\n    OR path LIKE '/home/%/.vscode/extensions/github.copilot%'\n    OR path LIKE '/home/%/.vscode/extensions/github.copilot-chat%'\n    OR path LIKE '/home/%/.vscode/extensions/saoudrizwan.claude-dev%'\n    OR path LIKE '/home/%/.vscode/extensions/rooveterinaryinc.roo-cline%'\n    OR path LIKE '/home/%/.vscode/extensions/continue.continue%'\n    OR path LIKE '/home/%/.vscode/extensions/sourcegraph.cody%'\n    OR path LIKE '/home/%/.vscode/extensions/codeium.codeium%'\n    OR path LIKE '/home/%/.vscode/extensions/tabnine.tabnine%'\n    OR path LIKE '/home/%/.vscode/extensions/amazonwebservices.amazon-q%'\n    OR path LIKE '/home/%/.vscode/extensions/supermaven.supermaven%'\n    OR path LIKE '/home/%/.vscode/extensions/blackboxapp.blackbox%'\n    OR path LIKE '/home/%/.vscode/extensions/pieces.pieces-vscode%'\n)\nAND type = 'directory';",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 120,
@@ -1438,14 +1492,14 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_vscode_extensions"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
             },
             {
                 "id": "ai_homebrew_packages",
-                "query": "-- AI Homebrew Packages (macOS/Linux)\n-- Detects AI tools installed via Homebrew\n-- Many AI tools distribute via brew (Ollama, llama.cpp, etc.)\nSELECT\n    name,\n    version,\n    path\nFROM homebrew_packages\nWHERE name IN (\n    'ollama', 'llama.cpp', 'llamafile', 'gpt4all',\n    'vllm', 'litellm', 'localai',\n    'huggingface-cli', 'transformers',\n    'pytorch', 'tensorflow',\n    'cursor', 'zed', 'warp',\n    'aider', 'shell-gpt', 'llm',\n    'chromadb', 'qdrant',\n    'comfyui', 'whisper', 'whisper-cpp',\n    'jupyterlab', 'jupyter'\n)\n    OR name LIKE '%ollama%'\n    OR name LIKE '%llama%'\n    OR name LIKE '%whisper%'\n    OR name LIKE '%mcp-server%';",
+                "query": "-- AI Homebrew Packages (macOS/Linux)\n-- Detects AI tools installed via Homebrew\n-- Many AI tools distribute via brew (Ollama, llama.cpp, etc.)\nSELECT\n    name,\n    version,\n    path,\n    description\nFROM homebrew_packages\nWHERE name IN (\n    'ollama', 'llama.cpp', 'llamafile', 'gpt4all',\n    'vllm', 'litellm', 'localai',\n    'huggingface-cli', 'transformers',\n    'pytorch', 'tensorflow',\n    'cursor', 'zed', 'warp',\n    'aider', 'shell-gpt', 'llm',\n    'chromadb', 'qdrant',\n    'comfyui', 'whisper', 'whisper-cpp',\n    'jupyterlab', 'jupyter'\n)\n    OR name LIKE '%ollama%'\n    OR name LIKE '%llama%'\n    OR name LIKE '%whisper%'\n    OR name LIKE '%mcp-server%';",
                 "interval": 86400,
                 "platform": "darwin",
                 "timeout": 120,
@@ -1485,6 +1539,12 @@
                         }
                     },
                     {
+                        "key": "package.description",
+                        "value": {
+                            "field": "description"
+                        }
+                    },
+                    {
                         "key": "tags",
                         "value": {
                             "value": [
@@ -1499,7 +1559,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_homebrew_packages"
+                            "value": "osquery.ai_discovery"
                         }
                     }
                 ]
