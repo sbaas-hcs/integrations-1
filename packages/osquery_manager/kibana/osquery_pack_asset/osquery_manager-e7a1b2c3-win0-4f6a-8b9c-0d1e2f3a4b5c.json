@@ -1,6 +1,6 @@
 {
     "attributes": {
-        "description": "Detect and inventory Shadow AI tools on Windows endpoints — local LLMs, AI coding agents, AI desktop applications, MCP servers (with config content scanning), AI model files, Python/npm AI packages, browser extensions, Docker containers, Windows services, scheduled tasks, GPU-equipped systems, AI API key exposure, and AI tool configuration directories.",
+        "description": "Detect and inventory Shadow AI tools on Windows endpoints — local LLMs, AI coding agents, AI desktop applications, MCP servers (with config content scanning), AI model files, Python/npm AI packages, browser extensions, Docker containers, Windows services, scheduled tasks, GPU-equipped systems, AI API key exposure, and AI tool configuration directories, vector databases, and model cache sizes.",
         "name": "ai-asset-discovery-windows",
         "version": 1,
         "queries": [
@@ -176,7 +176,7 @@
             },
             {
                 "id": "ai_listening_ports",
-                "query": "-- AI API Servers Exposed on Network\n-- Detects AI services listening on non-loopback addresses (network-exposed)\n-- Ports: 11434 Ollama, 1234/43411 LM Studio, 4891 GPT4All, 1337 Jan,\n-- 5001 KoboldCpp, 7860 Gradio/HF, 8080 llama.cpp/LocalAI/TGI,\n-- 8000 vLLM, 4000 LiteLLM, 3000 Open WebUI, 3001 AnythingLLM,\n-- 8188 ComfyUI, 9090 InvokeAI, 1000 Pieces\nSELECT\n    l.port,\n    l.address,\n    l.protocol,\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid\nFROM listening_ports l\nJOIN processes p ON l.pid = p.pid\nWHERE l.port IN (\n    11434, 1234, 43411, 4891, 1337, 5001, 7860,\n    8080, 8000, 4000, 3000, 3001, 8188, 9090, 1000\n)\n    AND l.address != '127.0.0.1'\n    AND l.address != '::1';",
+                "query": "-- AI API Servers Exposed on Network\n-- Detects AI services listening on non-loopback addresses (network-exposed)\n-- Ports: 11434 Ollama, 1234/43411 LM Studio, 4891 GPT4All, 1337 Jan,\n-- 5001 KoboldCpp, 7860 Gradio/HF, 8080 llama.cpp/LocalAI/TGI,\n-- 8000 vLLM, 4000 LiteLLM, 3000 Open WebUI, 3001 AnythingLLM,\n-- 8188 ComfyUI, 9090 InvokeAI, 1000 Pieces, 8501 Streamlit,\n-- 6333/6334 Qdrant, 19530 Milvus, 8265 Ray, 9099 PrivateGPT,\n-- 5678 n8n, 8888 Jupyter\nSELECT\n    l.port,\n    l.address,\n    l.protocol,\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid\nFROM listening_ports l\nJOIN processes p ON l.pid = p.pid\nWHERE l.port IN (\n    11434, 1234, 43411, 4891, 1337, 5001, 7860,\n    8080, 8000, 4000, 3000, 3001, 8188, 9090, 1000,\n    8501, 6333, 6334, 19530, 8265, 9099, 5678, 8888\n)\n    AND l.address != '127.0.0.1'\n    AND l.address != '::1';",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -261,7 +261,7 @@
             },
             {
                 "id": "ai_listening_ports_local",
-                "query": "-- AI API Servers Inventory (Including Localhost)\n-- Inventories ALL AI services on known ports, including loopback\n-- Complements ai_listening_ports which only flags network-exposed servers\nSELECT\n    l.port,\n    l.address,\n    l.protocol,\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid\nFROM listening_ports l\nJOIN processes p ON l.pid = p.pid\nWHERE l.port IN (\n    11434, 1234, 43411, 4891, 1337, 5001, 7860,\n    8080, 8000, 4000, 3000, 3001, 8188, 9090, 1000\n);",
+                "query": "-- AI API Servers Inventory (Including Localhost)\n-- Inventories ALL AI services on known ports, including loopback\n-- Complements ai_listening_ports which only flags network-exposed servers\nSELECT\n    l.port,\n    l.address,\n    l.protocol,\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid\nFROM listening_ports l\nJOIN processes p ON l.pid = p.pid\nWHERE l.port IN (\n    11434, 1234, 43411, 4891, 1337, 5001, 7860,\n    8080, 8000, 4000, 3000, 3001, 8188, 9090, 1000,\n    8501, 6333, 6334, 19530, 8265, 9099, 5678, 8888\n);",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -407,7 +407,7 @@
             },
             {
                 "id": "mcp_server_processes",
-                "query": "-- Running MCP Server Processes\n-- Detects Model Context Protocol servers bridging AI tools to local resources\n-- MCP servers provide filesystem, database, and API access to AI assistants\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    datetime(p.start_time, 'unixepoch') AS start_time\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.cmdline LIKE '%@modelcontextprotocol/%'\n    OR p.cmdline LIKE '%mcp-server-%'\n    OR p.cmdline LIKE '%mcp_server%'\n    OR p.cmdline LIKE '%fastmcp%'\n    OR p.cmdline LIKE '%modelcontextprotocol%';",
+                "query": "-- Running MCP Server Processes\n-- Detects Model Context Protocol servers bridging AI tools to local resources\n-- MCP servers provide filesystem, database, and API access to AI assistants\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    datetime(p.start_time, 'unixepoch') AS start_time\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.cmdline LIKE '%@modelcontextprotocol/%'\n    OR p.cmdline LIKE '%mcp-server-%'\n    OR p.cmdline LIKE '%mcp_server%'\n    OR p.cmdline LIKE '%fastmcp%'\n    OR p.cmdline LIKE '%modelcontextprotocol%'\n    OR p.cmdline LIKE '%smithery%'\n    OR p.cmdline LIKE '%mcpx%'\n    OR p.cmdline LIKE '%mcp-run%'\n    OR p.cmdline LIKE '%glama%mcp%'\n    OR p.cmdline LIKE '%mcp-proxy%'\n    OR p.cmdline LIKE '%mcp-gateway%'\n    OR p.cmdline LIKE '%supergateway%';",
                 "interval": 3600,
                 "platform": "windows",
                 "timeout": 180,
@@ -1536,6 +1536,128 @@
                         "key": "event.action",
                         "value": {
                             "value": "osquery.ai_config_directories_windows"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_vector_databases",
+                "query": "-- Vector Database Process Detection\n-- Detects running vector database engines (Qdrant, Milvus, Chroma, Weaviate, etc.)\n-- Vector DBs power RAG pipelines and often hold sensitive corporate data\nSELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN ('qdrant', 'milvus', 'weaviate', 'chroma')\n    OR p.cmdline LIKE '%chromadb%'\n    OR p.cmdline LIKE '%qdrant%'\n    OR p.cmdline LIKE '%weaviate%'\n    OR p.cmdline LIKE '%milvus%'\n    OR p.cmdline LIKE '%pinecone%'\n    OR p.cmdline LIKE '%pgvector%'\n    OR p.cmdline LIKE '%lancedb%'\n    OR p.cmdline LIKE '%faiss%';",
+                "interval": 3600,
+                "platform": "windows",
+                "timeout": 180,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "process"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "process.name",
+                        "value": {
+                            "field": "name"
+                        }
+                    },
+                    {
+                        "key": "process.executable",
+                        "value": {
+                            "field": "path"
+                        }
+                    },
+                    {
+                        "key": "process.command_line",
+                        "value": {
+                            "field": "cmdline"
+                        }
+                    },
+                    {
+                        "key": "process.pid",
+                        "value": {
+                            "field": "pid"
+                        }
+                    },
+                    {
+                        "key": "user.name",
+                        "value": {
+                            "field": "username"
+                        }
+                    },
+                    {
+                        "key": "process.start",
+                        "value": {
+                            "field": "start_time"
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "vector_databases",
+                                "shadow_ai",
+                                "windows"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.action",
+                        "value": {
+                            "value": "osquery.ai_vector_databases"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "ai_model_cache_size_windows",
+                "query": "-- AI Model Cache Size Detection (Windows)\n-- Reports total size of model cache directories (>100MB threshold)\n-- Large model caches indicate active local AI usage\nSELECT\n    CASE\n        WHEN f.directory LIKE '%\\.ollama\\models%' THEN 'ollama'\n        WHEN f.directory LIKE '%\\.cache\\huggingface%' THEN 'huggingface'\n        WHEN f.directory LIKE '%\\.cache\\lm-studio%' THEN 'lm-studio'\n    END AS ai_tool,\n    CASE\n        WHEN f.directory LIKE '%\\.ollama\\models%' THEN 'C:\\Users\\*\\.ollama\\models'\n        WHEN f.directory LIKE '%\\.cache\\huggingface%' THEN 'C:\\Users\\*\\.cache\\huggingface'\n        WHEN f.directory LIKE '%\\.cache\\lm-studio%' THEN 'C:\\Users\\*\\.cache\\lm-studio'\n    END AS cache_path,\n    SUM(f.size) AS total_bytes,\n    COUNT(*) AS file_count\nFROM file f\nWHERE (\n    f.directory LIKE 'C:\\Users\\%\\.ollama\\models%'\n    OR f.directory LIKE 'C:\\Users\\%\\.cache\\huggingface%'\n    OR f.directory LIKE 'C:\\Users\\%\\.cache\\lm-studio%'\n)\n    AND f.type = 'regular'\nGROUP BY ai_tool\nHAVING total_bytes > 104857600;",
+                "interval": 86400,
+                "platform": "windows",
+                "timeout": 300,
+                "ecs_mapping": [
+                    {
+                        "key": "event.category",
+                        "value": {
+                            "value": [
+                                "file"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.type",
+                        "value": {
+                            "value": [
+                                "info"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "tags",
+                        "value": {
+                            "value": [
+                                "osquery",
+                                "ai_discovery",
+                                "model_storage",
+                                "shadow_ai",
+                                "windows"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "event.action",
+                        "value": {
+                            "value": "osquery.ai_model_cache_size_windows"
                         }
                     }
                 ]
