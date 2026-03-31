@@ -84,7 +84,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_llm_processes"
                         }
                     }
                 ]
@@ -169,7 +169,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_coding_agents"
                         }
                     }
                 ]
@@ -254,7 +254,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports"
                         }
                     }
                 ]
@@ -339,7 +339,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports_local"
                         }
                     }
                 ]
@@ -365,12 +365,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -406,7 +400,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_programs_windows"
                         }
                     }
                 ]
@@ -485,7 +479,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_server_processes"
                         }
                     }
                 ]
@@ -511,12 +505,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -558,7 +546,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_config_files_windows"
                         }
                     }
                 ]
@@ -584,12 +572,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -637,7 +619,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_files_windows"
                         }
                     }
                 ]
@@ -702,15 +684,9 @@
                         }
                     },
                     {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
-                        }
-                    },
-                    {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_file_extensions_windows"
                         }
                     }
                 ]
@@ -771,7 +747,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_python_packages"
                         }
                     }
                 ]
@@ -838,7 +814,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_chrome_extensions"
                         }
                     }
                 ]
@@ -905,7 +881,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_docker_containers"
                         }
                     }
                 ]
@@ -931,12 +907,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -978,7 +948,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_windows_services"
                         }
                     }
                 ]
@@ -1007,7 +977,7 @@
                         }
                     },
                     {
-                        "key": "package.path",
+                        "key": "file.directory",
                         "value": {
                             "field": "directory"
                         }
@@ -1016,6 +986,12 @@
                         "key": "file.path",
                         "value": {
                             "field": "path"
+                        }
+                    },
+                    {
+                        "key": "file.name",
+                        "value": {
+                            "field": "filename"
                         }
                     },
                     {
@@ -1033,7 +1009,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_npm_packages"
                         }
                     }
                 ]
@@ -1088,7 +1064,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_gpu_systems"
                         }
                     }
                 ]
@@ -1156,7 +1132,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_firefox_extensions"
                         }
                     }
                 ]
@@ -1182,12 +1158,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1229,7 +1199,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_credential_files_windows"
                         }
                     }
                 ]
@@ -1314,7 +1284,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_jupyter_servers"
                         }
                     }
                 ]
@@ -1340,12 +1310,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1381,7 +1345,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_vscode_extensions_windows"
                         }
                     }
                 ]
@@ -1407,12 +1371,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1442,7 +1400,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_dns_cache_windows"
                         }
                     }
                 ]
@@ -1468,12 +1426,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1516,7 +1468,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_scheduled_tasks_windows"
                         }
                     }
                 ]
@@ -1542,12 +1494,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "windows"
                         }
                     },
                     {
@@ -1583,7 +1529,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_config_directories_windows"
                         }
                     }
                 ]

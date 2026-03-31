@@ -84,7 +84,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_llm_processes"
                         }
                     }
                 ]
@@ -169,7 +169,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_coding_agents"
                         }
                     }
                 ]
@@ -254,7 +254,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports"
                         }
                     }
                 ]
@@ -339,7 +339,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_listening_ports_local"
                         }
                     }
                 ]
@@ -365,12 +365,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -406,7 +400,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_apps_macos"
                         }
                     }
                 ]
@@ -485,7 +479,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_server_processes"
                         }
                     }
                 ]
@@ -511,12 +505,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -558,7 +546,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_config_files_macos"
                         }
                     }
                 ]
@@ -584,12 +572,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -637,7 +619,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_files_macos"
                         }
                     }
                 ]
@@ -702,15 +684,9 @@
                         }
                     },
                     {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
-                        }
-                    },
-                    {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_model_file_extensions_macos"
                         }
                     }
                 ]
@@ -771,7 +747,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_python_packages"
                         }
                     }
                 ]
@@ -838,7 +814,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_chrome_extensions"
                         }
                     }
                 ]
@@ -899,7 +875,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_docker_containers"
                         }
                     }
                 ]
@@ -925,12 +901,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -960,7 +930,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_launchd_services"
                         }
                     }
                 ]
@@ -1021,7 +991,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.mcp_npm_packages"
                         }
                     }
                 ]
@@ -1064,7 +1034,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_gpu_systems"
                         }
                     }
                 ]
@@ -1090,12 +1060,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -1131,7 +1095,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_config_directories_macos"
                         }
                     }
                 ]
@@ -1199,7 +1163,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_firefox_extensions"
                         }
                     }
                 ]
@@ -1225,12 +1189,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -1267,7 +1225,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_safari_extensions"
                         }
                     }
                 ]
@@ -1293,12 +1251,6 @@
                             "value": [
                                 "info"
                             ]
-                        }
-                    },
-                    {
-                        "key": "host.os.type",
-                        "value": {
-                            "value": "macos"
                         }
                     },
                     {
@@ -1340,7 +1292,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_credential_files_macos"
                         }
                     }
                 ]
@@ -1425,7 +1377,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_jupyter_servers"
                         }
                     }
                 ]
@@ -1486,7 +1438,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_vscode_extensions"
                         }
                     }
                 ]
@@ -1547,7 +1499,7 @@
                     {
                         "key": "event.action",
                         "value": {
-                            "value": "osquery.ai_discovery"
+                            "value": "osquery.ai_homebrew_packages"
                         }
                     }
                 ]
