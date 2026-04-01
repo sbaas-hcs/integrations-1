@@ -3,7 +3,7 @@
   changes:
     - description: Add cluster_address as a dimension field to prevent duplicate document conflicts when multiple Vault clusters are monitored.
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/00001
+      link: https://github.com/elastic/integrations/pull/18188
 - version: "1.30.0"
   changes:
     - description: Update integration documentation
