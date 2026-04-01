@@ -593,6 +593,7 @@ The `metrics` data stream collects telemetry data from Hashicorp Vault. These me
 | labels | Custom key/value pairs. Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword. Example: `docker` and `k8s` labels. | object |  |
 | labels.auth_method | Authorization engine type. | keyword |  |
 | labels.cluster | The cluster name from which the metric originated; set in the configuration file, or automatically generated when a cluster is created. | keyword |  |
+| labels.cluster_address | Address of the Vault cluster from which the metric originated. | keyword |  |
 | labels.creation_ttl | Time-to-live value assigned to a token or lease at creation. This value is rounded up to the next-highest bucket; the available buckets are 1m, 10m, 20m, 1h, 2h, 1d, 2d, 7d, and 30d. Any longer TTL is assigned the value +Inf. | keyword |  |
 | labels.expiring |  | keyword |  |
 | labels.gauge |  | keyword |  |
@@ -677,6 +678,7 @@ An example event for `metrics` looks as following:
         }
     },
     "labels": {
+        "cluster_address": "https://hashicorp_vault:8201",
         "host": "hashicorp_vault",
         "instance": "hashicorp_vault:8200",
         "job": "hashicorp_vault",

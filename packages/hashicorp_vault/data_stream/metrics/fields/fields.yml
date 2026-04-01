@@ -85,3 +85,7 @@
     - name: expiring
       type: keyword
       dimension: true
+    - name: cluster_address
+      type: keyword
+      dimension: true
+      description: Address of the Vault cluster from which the metric originated.
