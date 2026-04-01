@@ -3,7 +3,7 @@
   changes:
     - description: Handle non-IP Remote-Address values in TACACS accounting logs without pipeline errors.
       type: bugfix
-      link: https://github.com/elastic/integrations/issues/17972
+      link: https://github.com/elastic/integrations/issues/18189
 - version: "1.32.2"
   changes:
     - description: Fixed processing issue in guest pipeline for guest user name.
