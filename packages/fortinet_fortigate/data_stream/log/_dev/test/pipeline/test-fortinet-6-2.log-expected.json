@@ -1774,6 +1774,7 @@
             "url": {
                 "domain": "172.16.200.55",
                 "extension": "com",
+                "full": "http://172.16.200.55/virus/eicar.com",
                 "path": "/virus/eicar.com",
                 "scheme": "http"
             },
@@ -2009,7 +2010,9 @@
             ],
             "url": {
                 "domain": "morrishittu.ddns.net",
-                "path": "/"
+                "full": "http://morrishittu.ddns.net/",
+                "path": "/",
+                "scheme": "http"
             }
         },
         {
@@ -2541,7 +2544,9 @@
             },
             "url": {
                 "domain": "www.dailymotion.com",
-                "path": "/"
+                "full": "https://www.dailymotion.com/",
+                "path": "/",
+                "scheme": "https"
             }
         },
         {
@@ -2639,7 +2644,9 @@
             ],
             "url": {
                 "domain": "www.dailymotion.com",
-                "path": "/"
+                "full": "https://www.dailymotion.com/",
+                "path": "/",
+                "scheme": "https"
             }
         },
         {
@@ -2737,7 +2744,9 @@
             ],
             "url": {
                 "domain": "www.dailymotion.com",
-                "path": "/"
+                "full": "https://www.dailymotion.com/",
+                "path": "/",
+                "scheme": "https"
             }
         },
         {
@@ -2945,7 +2954,9 @@
             "url": {
                 "domain": "172.16.200.55",
                 "extension": "pdf",
-                "path": "/ips/sig1.pdf"
+                "full": "http://172.16.200.55/ips/sig1.pdf",
+                "path": "/ips/sig1.pdf",
+                "scheme": "http"
             }
         },
         {
@@ -3234,7 +3245,9 @@
             "url": {
                 "domain": "fortinetweb.s3.amazonaws.com",
                 "extension": "pdf",
-                "path": "/docs.fortinet.com/v2/attachments/be3d0e3d-4b62-11e9-94bf-00505692583a/FortiOS_6.2.0_Log_Reference.pdf"
+                "full": "https://fortinetweb.s3.amazonaws.com/docs.fortinet.com/v2/attachments/be3d0e3d-4b62-11e9-94bf-00505692583a/FortiOS_6.2.0_Log_Reference.pdf",
+                "path": "/docs.fortinet.com/v2/attachments/be3d0e3d-4b62-11e9-94bf-00505692583a/FortiOS_6.2.0_Log_Reference.pdf",
+                "scheme": "https"
             },
             "user_agent": {
                 "original": "Wget/1.17.1"
@@ -3756,7 +3769,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T10:51:17.000Z",
@@ -3833,7 +3849,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T10:55:43.000Z",
@@ -3910,7 +3929,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T10:57:42.000Z",
@@ -4065,7 +4087,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T11:02:07.000Z",
@@ -4152,6 +4177,9 @@
                         "sha1": "1115ec1857ed7f937301ff5e02f6b0681cf2ec4e"
                     }
                 }
+            },
+            "url": {
+                "scheme": "https"
             }
         },
         {
@@ -4238,7 +4266,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T11:09:14.000Z",
@@ -4312,7 +4343,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-03-28T11:10:55.000Z",
@@ -4398,7 +4432,10 @@
             },
             "tags": [
                 "preserve_original_event"
-            ]
+            ],
+            "url": {
+                "scheme": "https"
+            }
         },
         {
             "@timestamp": "2019-05-15T16:28:17.000Z",
