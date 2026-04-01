@@ -112,7 +112,7 @@
             "windows"
         ]
     },
-    "coreMigrationVersion": "9.4.0",
+    "coreMigrationVersion": "9.3.0",
     "id": "osquery_manager-a4b2c8d0-jmpl-11f0-b4d1-4f9e8c3a1b2e",
     "references": [],
     "type": "osquery-saved-query",
