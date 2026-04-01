@@ -162,7 +162,8 @@ v3.0.0 of the package introduces support for Entity Analytics (EA) in Elastic St
 
 - The new ML jobs include an `_ea` suffix in their names, as outlined below. New detection rules are also included.
 - Previously installed ML jobs and rules will continue to run, allowing time to transition to the new Entity Analytics assets.
-- We recommend installing the new ML jobs first and verifying that they are properly set up, collecting data, and generating anomalies before upgrading to the latest detection rules included in 9.4.
+- We recommend installing the new ML jobs and verifying that they are properly set up, collecting data, and generating anomalies.
+- **Important**: New matching `_ea` detection rules for all supported stack versions will be available only after stack version 9.4 is publicly released. Continue to run your existing ML jobs and rules, without the `_ea` suffix, until then.
 
 The new Entity Analytics ML job IDs are:
 - `problem_child_rare_process_by_host_ea`
