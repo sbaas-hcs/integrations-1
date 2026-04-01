@@ -109,6 +109,7 @@
                 "ip": "81.2.69.144"
             },
             "destination": {
+                "address": "81.2.69.144",
                 "ip": "81.2.69.144"
             },
             "ecs": {
@@ -261,6 +262,7 @@
                 "ip": "81.2.69.144"
             },
             "destination": {
+                "address": "81.2.69.144",
                 "ip": "81.2.69.144"
             },
             "ecs": {
@@ -432,6 +434,7 @@
                 "ip": "81.2.69.144"
             },
             "destination": {
+                "address": "81.2.69.144",
                 "ip": "81.2.69.144"
             },
             "ecs": {
@@ -578,6 +581,7 @@
                 "ip": "81.2.69.144"
             },
             "destination": {
+                "address": "81.2.69.144",
                 "ip": "81.2.69.144"
             },
             "ecs": {
@@ -704,6 +708,7 @@
                 "ip": "81.2.69.144"
             },
             "destination": {
+                "address": "81.2.69.145",
                 "ip": "81.2.69.145"
             },
             "ecs": {
@@ -754,6 +759,166 @@
             "user": {
                 "name": "user"
             }
+        },
+        {
+            "@timestamp": "2026-02-18T11:54:29.000Z",
+            "cisco_ise": {
+                "log": {
+                    "category": {
+                        "name": "CISE_TACACS_Accounting"
+                    }
+                }
+            },
+            "ecs": {
+                "version": "8.17.0"
+            },
+            "event": {
+                "category": [
+                    "configuration"
+                ],
+                "kind": "event",
+                "original": "<181>Feb 18 11:54:29 HOSTNAME_DUMMY CISE_TACACS_Accounting DEVICEID_000001 2 0 2026-02-18 11:54:29.278 +00:00 SESSIONID_000001 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=173, Device IP Address=198.51.100.10, RequestLatency=2, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=15, Service=Login, User=USER_DUMMY, Port=tty0, Remote-Address=async, Authen-Method=TacacsPlus, AVPair=task_id=10436, AVPair=timezone=GMT, AVPair=start_time=1771413837, AVPair=disc-cause=4, AVPair=disc-cause-ext=47, AVPair=pre-session-time=25, AVPair=elapsed_time=1832, AVPair=stop_time=1771415669, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_ABC123/SESSION_DEF456, SelectedAccessService=Default Device Admin, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Location#All Locations#Site-A, NetworkDeviceGroups=Device Type#All Device Types#Cisco Devices, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No,",
+                "type": [
+                    "info"
+                ]
+            },
+            "host": {
+                "hostname": "HOSTNAME_DUMMY"
+            },
+            "log": {
+                "syslog": {
+                    "priority": 181
+                }
+            },
+            "message": "DEVICEID_000001 2 0 2026-02-18 11:54:29.278 +00:00 SESSIONID_000001 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=173, Device IP Address=198.51.100.10, RequestLatency=2, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=15, Service=Login, User=USER_DUMMY, Port=tty0, Remote-Address=async, Authen-Method=TacacsPlus, AVPair=task_id=10436, AVPair=timezone=GMT, AVPair=start_time=1771413837, AVPair=disc-cause=4, AVPair=disc-cause-ext=47, AVPair=pre-session-time=25, AVPair=elapsed_time=1832, AVPair=stop_time=1771415669, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_ABC123/SESSION_DEF456, SelectedAccessService=Default Device Admin, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Location#All Locations#Site-A, NetworkDeviceGroups=Device Type#All Device Types#Cisco Devices, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No,",
+            "related": {
+                "hosts": [
+                    "HOSTNAME_DUMMY"
+                ]
+            },
+            "tags": [
+                "preserve_original_event"
+            ]
+        },
+        {
+            "@timestamp": "2026-03-20T12:01:20.000Z",
+            "cisco_ise": {
+                "log": {
+                    "category": {
+                        "name": "CISE_TACACS_Accounting"
+                    }
+                }
+            },
+            "ecs": {
+                "version": "8.17.0"
+            },
+            "event": {
+                "category": [
+                    "configuration"
+                ],
+                "kind": "event",
+                "original": "<181>Mar 20 12:01:20 HOSTNAME_DUMMY CISE_TACACS_Accounting DEVICEID_000001 1 0 2026-03-20 12:01:20.528 +00:00 SESSIONID_000001 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=78, Device IP Address=198.51.100.11, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=0, Service=Login, User=USER_DUMMY, Port=/dev/pts/3, Remote-Address=console, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=375, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_ABC123/SESSION_DEF456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-B, CPMSessionID=CPM_DUMMY_001, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-B, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+                "type": [
+                    "info"
+                ]
+            },
+            "host": {
+                "hostname": "HOSTNAME_DUMMY"
+            },
+            "log": {
+                "syslog": {
+                    "priority": 181
+                }
+            },
+            "message": "DEVICEID_000001 1 0 2026-03-20 12:01:20.528 +00:00 SESSIONID_000001 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=78, Device IP Address=198.51.100.11, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=0, Service=Login, User=USER_DUMMY, Port=/dev/pts/3, Remote-Address=console, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=375, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_ABC123/SESSION_DEF456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-B, CPMSessionID=CPM_DUMMY_001, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-B, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+            "related": {
+                "hosts": [
+                    "HOSTNAME_DUMMY"
+                ]
+            },
+            "tags": [
+                "preserve_original_event"
+            ]
+        },
+        {
+            "@timestamp": "2026-03-20T12:03:20.000Z",
+            "cisco_ise": {
+                "log": {
+                    "category": {
+                        "name": "CISE_TACACS_Accounting"
+                    }
+                }
+            },
+            "ecs": {
+                "version": "8.17.0"
+            },
+            "event": {
+                "category": [
+                    "configuration"
+                ],
+                "kind": "event",
+                "original": "<181>Mar 20 12:03:20 HOSTNAME_DUMMY CISE_TACACS_Accounting DEVICEID_000001 1 0 2026-03-20 12:03:20.528 +00:00 SESSIONID_000002 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=78, Device IP Address=198.51.100.12, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=0, Service=Login, User=USER_DUMMY, Port=/dev/pts/4, Remote-Address=EEM, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=376, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_XYZ123/SESSION_XYZ456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-C, CPMSessionID=CPM_DUMMY_002, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-C, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+                "type": [
+                    "info"
+                ]
+            },
+            "host": {
+                "hostname": "HOSTNAME_DUMMY"
+            },
+            "log": {
+                "syslog": {
+                    "priority": 181
+                }
+            },
+            "message": "DEVICEID_000001 1 0 2026-03-20 12:03:20.528 +00:00 SESSIONID_000002 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=78, Device IP Address=198.51.100.12, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=0, Service=Login, User=USER_DUMMY, Port=/dev/pts/4, Remote-Address=EEM, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=376, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_XYZ123/SESSION_XYZ456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-C, CPMSessionID=CPM_DUMMY_002, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-C, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+            "related": {
+                "hosts": [
+                    "HOSTNAME_DUMMY"
+                ]
+            },
+            "tags": [
+                "preserve_original_event"
+            ]
+        },
+        {
+            "@timestamp": "2026-03-20T12:05:20.000Z",
+            "cisco_ise": {
+                "log": {
+                    "category": {
+                        "name": "CISE_TACACS_Accounting"
+                    }
+                }
+            },
+            "ecs": {
+                "version": "8.17.0"
+            },
+            "event": {
+                "category": [
+                    "configuration"
+                ],
+                "kind": "event",
+                "original": "<181>Mar 20 12:05:20 HOSTNAME_DUMMY CISE_TACACS_Accounting DEVICEID_000001 1 0 2026-03-20 12:05:20.528 +00:00 SESSIONID_000003 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=79, Device IP Address=198.51.100.13, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=1, Service=Login, User=USER_DUMMY, Port=/dev/pts/5, Remote-Address=203.0.113.55, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=377, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_IP123/SESSION_IP456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-D, CPMSessionID=CPM_DUMMY_003, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-D, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+                "type": [
+                    "info"
+                ]
+            },
+            "host": {
+                "hostname": "HOSTNAME_DUMMY"
+            },
+            "log": {
+                "syslog": {
+                    "priority": 181
+                }
+            },
+            "message": "DEVICEID_000001 1 0 2026-03-20 12:05:20.528 +00:00 SESSIONID_000003 3302 NOTICE Tacacs-Accounting: TACACS+ Accounting STOP, ConfigVersionId=79, Device IP Address=198.51.100.13, NetworkDeviceName=DEVICE_NAME_DUMMY, Type=Accounting, Privilege-Level=1, Service=Login, User=USER_DUMMY, Port=/dev/pts/5, Remote-Address=203.0.113.55, Authen-Method=TacacsPlus, AVPair=timezone=GMT, AVPair=task_id=377, AcctRequest-Flags=Stop, Service-Argument=shell, AcsSessionID=HOSTNAME_DUMMY/SESSION_IP123/SESSION_IP456, SelectedAccessService=Default Device Admin, RequestLatency=1, Step=13006, Step=15049, Step=15008, Step=15048, Step=22084, Step=13035, NetworkDeviceGroups=Device Type#All Device Types#Cisco, NetworkDeviceGroups=IPSEC#Is IPSEC Device#No, NetworkDeviceGroups=All Platforms#All Platforms#LAB#ACCESS, NetworkDeviceGroups=Location#All Locations#Site-D, CPMSessionID=CPM_DUMMY_003, TotalAuthenLatency=1, ClientLatency=0, Network Device Profile=Cisco, Location=Location#All Locations#Site-D, Device Type=Device Type#All Device Types#Cisco, IPSEC=IPSEC#Is IPSEC Device#No, All Platforms=All Platforms#All Platforms#LAB#ACCESS, Response={AcctReply-Status=Success; },",
+            "related": {
+                "hosts": [
+                    "HOSTNAME_DUMMY"
+                ]
+            },
+            "tags": [
+                "preserve_original_event"
+            ]
         }
     ]
 }
