@@ -89,7 +89,6 @@
                         ],
                         "state": {
                             "adHocDataViews": {},
-                            "filters": [],
                             "query": {
                                 "language": "kuery",
                                 "query": ""
@@ -180,7 +179,6 @@
                         ],
                         "state": {
                             "adHocDataViews": {},
-                            "filters": [],
                             "query": {
                                 "language": "kuery",
                                 "query": ""
@@ -271,7 +269,6 @@
                         ],
                         "state": {
                             "adHocDataViews": {},
-                            "filters": [],
                             "query": {
                                 "language": "kuery",
                                 "query": ""
