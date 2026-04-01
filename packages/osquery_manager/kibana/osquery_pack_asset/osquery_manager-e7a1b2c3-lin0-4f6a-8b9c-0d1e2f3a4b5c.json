@@ -87,7 +87,8 @@
               "value": "osquery.ai_llm_processes"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_coding_agents",
@@ -172,7 +173,8 @@
               "value": "osquery.ai_coding_agents"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_listening_ports",
@@ -257,7 +259,8 @@
               "value": "osquery.ai_listening_ports"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_listening_ports_local",
@@ -342,7 +345,8 @@
               "value": "osquery.ai_listening_ports_local"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_packages_linux",
@@ -403,7 +407,8 @@
               "value": "osquery.ai_packages_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "mcp_server_processes",
@@ -482,7 +487,8 @@
               "value": "osquery.mcp_server_processes"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "mcp_config_files_linux",
@@ -549,7 +555,8 @@
               "value": "osquery.mcp_config_files_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_model_files_linux",
@@ -622,7 +629,8 @@
               "value": "osquery.ai_model_files_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_model_file_extensions_linux",
@@ -689,7 +697,8 @@
               "value": "osquery.ai_model_file_extensions_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_python_packages",
@@ -750,7 +759,8 @@
               "value": "osquery.ai_python_packages"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_chrome_extensions",
@@ -817,7 +827,8 @@
               "value": "osquery.ai_chrome_extensions"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_docker_containers",
@@ -878,7 +889,8 @@
               "value": "osquery.ai_docker_containers"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "mcp_npm_packages",
@@ -939,7 +951,8 @@
               "value": "osquery.mcp_npm_packages"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_gpu_systems",
@@ -982,7 +995,8 @@
               "value": "osquery.ai_gpu_systems"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_config_directories_linux",
@@ -1043,7 +1057,8 @@
               "value": "osquery.ai_config_directories_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_firefox_extensions",
@@ -1111,7 +1126,8 @@
               "value": "osquery.ai_firefox_extensions"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_credential_files_linux",
@@ -1178,7 +1194,8 @@
               "value": "osquery.ai_credential_files_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_jupyter_servers",
@@ -1263,7 +1280,8 @@
               "value": "osquery.ai_jupyter_servers"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_vscode_extensions",
@@ -1324,7 +1342,8 @@
               "value": "osquery.ai_vscode_extensions"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_systemd_services",
@@ -1392,7 +1411,8 @@
               "value": "osquery.ai_systemd_services"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_crontab_linux",
@@ -1448,7 +1468,8 @@
               "value": "osquery.ai_crontab_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_network_connections",
@@ -1545,7 +1566,8 @@
               "value": "osquery.ai_network_connections"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_vector_databases",
@@ -1624,7 +1646,8 @@
               "value": "osquery.ai_vector_databases"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_model_cache_size_linux",
@@ -1667,7 +1690,8 @@
               "value": "osquery.ai_model_cache_size_linux"
             }
           }
-        ]
+        ],
+        "snapshot": true
       },
       {
         "id": "ai_ssh_tunnels",
@@ -1741,7 +1765,8 @@
               "value": "osquery.ai_ssh_tunnels"
             }
           }
-        ]
+        ],
+        "snapshot": true
       }
     ]
   },
