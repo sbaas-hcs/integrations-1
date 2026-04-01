@@ -1668,7 +1668,7 @@
                 "ai_discovery",
                 "vector_databases",
                 "shadow_ai",
-                "macos"
+                "darwin"
               ]
             }
           },
@@ -1704,6 +1704,30 @@
             }
           },
           {
+            "key": "package.name",
+            "value": {
+              "field": "ai_tool"
+            }
+          },
+          {
+            "key": "file.path",
+            "value": {
+              "field": "cache_path"
+            }
+          },
+          {
+            "key": "file.size",
+            "value": {
+              "field": "total_bytes"
+            }
+          },
+          {
+            "key": "osquery.ai_model_cache.file_count",
+            "value": {
+              "field": "file_count"
+            }
+          },
+          {
             "key": "tags",
             "value": {
               "value": [
@@ -1711,7 +1735,7 @@
                 "ai_discovery",
                 "model_storage",
                 "shadow_ai",
-                "macos"
+                "darwin"
               ]
             }
           },
@@ -1785,7 +1809,7 @@
                 "ssh_tunnels",
                 "network_exposure",
                 "shadow_ai",
-                "macos"
+                "darwin"
               ]
             }
           },
