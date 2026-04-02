@@ -87,31 +87,6 @@ For the full list of available settings, refer to the upstream [Kafka receiver d
 2. Check for consumer group rebalancing issues in Kafka logs
 3. Verify that the initial offset setting matches your requirements
 
-## System testing (development)
-
-System tests use a telemetrygen + OTel Collector setup to produce OTLP data into Kafka, which the Elastic Agent's Kafka receiver then consumes.
-
-### Architecture
-
-```
-telemetrygen  -->  otelcol (OTLP recv + Kafka exporter)  -->  Kafka  -->  Elastic Agent (Kafka receiver)  -->  Elasticsearch
-```
-
-- **telemetrygen**: Emits logs, metrics, and traces via OTLP gRPC. Uses the [telemetrygen](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/cmd/telemetrygen) tool from opentelemetry-collector-contrib.
-- **otelcol**: OpenTelemetry Collector Contrib with OTLP receiver and Kafka exporter. Receives from telemetrygen and writes to Kafka topics `otlp_logs`, `otlp_metrics`, `otlp_spans`.
-- **Kafka**: Broker (KRaft mode) that buffers telemetry before the Agent consumes it.
-- **Elastic Agent**: Runs the Kafka input (Kafka receiver). Test config uses `initial_offset: earliest` so the Agent reads from the start of topics after telemetrygen has produced data.
-
-### Running system tests
-
-```bash
-elastic-package stack up -d
-cd packages/kafka_input_otel
-elastic-package test system
-```
-
-Deployment files are in `_dev/deploy/docker/`: `docker-compose.yml` (orchestrates otelcol, telemetrygen, and Kafka), `otelcol/config.yml`, `telemetrygen/` (Dockerfile, entrypoint.sh), and `kraft/` (Kafka in KRaft mode). Telemetrygen is built locally when the ghcr.io image is unavailable.
-
 ## Further Reading
 
 - [Kafka Receiver Documentation](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kafkareceiver)
