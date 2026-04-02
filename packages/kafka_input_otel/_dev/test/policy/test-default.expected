@@ -96,6 +96,8 @@ receivers:
             topics:
                 - otlp_metrics
         min_fetch_size: 1
+        profiles:
+            topics: []
         protocol_version: 2.1.0
         resolve_canonical_bootstrap_servers_only: false
         session_timeout: 10s
