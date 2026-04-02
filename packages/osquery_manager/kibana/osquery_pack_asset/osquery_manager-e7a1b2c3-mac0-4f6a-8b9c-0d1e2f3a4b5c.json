@@ -6,7 +6,7 @@
     "queries": [
       {
         "id": "ai_llm_processes",
-        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'ollama', 'lms', 'gpt4all', 'jan', 'msty', 'local-ai',\n    'koboldcpp', 'llama-server', 'llama-cli', 'vllm',\n    'mlc_llm', 'mlc_chat', 'anythingllm', 'anything-llm',\n    'litellm', 'open-webui', 'llamafile', 'text-generation-launcher',\n    'text-generation-router', 'comfyui', 'invokeai'\n,\n    'msty',\n    'exo',\n    'tabby')\n    OR p.cmdline LIKE '%ollama serve%'\n    OR p.cmdline LIKE '%vllm.entrypoints%'\n    OR p.cmdline LIKE '%text-generation-launcher%'\n    OR p.cmdline LIKE '%koboldcpp%'\n    OR p.cmdline LIKE '%llama-server%'\n    OR p.cmdline LIKE '%llama.cpp%server%'\n    OR p.cmdline LIKE '%llamafile%'\n    OR p.cmdline LIKE '%mlc_llm%'\n    OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%open-webui%'\n    OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%text-generation-webui%'\n    OR p.cmdline LIKE '%oobabooga%'\n    OR p.cmdline LIKE '%comfyui%'\n    OR p.cmdline LIKE '%invokeai%'\n    OR p.cmdline LIKE '%stable-diffusion-webui%'\n    OR p.cmdline LIKE '%whisper%server%'\n    OR p.cmdline LIKE '%msty%serve%'\n    OR p.cmdline LIKE '%exo%'\n    OR p.cmdline LIKE '%tabby%serve%'\n;",
+        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'ollama', 'lms', 'gpt4all', 'jan', 'msty', 'local-ai',\n    'koboldcpp', 'llama-server', 'llama-cli', 'vllm',\n    'mlc_llm', 'mlc_chat', 'anythingllm', 'anything-llm',\n    'litellm', 'open-webui', 'llamafile', 'text-generation-launcher',\n    'text-generation-router', 'comfyui', 'invokeai'\n,\n    'msty',\n    'exo',\n    'tabby',\n    'qwen', 'grok')\n    OR p.cmdline LIKE '%ollama serve%'\n    OR p.cmdline LIKE '%vllm.entrypoints%'\n    OR p.cmdline LIKE '%text-generation-launcher%'\n    OR p.cmdline LIKE '%koboldcpp%'\n    OR p.cmdline LIKE '%llama-server%'\n    OR p.cmdline LIKE '%llama.cpp%server%'\n    OR p.cmdline LIKE '%llamafile%'\n    OR p.cmdline LIKE '%mlc_llm%'\n    OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%open-webui%'\n    OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%text-generation-webui%'\n    OR p.cmdline LIKE '%oobabooga%'\n    OR p.cmdline LIKE '%comfyui%'\n    OR p.cmdline LIKE '%invokeai%'\n    OR p.cmdline LIKE '%stable-diffusion-webui%'\n    OR p.cmdline LIKE '%whisper%server%'\n    OR p.cmdline LIKE '%msty%serve%'\n    OR p.cmdline LIKE '%exo%'\n    OR p.cmdline LIKE '%tabby%serve%'\n\n    OR p.cmdline LIKE '%cohere%serve%'\n    OR p.cmdline LIKE '%mistral%serve%'\n;",
         "interval": 3600,
         "platform": "darwin",
         "timeout": 180,
@@ -92,7 +92,7 @@
       },
       {
         "id": "ai_coding_agents",
-        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'claude', 'cursor', 'windsurf', 'warp', 'zed',\n    'tabnine', 'TabNine', 'WasmTabNine',\n    'codeium_language_server', 'supermaven',\n    'amazon-q', 'pieces-os', 'Pieces OS',\n    'codex', 'aider', 'sgpt'\n,\n    'augment',\n    'codex',\n    'goose',\n    'devin',\n    'amp')\n    OR p.cmdline LIKE '%claude-code%'\n    OR p.cmdline LIKE '%@anthropic/claude-code%'\n    OR p.cmdline LIKE '%@anthropic-ai/claude-code%'\n    OR p.cmdline LIKE '%claude_desktop%'\n    OR p.cmdline LIKE '%com.anthropic.claudedesktop%'\n    OR p.cmdline LIKE '%Cursor.app%'\n    OR p.cmdline LIKE '%Cursor Helper%'\n    OR p.cmdline LIKE '%cursor-retrieval%'\n    OR p.cmdline LIKE '%Windsurf%'\n    OR p.cmdline LIKE '%codeium_language_server%'\n    OR p.cmdline LIKE '%codeium%enterprise%'\n    OR p.cmdline LIKE '%github.copilot%'\n    OR p.cmdline LIKE '%copilot-agent%'\n    OR p.cmdline LIKE '%copilot-language-server%'\n    OR p.cmdline LIKE '%@openai/codex%'\n    OR p.cmdline LIKE '%aider-chat%'\n    OR p.cmdline LIKE '%aider%--model%'\n    OR p.cmdline LIKE '%saoudrizwan.claude-dev%'\n    OR p.cmdline LIKE '%rooveterinaryinc.roo-cline%'\n    OR p.cmdline LIKE '%continue.continue%'\n    OR p.cmdline LIKE '%continuedev%'\n    OR p.cmdline LIKE '%amazon-q%'\n    OR p.cmdline LIKE '%codewhisperer%'\n    OR p.cmdline LIKE '%AmazonWebServices.amazon-q%'\n    OR p.cmdline LIKE '%sourcegraph.cody%'\n    OR p.cmdline LIKE '%tabnine%'\n    OR p.cmdline LIKE '%dev.warp.Warp%'\n    OR p.cmdline LIKE '%dev.zed.Zed%'\n    OR p.cmdline LIKE '%shell_gpt%'\n    OR p.cmdline LIKE '%shell-gpt%'\n    OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%swe-agent%'\n    OR p.cmdline LIKE '%pieces-os%'\n    OR p.cmdline LIKE '%supermaven%'\n    OR p.cmdline LIKE '%augment%code%'\n    OR p.cmdline LIKE '%openai/codex%'\n    OR p.cmdline LIKE '%goose%session%'\n;",
+        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    u.username,\n    p.resident_size,\n    datetime(p.start_time, 'unixepoch') AS start_time,\n    p.parent AS ppid\nFROM processes p\nLEFT JOIN users u ON p.uid = u.uid\nWHERE p.name IN (\n    'claude', 'cursor', 'windsurf', 'warp', 'zed',\n    'tabnine', 'TabNine', 'WasmTabNine',\n    'codeium_language_server', 'supermaven',\n    'amazon-q', 'pieces-os', 'Pieces OS',\n    'codex', 'aider', 'sgpt'\n,\n    'augment',\n    'codex',\n    'goose',\n    'devin',\n    'amp',\n    'gemini-cli', 'genaiscript', 'openai', 'llm', 'bolt', 'replit', 'ghostwriter', 'bito')\n    OR p.cmdline LIKE '%claude-code%'\n    OR p.cmdline LIKE '%@anthropic/claude-code%'\n    OR p.cmdline LIKE '%@anthropic-ai/claude-code%'\n    OR p.cmdline LIKE '%claude_desktop%'\n    OR p.cmdline LIKE '%com.anthropic.claudedesktop%'\n    OR p.cmdline LIKE '%Cursor.app%'\n    OR p.cmdline LIKE '%Cursor Helper%'\n    OR p.cmdline LIKE '%cursor-retrieval%'\n    OR p.cmdline LIKE '%Windsurf%'\n    OR p.cmdline LIKE '%codeium_language_server%'\n    OR p.cmdline LIKE '%codeium%enterprise%'\n    OR p.cmdline LIKE '%github.copilot%'\n    OR p.cmdline LIKE '%copilot-agent%'\n    OR p.cmdline LIKE '%copilot-language-server%'\n    OR p.cmdline LIKE '%@openai/codex%'\n    OR p.cmdline LIKE '%aider-chat%'\n    OR p.cmdline LIKE '%aider%--model%'\n    OR p.cmdline LIKE '%saoudrizwan.claude-dev%'\n    OR p.cmdline LIKE '%rooveterinaryinc.roo-cline%'\n    OR p.cmdline LIKE '%continue.continue%'\n    OR p.cmdline LIKE '%continuedev%'\n    OR p.cmdline LIKE '%amazon-q%'\n    OR p.cmdline LIKE '%codewhisperer%'\n    OR p.cmdline LIKE '%AmazonWebServices.amazon-q%'\n    OR p.cmdline LIKE '%sourcegraph.cody%'\n    OR p.cmdline LIKE '%tabnine%'\n    OR p.cmdline LIKE '%dev.warp.Warp%'\n    OR p.cmdline LIKE '%dev.zed.Zed%'\n    OR p.cmdline LIKE '%shell_gpt%'\n    OR p.cmdline LIKE '%shell-gpt%'\n    OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%swe-agent%'\n    OR p.cmdline LIKE '%pieces-os%'\n    OR p.cmdline LIKE '%supermaven%'\n    OR p.cmdline LIKE '%augment%code%'\n    OR p.cmdline LIKE '%openai/codex%'\n    OR p.cmdline LIKE '%goose%session%'\n\n    OR p.cmdline LIKE '%openclaw%'\n    OR p.cmdline LIKE '%moltbot%'\n    OR p.cmdline LIKE '%clawdbot%'\n    OR p.cmdline LIKE '%autogpt%'\n    OR p.cmdline LIKE '%auto-gpt%'\n    OR p.cmdline LIKE '%babyagi%'\n    OR p.cmdline LIKE '%agentgpt%'\n    OR p.cmdline LIKE '%crewai%'\n    OR p.cmdline LIKE '%semantic-kernel%'\n    OR p.cmdline LIKE '%semantic_kernel%'\n    OR p.cmdline LIKE '%llama-index%'\n    OR p.cmdline LIKE '%llama_index%'\n    OR p.cmdline LIKE '%haystack%pipeline%'\n    OR p.cmdline LIKE '%cohere%'\n    OR p.cmdline LIKE '%mistralai%'\n;",
         "interval": 3600,
         "platform": "darwin",
         "timeout": 180,
@@ -350,7 +350,7 @@
       },
       {
         "id": "ai_apps_macos",
-        "query": "SELECT\n    name,\n    path,\n    bundle_identifier,\n    bundle_short_version AS version,\n    datetime(last_opened_time, 'unixepoch') AS last_opened_time\nFROM apps\nWHERE name IN (\n    'Ollama', 'LM Studio', 'GPT4All', 'Jan', 'Msty', 'AnythingLLM',\n    'ChatGPT', 'Claude', 'Perplexity', 'DeepSeek', 'Poe',\n    'Google Gemini', 'Microsoft Copilot',\n    'Cursor', 'Windsurf', 'Zed', 'Warp', 'Void',\n    'Pieces OS', 'Replit',\n    'DiffusionBee', 'Draw Things',\n    'Otter', 'Granola', 'Krisp', 'Raycast', 'TypingMind',\n    'Notion', 'Craft', 'Grammarly Desktop'\n)\n    OR bundle_identifier IN (\n    'com.openai.chat',\n    'com.anthropic.claudedesktop',\n    'ai.perplexity.app',\n    'com.todesktop.230313mzl4w4u92', -- Cursor uses todesktop wrapper\n    'com.ollama.ollama',\n    'com.quora.poe',\n    'dev.zed.Zed',\n    'dev.warp.Warp-Stable',\n    'com.raycast.macos',\n    'ai.krisp.krispMac',\n    'com.lmstudio.app',\n    'com.codeium.windsurf',\n    'io.gpt4all.gpt4all',\n    'jan.ai',\n    'com.diffusionbee.diffusionbee',\n    'com.liuliu.draw-things',\n    'notion.id',\n    'com.lukilabs.lukiapp',\n    'com.pieces.os',\n    'com.msty.app',\n    'com.grammarly.ProjectLlama'\n);",
+        "query": "SELECT\n    name,\n    path,\n    bundle_identifier,\n    bundle_short_version AS version,\n    datetime(last_opened_time, 'unixepoch') AS last_opened_time\nFROM apps\nWHERE name IN (\n    'Ollama', 'LM Studio', 'GPT4All', 'Jan', 'Msty', 'AnythingLLM',\n    'ChatGPT', 'Claude', 'Perplexity', 'DeepSeek', 'Poe',\n    'Google Gemini', 'Microsoft Copilot',\n    'Cursor', 'Windsurf', 'Zed', 'Warp', 'Void',\n    'Pieces OS', 'Replit',\n    'DiffusionBee', 'Draw Things',\n    'Otter', 'Granola', 'Krisp', 'Raycast', 'TypingMind',\n    'Notion', 'Craft', 'Grammarly Desktop'\n)\n    OR bundle_identifier IN (\n    'com.openai.chat',\n    'com.anthropic.claudedesktop',\n    'ai.perplexity.app',\n    'com.todesktop.230313mzl4w4u92', -- Cursor uses todesktop wrapper\n    'com.ollama.ollama',\n    'com.quora.poe',\n    'dev.zed.Zed',\n    'dev.warp.Warp-Stable',\n    'com.raycast.macos',\n    'ai.krisp.krispMac',\n    'com.lmstudio.app',\n    'com.codeium.windsurf',\n    'io.gpt4all.gpt4all',\n    'jan.ai',\n    'com.diffusionbee.diffusionbee',\n    'com.liuliu.draw-things',\n    'notion.id',\n    'com.lukilabs.lukiapp',\n    'com.pieces.os',\n    'com.msty.app',\n    'com.grammarly.ProjectLlama'\n)\n    OR name LIKE '%Qwen%'\n    OR name LIKE '%Grok%'\n    OR name LIKE '%Gemini%'\n    OR name LIKE '%Bolt%'\n    OR name LIKE '%Replit%'\n    OR name LIKE '%Ghostwriter%'\n    OR name LIKE '%Bito%'\n;",
         "interval": 86400,
         "platform": "darwin",
         "timeout": 180,
@@ -832,7 +832,7 @@
       },
       {
         "id": "ai_docker_containers",
-        "query": "SELECT\n    id,\n    name,\n    image,\n    status,\n    command,\n    started_at\nFROM docker_containers\nWHERE\n    image LIKE '%ollama%' OR image LIKE '%vllm%'\n    OR image LIKE '%text-generation%' OR image LIKE '%localai%'\n    OR image LIKE '%llama.cpp%' OR image LIKE '%litellm%'\n    OR image LIKE '%pytorch%' OR image LIKE '%tensorflow%'\n    OR image LIKE '%triton%' OR image LIKE '%huggingface%'\n    OR image LIKE '%mcp%' OR image LIKE '%modelcontextprotocol%'\n    OR image LIKE '%open-webui%' OR image LIKE '%anythingllm%'\n    OR image LIKE '%flowise%' OR image LIKE '%langflow%'\n    OR image LIKE '%chromadb%' OR image LIKE '%chroma%'\n    OR image LIKE '%qdrant%' OR image LIKE '%weaviate%'\n    OR image LIKE '%milvus%' OR image LIKE '%pinecone%'\n    OR image LIKE '%comfyui%' OR image LIKE '%stable-diffusion%'\n    OR image LIKE '%invokeai%' OR image LIKE '%automatic1111%'\n    OR image LIKE '%n8n%' OR image LIKE '%openhands%'\n    OR image LIKE '%sweepai%' OR image LIKE '%pr-agent%';",
+        "query": "SELECT\n    id,\n    name,\n    image,\n    status,\n    command,\n    started_at\nFROM docker_containers\nWHERE\n    image LIKE '%ollama%' OR image LIKE '%vllm%'\n    OR image LIKE '%text-generation%' OR image LIKE '%localai%'\n    OR image LIKE '%llama.cpp%' OR image LIKE '%litellm%'\n    OR image LIKE '%pytorch%' OR image LIKE '%tensorflow%'\n    OR image LIKE '%triton%' OR image LIKE '%huggingface%'\n    OR image LIKE '%mcp%' OR image LIKE '%modelcontextprotocol%'\n    OR image LIKE '%open-webui%' OR image LIKE '%anythingllm%'\n    OR image LIKE '%flowise%' OR image LIKE '%langflow%'\n    OR image LIKE '%chromadb%' OR image LIKE '%chroma%'\n    OR image LIKE '%qdrant%' OR image LIKE '%weaviate%'\n    OR image LIKE '%milvus%' OR image LIKE '%pinecone%'\n    OR image LIKE '%comfyui%' OR image LIKE '%stable-diffusion%'\n    OR image LIKE '%invokeai%' OR image LIKE '%automatic1111%'\n    OR image LIKE '%n8n%' OR image LIKE '%openhands%'\n    OR image LIKE '%sweepai%' OR image LIKE '%pr-agent%'\n    OR image LIKE '%qwen%'\n    OR image LIKE '%grok%'\n    OR image LIKE '%cohere%'\n    OR image LIKE '%mistral%'\n;",
         "interval": 3600,
         "platform": "darwin",
         "timeout": 180,
@@ -1924,7 +1924,7 @@
       },
       {
         "id": "ai_sensitive_file_proximity_macos",
-        "query": "SELECT p.name AS process_name, p.path AS process_path, p.pid, u.username, sens.path AS sensitive_file_path, sens.size AS sensitive_file_size, datetime(sens.atime, 'unixepoch') AS accessed_time, datetime(sens.mtime, 'unixepoch') AS modified_time FROM processes p JOIN users u ON p.uid = u.uid JOIN ( SELECT path, size, atime, mtime, uid FROM file WHERE path LIKE '/Users/%/.aws/credentials' OR path LIKE '/Users/%/.aws/config' OR path LIKE '/Users/%/.ssh/id_rsa' OR path LIKE '/Users/%/.ssh/id_ed25519' OR path LIKE '/Users/%/.ssh/id_ecdsa' OR path LIKE '/Users/%/Library/Application Support/Google/Chrome/Default/Login Data' OR path LIKE '/Users/%/Library/Keychains/login.keychain-db' OR path LIKE '/Users/%/.config/gcloud/credentials.db' OR path LIKE '/Users/%/.config/gcloud/application_default_credentials.json' OR path LIKE '/Users/%/.azure/accessTokens.json' OR path LIKE '/Users/%/.azure/msal_token_cache.json' ) AS sens ON p.uid = sens.uid WHERE ( p.name IN ('ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'copilot-agent', 'aider', 'ChatGPT', 'codex', 'lms', 'gpt4all', 'jan', 'koboldcpp', 'llama-server', 'vllm', 'litellm') OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%' )",
+        "query": "SELECT p.name AS process_name, p.path AS process_path, p.pid, u.username, sens.path AS sensitive_file_path, sens.size AS sensitive_file_size, datetime(sens.atime, 'unixepoch') AS accessed_time, datetime(sens.mtime, 'unixepoch') AS modified_time FROM processes p JOIN users u ON p.uid = u.uid JOIN ( SELECT path, size, atime, mtime, uid FROM file WHERE path LIKE '/Users/%/.aws/credentials' OR path LIKE '/Users/%/.aws/config' OR path LIKE '/Users/%/.ssh/id_rsa' OR path LIKE '/Users/%/.ssh/id_ed25519' OR path LIKE '/Users/%/.ssh/id_ecdsa' OR path LIKE '/Users/%/Library/Application Support/Google/Chrome/Default/Login Data' OR path LIKE '/Users/%/Library/Keychains/login.keychain-db' OR path LIKE '/Users/%/.config/gcloud/credentials.db' OR path LIKE '/Users/%/.config/gcloud/application_default_credentials.json' OR path LIKE '/Users/%/.azure/accessTokens.json' OR path LIKE '/Users/%/.azure/msal_token_cache.json' ) AS sens ON p.uid = sens.uid WHERE ( p.name IN ('ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'copilot-agent', 'aider', 'ChatGPT', 'codex', 'lms', 'gpt4all', 'jan', 'koboldcpp', 'llama-server', 'vllm', 'litellm', 'qwen', 'grok', 'gemini-cli', 'genaiscript', 'openai', 'llm', 'bolt', 'replit', 'ghostwriter', 'bito') OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%'\n    OR p.cmdline LIKE '%openclaw%'\n    OR p.cmdline LIKE '%moltbot%'\n    OR p.cmdline LIKE '%clawdbot%'\n    OR p.cmdline LIKE '%autogpt%'\n    OR p.cmdline LIKE '%crewai%'\n    OR p.cmdline LIKE '%gemini-cli%'\n    OR p.cmdline LIKE '%genaiscript%'\n    )",
         "interval": 3600,
         "platform": "darwin",
         "timeout": 180,
@@ -2017,107 +2017,8 @@
         ]
       },
       {
-        "id": "ai_unsigned_binaries_macos",
-        "query": "SELECT p.name, p.path, p.pid, u.username, s.signed AS is_signed, s.identifier AS signing_id, s.team_identifier, s.authority AS signature_signer, s.cdhash, datetime(p.start_time, 'unixepoch') AS start_time FROM processes p JOIN signature s ON p.path = s.path LEFT JOIN users u ON p.uid = u.uid WHERE ( p.name IN ( 'ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'lms', 'gpt4all', 'jan', 'msty', 'aider', 'copilot-agent', 'codeium_language_server', 'llama-server', 'llama-cli', 'ChatGPT', 'koboldcpp', 'llamafile', 'open-webui', 'codex', 'vllm', 'litellm', 'tabby', 'exo' ) OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%llama-server%' OR p.cmdline LIKE '%koboldcpp%' ) AND s.signed = 0",
-        "interval": 3600,
-        "platform": "darwin",
-        "timeout": 180,
-        "snapshot": true,
-        "ecs_mapping": [
-          {
-            "key": "event.category",
-            "value": {
-              "value": [
-                "process"
-              ]
-            }
-          },
-          {
-            "key": "event.type",
-            "value": {
-              "value": [
-                "info"
-              ]
-            }
-          },
-          {
-            "key": "process.name",
-            "value": {
-              "field": "name"
-            }
-          },
-          {
-            "key": "process.executable",
-            "value": {
-              "field": "path"
-            }
-          },
-          {
-            "key": "process.pid",
-            "value": {
-              "field": "pid"
-            }
-          },
-          {
-            "key": "user.name",
-            "value": {
-              "field": "username"
-            }
-          },
-          {
-            "key": "process.code_signature.exists",
-            "value": {
-              "field": "is_signed"
-            }
-          },
-          {
-            "key": "process.code_signature.signing_id",
-            "value": {
-              "field": "signing_id"
-            }
-          },
-          {
-            "key": "process.code_signature.team_id",
-            "value": {
-              "field": "team_identifier"
-            }
-          },
-          {
-            "key": "process.code_signature.subject_name",
-            "value": {
-              "field": "signature_signer"
-            }
-          },
-          {
-            "key": "process.start",
-            "value": {
-              "field": "start_time"
-            }
-          },
-          {
-            "key": "tags",
-            "value": {
-              "value": [
-                "osquery",
-                "ai_discovery",
-                "code_signing",
-                "shadow_ai",
-                "genai_detection",
-                "macos"
-              ]
-            }
-          },
-          {
-            "key": "event.action",
-            "value": {
-              "value": "osquery.ai_unsigned_binaries"
-            }
-          }
-        ]
-      },
-      {
         "id": "ai_process_network_summary",
-        "query": "SELECT p.name AS process_name, p.path AS process_path, p.cmdline, p.pid, u.username, pos.remote_address, pos.remote_port, pos.local_port, pos.local_address, pos.state, CASE pos.family WHEN 2 THEN 'IPv4' WHEN 10 THEN 'IPv6' ELSE 'unknown' END AS address_family, CASE pos.protocol WHEN 6 THEN 'tcp' WHEN 17 THEN 'udp' ELSE CAST(pos.protocol AS TEXT) END AS transport_protocol, CASE WHEN pos.remote_address LIKE '10.%' OR pos.remote_address LIKE '192.168.%' THEN 1 ELSE 0 END AS is_rfc1918_destination, datetime(p.start_time, 'unixepoch') AS start_time FROM process_open_sockets pos JOIN processes p ON pos.pid = p.pid LEFT JOIN users u ON p.uid = u.uid WHERE pos.remote_address NOT IN ('127.0.0.1', '::1', '0.0.0.0', '::') AND pos.remote_address != '' AND (pos.state IN ('ESTABLISHED', 'CLOSE_WAIT', 'SYN_SENT') OR pos.state IS NULL) AND ( p.name IN ( 'ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'ChatGPT', 'copilot-agent', 'aider', 'codex', 'lms', 'gpt4all', 'jan', 'llama-server', 'open-webui', 'litellm', 'koboldcpp', 'vllm', 'llamafile', 'tabby', 'exo' ) OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%llama-server%' OR p.cmdline LIKE '%vllm.entrypoints%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%' )",
+        "query": "SELECT p.name AS process_name, p.path AS process_path, p.cmdline, p.pid, u.username, pos.remote_address, pos.remote_port, pos.local_port, pos.local_address, pos.state, CASE pos.family WHEN 2 THEN 'IPv4' WHEN 10 THEN 'IPv6' ELSE 'unknown' END AS address_family, CASE pos.protocol WHEN 6 THEN 'tcp' WHEN 17 THEN 'udp' ELSE CAST(pos.protocol AS TEXT) END AS transport_protocol, CASE WHEN pos.remote_address LIKE '10.%' OR pos.remote_address LIKE '192.168.%' THEN 1 ELSE 0 END AS is_rfc1918_destination, datetime(p.start_time, 'unixepoch') AS start_time FROM process_open_sockets pos JOIN processes p ON pos.pid = p.pid LEFT JOIN users u ON p.uid = u.uid WHERE pos.remote_address NOT IN ('127.0.0.1', '::1', '0.0.0.0', '::') AND pos.remote_address != '' AND (pos.state IN ('ESTABLISHED', 'CLOSE_WAIT', 'SYN_SENT') OR pos.state IS NULL) AND ( p.name IN ( 'ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'ChatGPT', 'copilot-agent', 'aider', 'codex', 'lms', 'gpt4all', 'jan', 'llama-server', 'open-webui', 'litellm', 'koboldcpp', 'vllm', 'llamafile', 'tabby', 'exo', 'qwen', 'grok', 'gemini-cli', 'genaiscript', 'openai', 'llm', 'bolt', 'replit', 'ghostwriter', 'bito') OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%llama-server%' OR p.cmdline LIKE '%vllm.entrypoints%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%' \n    OR p.cmdline LIKE '%openclaw%'\n    OR p.cmdline LIKE '%moltbot%'\n    OR p.cmdline LIKE '%clawdbot%'\n    OR p.cmdline LIKE '%gemini-cli%'\n    OR p.cmdline LIKE '%genaiscript%'\n    OR p.cmdline LIKE '%autogpt%'\n    OR p.cmdline LIKE '%crewai%'\n    )",
         "interval": 3600,
         "platform": "darwin",
         "timeout": 180,
