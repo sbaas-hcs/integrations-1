@@ -12,15 +12,17 @@ echo "Sending telemetry..."
 telemetrygen logs \
   --otlp-insecure \
   --otlp-endpoint otelcol:4317 \
-  --logs 20 \
-  --otlp-attributes='service.name="telemetrygen"' \
-  && telemetrygen metrics \
+  --logs 10000 \
+  --otlp-attributes='service.name="telemetrygen"' &
+
+telemetrygen metrics \
   --otlp-insecure \
   --otlp-endpoint otelcol:4317 \
-  --metrics 20 \
-  --otlp-attributes='service.name="telemetrygen"' \
-  && exec telemetrygen traces \
+  --metrics 10000 \
+  --otlp-attributes='service.name="telemetrygen"' &
+
+exec telemetrygen traces \
   --otlp-insecure \
   --otlp-endpoint otelcol:4317 \
-  --traces 20 \
+  --traces 10000 \
   --otlp-attributes='service.name="telemetrygen"'
