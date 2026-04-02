@@ -92,10 +92,9 @@ receivers:
         - {{this}}
 {{/each}}
 {{/if}}
-{{!-- Profiles not yet supported - see https://github.com/elastic/package-spec/pull/1092
+{{!-- Profiles not supported yet - forced to not consume any topic - see https://github.com/elastic/package-spec/pull/1092 --}}
     profiles:
       topics: []
---}}
 {{/if}}
 {{#if sasl_mechanism}}
     auth:
