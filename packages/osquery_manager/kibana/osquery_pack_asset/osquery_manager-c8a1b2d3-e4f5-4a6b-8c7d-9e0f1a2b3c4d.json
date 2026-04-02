@@ -1118,7 +1118,7 @@
             }
         ]
     },
-    "coreMigrationVersion": "9.4.0",
+    "coreMigrationVersion": "9.3.0",
     "id": "osquery_manager-c8a1b2d3-e4f5-4a6b-8c7d-9e0f1a2b3c4d",
     "references": [],
     "type": "osquery-pack-asset"
