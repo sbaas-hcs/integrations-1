@@ -3,5 +3,26 @@ vars:
   brokers:
     - "{{Hostname}}:9092"
   initial_offset: earliest
+  logs:
+    encoding: otlp_proto
+    topics:
+      - otlp_logs
+  metrics:
+    encoding: otlp_proto
+    topics:
+      - otlp_metrics
+  profiles:
+      topics: []
+  traces:
+    encoding: otlp_proto
+    topics:
+      - otlp_spans
 assert:
   min_count: 10
+
+# It requires more time to detect all data streams
+wait_for_dynamic_streams_stable: 120s
+signal_types:
+  - logs
+  - metrics
+  - traces

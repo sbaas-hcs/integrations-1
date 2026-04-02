@@ -14,3 +14,10 @@ vars:
   traces_encoding: otlp_json
 assert:
   min_count: 10
+
+# It requires more time to detect all data streams
+wait_for_dynamic_streams_stable: 120s
+signal_types:
+  - logs
+  - metrics
+  - traces
