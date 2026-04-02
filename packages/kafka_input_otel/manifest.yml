@@ -22,7 +22,6 @@ icons:
     type: image/svg+xml
 policy_templates:
   - name: kafkareceiver
-    type: logs
     dynamic_signal_types: true
     title: Kafka OpenTelemetry Input
     description: Consume telemetry data from Kafka using OpenTelemetry Collector
