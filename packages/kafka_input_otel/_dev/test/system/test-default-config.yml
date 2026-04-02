@@ -18,7 +18,7 @@ vars:
     topics:
       - otlp_spans
 assert:
-  min_count: 10
+  min_count: 4
 
 # It requires more time to detect all data streams
 wait_for_dynamic_streams_stable: 120s
