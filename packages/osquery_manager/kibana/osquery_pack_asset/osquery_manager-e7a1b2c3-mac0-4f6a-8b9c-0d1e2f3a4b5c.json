@@ -526,7 +526,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -600,7 +600,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -674,7 +674,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1012,7 +1012,7 @@
       },
       {
         "id": "ai_gpu_systems",
-        "query": "SELECT\n    cpu_brand AS model,\n    cpu_type AS vendor,\n    hardware_model,\n    physical_memory\nFROM system_info\nWHERE cpu_brand LIKE '%Apple M%'\n    OR hardware_model LIKE '%Mac%'\nUNION\nSELECT\n    model,\n    vendor,\n    '' AS hardware_model,\n    '' AS physical_memory\nFROM pci_devices\nWHERE\n    (vendor LIKE '%NVIDIA%' AND (pci_class = '0300' OR pci_class = '0302'))\n    OR (vendor LIKE '%Advanced Micro Devices%' AND pci_class = '0300');",
+        "query": "SELECT\n    cpu_brand AS model,\n    cpu_type AS vendor,\n    hardware_model,\n    physical_memory\nFROM system_info\nWHERE cpu_brand LIKE '%Apple M%'\n    OR hardware_model LIKE '%Mac%';",
         "interval": 86400,
         "platform": "darwin",
         "timeout": 180,
@@ -1084,7 +1084,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1284,7 +1284,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1438,7 +1438,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1884,7 +1884,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1990,7 +1990,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }

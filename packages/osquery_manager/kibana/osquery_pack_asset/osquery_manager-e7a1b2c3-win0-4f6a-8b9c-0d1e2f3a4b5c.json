@@ -526,7 +526,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -600,7 +600,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -674,7 +674,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -742,7 +742,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -838,7 +838,7 @@
       },
       {
         "id": "ai_docker_containers",
-        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    datetime(p.start_time, 'unixepoch') AS started_at\nFROM processes p\nWHERE (p.name IN ('docker.exe', 'docker', 'podman.exe', 'podman')\n    OR p.path LIKE '%docker%' OR p.path LIKE '%podman%')\n    AND (\n    p.cmdline LIKE '%ollama%' OR p.cmdline LIKE '%vllm%'\n    OR p.cmdline LIKE '%text-generation%' OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%llama.cpp%' OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%pytorch%' OR p.cmdline LIKE '%tensorflow%'\n    OR p.cmdline LIKE '%triton%' OR p.cmdline LIKE '%huggingface%'\n    OR p.cmdline LIKE '%mcp%' OR p.cmdline LIKE '%modelcontextprotocol%'\n    OR p.cmdline LIKE '%open-webui%' OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%flowise%' OR p.cmdline LIKE '%langflow%'\n    OR p.cmdline LIKE '%chromadb%' OR p.cmdline LIKE '%chroma%'\n    OR p.cmdline LIKE '%qdrant%' OR p.cmdline LIKE '%weaviate%'\n    OR p.cmdline LIKE '%milvus%' OR p.cmdline LIKE '%pinecone%'\n    OR p.cmdline LIKE '%comfyui%' OR p.cmdline LIKE '%stable-diffusion%'\n    OR p.cmdline LIKE '%invokeai%' OR p.cmdline LIKE '%automatic1111%'\n    OR p.cmdline LIKE '%n8n%' OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%sweepai%' OR p.cmdline LIKE '%pr-agent%'\n    )\n    OR p.cmdline LIKE '%qwen%'\n    OR p.cmdline LIKE '%grok%'\n    OR p.cmdline LIKE '%cohere%'\n    OR p.cmdline LIKE '%mistral%'\n;",
+        "query": "SELECT\n    p.name,\n    p.path,\n    p.cmdline,\n    p.pid,\n    datetime(p.start_time, 'unixepoch') AS started_at\nFROM processes p\nWHERE (p.name IN ('docker.exe', 'docker', 'podman.exe', 'podman')\n    OR p.path LIKE '%docker%' OR p.path LIKE '%podman%')\n    AND (\n    p.cmdline LIKE '%ollama%' OR p.cmdline LIKE '%vllm%'\n    OR p.cmdline LIKE '%text-generation%' OR p.cmdline LIKE '%localai%'\n    OR p.cmdline LIKE '%llama.cpp%' OR p.cmdline LIKE '%litellm%'\n    OR p.cmdline LIKE '%pytorch%' OR p.cmdline LIKE '%tensorflow%'\n    OR p.cmdline LIKE '%triton%' OR p.cmdline LIKE '%huggingface%'\n    OR p.cmdline LIKE '%mcp%' OR p.cmdline LIKE '%modelcontextprotocol%'\n    OR p.cmdline LIKE '%open-webui%' OR p.cmdline LIKE '%anythingllm%'\n    OR p.cmdline LIKE '%flowise%' OR p.cmdline LIKE '%langflow%'\n    OR p.cmdline LIKE '%chromadb%' OR p.cmdline LIKE '%chroma%'\n    OR p.cmdline LIKE '%qdrant%' OR p.cmdline LIKE '%weaviate%'\n    OR p.cmdline LIKE '%milvus%' OR p.cmdline LIKE '%pinecone%'\n    OR p.cmdline LIKE '%comfyui%' OR p.cmdline LIKE '%stable-diffusion%'\n    OR p.cmdline LIKE '%invokeai%' OR p.cmdline LIKE '%automatic1111%'\n    OR p.cmdline LIKE '%n8n%' OR p.cmdline LIKE '%openhands%'\n    OR p.cmdline LIKE '%sweepai%' OR p.cmdline LIKE '%pr-agent%'\n    OR p.cmdline LIKE '%qwen%'\n    OR p.cmdline LIKE '%grok%'\n    OR p.cmdline LIKE '%cohere%'\n    OR p.cmdline LIKE '%mistral%'\n    );",
         "interval": 3600,
         "platform": "windows",
         "timeout": 180,
@@ -1195,7 +1195,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1349,7 +1349,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1377,7 +1377,7 @@
       },
       {
         "id": "ai_dns_cache_windows",
-        "query": "SELECT\n    name AS query_name,\n    type AS query_type,\n    flags\nFROM dns_cache\nWHERE (\n    name LIKE '%openai.com'\n    OR name LIKE '%chatgpt.com'\n    OR name LIKE '%oaiusercontent.com'\n    OR name LIKE '%anthropic.com'\n    OR name LIKE '%claude.ai'\n    OR name LIKE '%generativelanguage.googleapis.com'\n    OR name LIKE '%gemini.google.com'\n    OR name LIKE '%aistudio.google.com'\n    OR name LIKE '%notebooklm.google.com'\n    OR name LIKE '%copilot.microsoft.com'\n    OR name LIKE '%copilot.microsoft.com'\n    OR name LIKE '%meta.ai'\n    OR name LIKE '%llama.meta.com'\n    OR name LIKE '%perplexity.ai'\n    OR name LIKE '%cohere.ai'\n    OR name LIKE '%cohere.com'\n    OR name LIKE '%mistral.ai'\n    OR name LIKE '%groq.com'\n    OR name LIKE '%together.ai'\n    OR name LIKE '%together.xyz'\n    OR name LIKE '%fireworks.ai'\n    OR name LIKE '%deepseek.com'\n    OR name LIKE '%huggingface.co'\n    OR name LIKE '%replicate.com'\n    OR name LIKE '%cursor.sh'\n    OR name LIKE '%cursor.com'\n    OR name LIKE '%codeium.com'\n    OR name LIKE '%tabnine.com'\n    OR name LIKE '%copilot-proxy.githubusercontent.com'\n    OR name LIKE '%githubcopilot.com'\n    OR name LIKE '%midjourney.com'\n    OR name LIKE '%stability.ai'\n    OR name LIKE '%leonardo.ai'\n    OR name LIKE '%ideogram.ai'\n    OR name LIKE '%jasper.ai'\n    OR name LIKE '%writesonic.com'\n    OR name LIKE '%copy.ai'\n    OR name LIKE '%otter.ai'\n    OR name LIKE '%fireflies.ai'\n    OR name LIKE '%krisp.ai'\n    OR name LIKE '%you.com'\n    OR name LIKE '%phind.com'\n    OR name LIKE '%ollama.ai'\n    OR name LIKE '%ollama.com'\n);",
+        "query": "SELECT\n    name AS query_name,\n    type AS query_type,\n    flags\nFROM dns_cache\nWHERE (\n    name LIKE '%openai.com'\n    OR name LIKE '%chatgpt.com'\n    OR name LIKE '%oaiusercontent.com'\n    OR name LIKE '%anthropic.com'\n    OR name LIKE '%claude.ai'\n    OR name LIKE '%generativelanguage.googleapis.com'\n    OR name LIKE '%gemini.google.com'\n    OR name LIKE '%aistudio.google.com'\n    OR name LIKE '%notebooklm.google.com'\n    OR name LIKE '%copilot.microsoft.com'\n    OR name LIKE '%meta.ai'\n    OR name LIKE '%llama.meta.com'\n    OR name LIKE '%perplexity.ai'\n    OR name LIKE '%cohere.ai'\n    OR name LIKE '%cohere.com'\n    OR name LIKE '%mistral.ai'\n    OR name LIKE '%groq.com'\n    OR name LIKE '%together.ai'\n    OR name LIKE '%together.xyz'\n    OR name LIKE '%fireworks.ai'\n    OR name LIKE '%deepseek.com'\n    OR name LIKE '%huggingface.co'\n    OR name LIKE '%replicate.com'\n    OR name LIKE '%cursor.sh'\n    OR name LIKE '%cursor.com'\n    OR name LIKE '%codeium.com'\n    OR name LIKE '%tabnine.com'\n    OR name LIKE '%copilot-proxy.githubusercontent.com'\n    OR name LIKE '%githubcopilot.com'\n    OR name LIKE '%midjourney.com'\n    OR name LIKE '%stability.ai'\n    OR name LIKE '%leonardo.ai'\n    OR name LIKE '%ideogram.ai'\n    OR name LIKE '%jasper.ai'\n    OR name LIKE '%writesonic.com'\n    OR name LIKE '%copy.ai'\n    OR name LIKE '%otter.ai'\n    OR name LIKE '%fireflies.ai'\n    OR name LIKE '%krisp.ai'\n    OR name LIKE '%you.com'\n    OR name LIKE '%phind.com'\n    OR name LIKE '%ollama.ai'\n    OR name LIKE '%ollama.com'\n);",
         "interval": 3600,
         "platform": "windows",
         "timeout": 120,
@@ -1530,7 +1530,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1688,7 +1688,7 @@
       },
       {
         "id": "ai_config_file_changes_windows",
-        "query": "SELECT f.path, f.size, datetime(f.mtime, 'unixepoch') AS modified_time, datetime(f.ctime, 'unixepoch') AS changed_time, u.username FROM file f LEFT JOIN users u ON f.uid = u.uid WHERE ( f.path LIKE 'C:\\\\Users\\\\%\\\\AppData\\\\Roaming\\\\Claude\\\\claude_desktop_config.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.claude\\\\settings.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.claude.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.cursor\\\\mcp.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.vscode\\\\mcp.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.mcp.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\AppData\\\\Local\\\\Ollama\\\\config' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.continue\\\\config.json' OR f.path LIKE 'C:\\\\Users\\\\%\\\\.codeium\\\\config.json' ) AND f.mtime > (strftime('%s', 'now') - 3600)",
+        "query": "SELECT f.path, f.size, datetime(f.mtime, 'unixepoch') AS modified_time, datetime(f.ctime, 'unixepoch') AS changed_time, u.username FROM file f LEFT JOIN users u ON f.uid = u.uid WHERE ( f.path LIKE 'C:\\Users\\%\\AppData\\Roaming\\Claude\\claude_desktop_config.json' OR f.path LIKE 'C:\\Users\\%\\.claude\\settings.json' OR f.path LIKE 'C:\\Users\\%\\.claude.json' OR f.path LIKE 'C:\\Users\\%\\.cursor\\mcp.json' OR f.path LIKE 'C:\\Users\\%\\.vscode\\mcp.json' OR f.path LIKE 'C:\\Users\\%\\.mcp.json' OR f.path LIKE 'C:\\Users\\%\\AppData\\Local\\Ollama\\config' OR f.path LIKE 'C:\\Users\\%\\.continue\\config.json' OR f.path LIKE 'C:\\Users\\%\\.codeium\\config.json' ) AND f.mtime > (strftime('%s', 'now') - 3600)",
         "interval": 3600,
         "platform": "windows",
         "timeout": 180,
@@ -1723,7 +1723,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
@@ -1763,7 +1763,7 @@
       },
       {
         "id": "ai_sensitive_file_proximity_windows",
-        "query": "SELECT p.name AS process_name, p.path AS process_path, p.pid, u.username, sens.path AS sensitive_file_path, sens.size AS sensitive_file_size, datetime(sens.atime, 'unixepoch') AS accessed_time, datetime(sens.mtime, 'unixepoch') AS modified_time FROM processes p JOIN users u ON p.uid = u.uid JOIN ( SELECT path, size, atime, mtime, uid FROM file WHERE path LIKE 'C:\\\\Users\\\\%\\\\.aws\\\\credentials' OR path LIKE 'C:\\\\Users\\\\%\\\\.aws\\\\config' OR path LIKE 'C:\\\\Users\\\\%\\\\.ssh\\\\id_rsa' OR path LIKE 'C:\\\\Users\\\\%\\\\.ssh\\\\id_ed25519' OR path LIKE 'C:\\\\Users\\\\%\\\\.ssh\\\\id_ecdsa' OR path LIKE 'C:\\\\Users\\\\%\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Login Data' OR path LIKE 'C:\\\\Users\\\\%\\\\.config\\\\gcloud\\\\credentials.db' OR path LIKE 'C:\\\\Users\\\\%\\\\.config\\\\gcloud\\\\application_default_credentials.json' OR path LIKE 'C:\\\\Users\\\\%\\\\.azure\\\\accessTokens.json' OR path LIKE 'C:\\\\Users\\\\%\\\\.azure\\\\msal_token_cache.json' ) AS sens ON p.uid = sens.uid WHERE ( p.name IN ('ollama.exe', 'claude.exe', 'Cursor.exe', 'windsurf.exe', 'copilot-agent.exe', 'aider.exe', 'ChatGPT.exe', 'codex.exe', 'lms.exe', 'gpt4all.exe', 'jan.exe', 'koboldcpp.exe', 'llama-server.exe', 'vllm.exe', 'litellm.exe', 'qwen.exe', 'grok.exe', 'gemini-cli.exe', 'genaiscript.exe', 'openai.exe', 'llm.exe', 'bolt.exe', 'replit.exe', 'ghostwriter.exe', 'bito.exe') OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%'\n    OR p.cmdline LIKE '%openclaw%'\n    OR p.cmdline LIKE '%moltbot%'\n    OR p.cmdline LIKE '%clawdbot%'\n    OR p.cmdline LIKE '%autogpt%'\n    OR p.cmdline LIKE '%crewai%'\n    OR p.cmdline LIKE '%gemini-cli%'\n    OR p.cmdline LIKE '%genaiscript%'\n    )",
+        "query": "SELECT p.name AS process_name, p.path AS process_path, p.pid, u.username, sens.path AS sensitive_file_path, sens.size AS sensitive_file_size, datetime(sens.atime, 'unixepoch') AS accessed_time, datetime(sens.mtime, 'unixepoch') AS modified_time FROM processes p JOIN users u ON p.uid = u.uid JOIN ( SELECT path, size, atime, mtime, uid FROM file WHERE path LIKE 'C:\\Users\\%\\.aws\\credentials' OR path LIKE 'C:\\Users\\%\\.aws\\config' OR path LIKE 'C:\\Users\\%\\.ssh\\id_rsa' OR path LIKE 'C:\\Users\\%\\.ssh\\id_ed25519' OR path LIKE 'C:\\Users\\%\\.ssh\\id_ecdsa' OR path LIKE 'C:\\Users\\%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data' OR path LIKE 'C:\\Users\\%\\.config\\gcloud\\credentials.db' OR path LIKE 'C:\\Users\\%\\.config\\gcloud\\application_default_credentials.json' OR path LIKE 'C:\\Users\\%\\.azure\\accessTokens.json' OR path LIKE 'C:\\Users\\%\\.azure\\msal_token_cache.json' ) AS sens ON p.uid = sens.uid WHERE ( p.name IN ('ollama.exe', 'claude.exe', 'Cursor.exe', 'windsurf.exe', 'copilot-agent.exe', 'aider.exe', 'ChatGPT.exe', 'codex.exe', 'lms.exe', 'gpt4all.exe', 'jan.exe', 'koboldcpp.exe', 'llama-server.exe', 'vllm.exe', 'litellm.exe', 'qwen.exe', 'grok.exe', 'gemini-cli.exe', 'genaiscript.exe', 'openai.exe', 'llm.exe', 'bolt.exe', 'replit.exe', 'ghostwriter.exe', 'bito.exe') OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%'\n    OR p.cmdline LIKE '%openclaw%'\n    OR p.cmdline LIKE '%moltbot%'\n    OR p.cmdline LIKE '%clawdbot%'\n    OR p.cmdline LIKE '%autogpt%'\n    OR p.cmdline LIKE '%crewai%'\n    OR p.cmdline LIKE '%gemini-cli%'\n    OR p.cmdline LIKE '%genaiscript%'\n    )",
         "interval": 3600,
         "platform": "windows",
         "timeout": 180,
@@ -1829,7 +1829,7 @@
             }
           },
           {
-            "key": "file.mtime",
+            "key": "file.modified",
             "value": {
               "field": "modified_time"
             }
