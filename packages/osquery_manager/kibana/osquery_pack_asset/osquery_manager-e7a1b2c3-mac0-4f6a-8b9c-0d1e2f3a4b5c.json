@@ -1846,6 +1846,386 @@
           }
         ],
         "snapshot": true
+      },
+      {
+        "id": "ai_config_file_changes_macos",
+        "query": "SELECT f.path, f.size, datetime(f.mtime, 'unixepoch') AS modified_time, datetime(f.ctime, 'unixepoch') AS changed_time, u.username FROM file f LEFT JOIN users u ON f.uid = u.uid WHERE ( f.path LIKE '/Users/%/Library/Application Support/Claude/claude_desktop_config.json' OR f.path LIKE '/Users/%/.claude/settings.json' OR f.path LIKE '/Users/%/.claude.json' OR f.path LIKE '/Users/%/.cursor/mcp.json' OR f.path LIKE '/Users/%/.vscode/mcp.json' OR f.path LIKE '/Users/%/.mcp.json' OR f.path LIKE '/Users/%/Library/Application Support/Ollama/config' OR f.path LIKE '/Users/%/.config/ollama/config' OR f.path LIKE '/Users/%/.continue/config.json' OR f.path LIKE '/Users/%/.codeium/config.json' ) AND f.mtime > (strftime('%s', 'now') - 3600)",
+        "interval": 3600,
+        "platform": "darwin",
+        "timeout": 180,
+        "snapshot": true,
+        "ecs_mapping": [
+          {
+            "key": "event.category",
+            "value": {
+              "value": [
+                "file"
+              ]
+            }
+          },
+          {
+            "key": "event.type",
+            "value": {
+              "value": [
+                "change"
+              ]
+            }
+          },
+          {
+            "key": "file.path",
+            "value": {
+              "field": "path"
+            }
+          },
+          {
+            "key": "file.size",
+            "value": {
+              "field": "size"
+            }
+          },
+          {
+            "key": "file.mtime",
+            "value": {
+              "field": "modified_time"
+            }
+          },
+          {
+            "key": "file.ctime",
+            "value": {
+              "field": "changed_time"
+            }
+          },
+          {
+            "key": "user.name",
+            "value": {
+              "field": "username"
+            }
+          },
+          {
+            "key": "tags",
+            "value": {
+              "value": [
+                "osquery",
+                "ai_discovery",
+                "config_change",
+                "shadow_ai",
+                "genai_detection",
+                "macos"
+              ]
+            }
+          },
+          {
+            "key": "event.action",
+            "value": {
+              "value": "osquery.ai_config_file_changes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ai_sensitive_file_proximity_macos",
+        "query": "SELECT p.name AS process_name, p.path AS process_path, p.pid, u.username, sens.path AS sensitive_file_path, sens.size AS sensitive_file_size, datetime(sens.atime, 'unixepoch') AS accessed_time, datetime(sens.mtime, 'unixepoch') AS modified_time FROM processes p JOIN users u ON p.uid = u.uid JOIN ( SELECT path, size, atime, mtime, uid FROM file WHERE path LIKE '/Users/%/.aws/credentials' OR path LIKE '/Users/%/.aws/config' OR path LIKE '/Users/%/.ssh/id_rsa' OR path LIKE '/Users/%/.ssh/id_ed25519' OR path LIKE '/Users/%/.ssh/id_ecdsa' OR path LIKE '/Users/%/Library/Application Support/Google/Chrome/Default/Login Data' OR path LIKE '/Users/%/Library/Keychains/login.keychain-db' OR path LIKE '/Users/%/.config/gcloud/credentials.db' OR path LIKE '/Users/%/.config/gcloud/application_default_credentials.json' OR path LIKE '/Users/%/.azure/accessTokens.json' OR path LIKE '/Users/%/.azure/msal_token_cache.json' ) AS sens ON p.uid = sens.uid WHERE ( p.name IN ('ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'copilot-agent', 'aider', 'ChatGPT', 'codex', 'lms', 'gpt4all', 'jan', 'koboldcpp', 'llama-server', 'vllm', 'litellm') OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%' )",
+        "interval": 3600,
+        "platform": "darwin",
+        "timeout": 180,
+        "snapshot": true,
+        "ecs_mapping": [
+          {
+            "key": "event.category",
+            "value": {
+              "value": [
+                "process",
+                "file"
+              ]
+            }
+          },
+          {
+            "key": "event.type",
+            "value": {
+              "value": [
+                "info"
+              ]
+            }
+          },
+          {
+            "key": "process.name",
+            "value": {
+              "field": "process_name"
+            }
+          },
+          {
+            "key": "process.executable",
+            "value": {
+              "field": "process_path"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "field": "pid"
+            }
+          },
+          {
+            "key": "user.name",
+            "value": {
+              "field": "username"
+            }
+          },
+          {
+            "key": "file.path",
+            "value": {
+              "field": "sensitive_file_path"
+            }
+          },
+          {
+            "key": "file.size",
+            "value": {
+              "field": "sensitive_file_size"
+            }
+          },
+          {
+            "key": "file.accessed",
+            "value": {
+              "field": "accessed_time"
+            }
+          },
+          {
+            "key": "file.mtime",
+            "value": {
+              "field": "modified_time"
+            }
+          },
+          {
+            "key": "tags",
+            "value": {
+              "value": [
+                "osquery",
+                "ai_discovery",
+                "credential_risk",
+                "shadow_ai",
+                "genai_detection",
+                "macos"
+              ]
+            }
+          },
+          {
+            "key": "event.action",
+            "value": {
+              "value": "osquery.ai_sensitive_file_proximity"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ai_unsigned_binaries_macos",
+        "query": "SELECT p.name, p.path, p.pid, u.username, s.signed AS is_signed, s.identifier AS signing_id, s.team_identifier, s.authority AS signature_signer, s.cdhash, datetime(p.start_time, 'unixepoch') AS start_time FROM processes p JOIN signature s ON p.path = s.path LEFT JOIN users u ON p.uid = u.uid WHERE ( p.name IN ( 'ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'lms', 'gpt4all', 'jan', 'msty', 'aider', 'copilot-agent', 'codeium_language_server', 'llama-server', 'llama-cli', 'ChatGPT', 'koboldcpp', 'llamafile', 'open-webui', 'codex', 'vllm', 'litellm', 'tabby', 'exo' ) OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%llama-server%' OR p.cmdline LIKE '%koboldcpp%' ) AND s.signed = 0",
+        "interval": 3600,
+        "platform": "darwin",
+        "timeout": 180,
+        "snapshot": true,
+        "ecs_mapping": [
+          {
+            "key": "event.category",
+            "value": {
+              "value": [
+                "process"
+              ]
+            }
+          },
+          {
+            "key": "event.type",
+            "value": {
+              "value": [
+                "info"
+              ]
+            }
+          },
+          {
+            "key": "process.name",
+            "value": {
+              "field": "name"
+            }
+          },
+          {
+            "key": "process.executable",
+            "value": {
+              "field": "path"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "field": "pid"
+            }
+          },
+          {
+            "key": "user.name",
+            "value": {
+              "field": "username"
+            }
+          },
+          {
+            "key": "process.code_signature.exists",
+            "value": {
+              "field": "is_signed"
+            }
+          },
+          {
+            "key": "process.code_signature.signing_id",
+            "value": {
+              "field": "signing_id"
+            }
+          },
+          {
+            "key": "process.code_signature.team_id",
+            "value": {
+              "field": "team_identifier"
+            }
+          },
+          {
+            "key": "process.code_signature.subject_name",
+            "value": {
+              "field": "signature_signer"
+            }
+          },
+          {
+            "key": "process.start",
+            "value": {
+              "field": "start_time"
+            }
+          },
+          {
+            "key": "tags",
+            "value": {
+              "value": [
+                "osquery",
+                "ai_discovery",
+                "code_signing",
+                "shadow_ai",
+                "genai_detection",
+                "macos"
+              ]
+            }
+          },
+          {
+            "key": "event.action",
+            "value": {
+              "value": "osquery.ai_unsigned_binaries"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ai_process_network_summary",
+        "query": "SELECT p.name AS process_name, p.path AS process_path, p.cmdline, p.pid, u.username, pos.remote_address, pos.remote_port, pos.local_port, pos.local_address, pos.state, CASE pos.family WHEN 2 THEN 'IPv4' WHEN 10 THEN 'IPv6' ELSE 'unknown' END AS address_family, CASE pos.protocol WHEN 6 THEN 'tcp' WHEN 17 THEN 'udp' ELSE CAST(pos.protocol AS TEXT) END AS transport_protocol, CASE WHEN pos.remote_address LIKE '10.%' OR pos.remote_address LIKE '192.168.%' THEN 1 ELSE 0 END AS is_rfc1918_destination, datetime(p.start_time, 'unixepoch') AS start_time FROM process_open_sockets pos JOIN processes p ON pos.pid = p.pid LEFT JOIN users u ON p.uid = u.uid WHERE pos.remote_address NOT IN ('127.0.0.1', '::1', '0.0.0.0', '::') AND pos.remote_address != '' AND (pos.state IN ('ESTABLISHED', 'CLOSE_WAIT', 'SYN_SENT') OR pos.state IS NULL) AND ( p.name IN ( 'ollama', 'claude', 'cursor', 'Cursor', 'windsurf', 'Windsurf', 'ChatGPT', 'copilot-agent', 'aider', 'codex', 'lms', 'gpt4all', 'jan', 'llama-server', 'open-webui', 'litellm', 'koboldcpp', 'vllm', 'llamafile', 'tabby', 'exo' ) OR p.cmdline LIKE '%ollama serve%' OR p.cmdline LIKE '%claude-code%' OR p.cmdline LIKE '%cursor-retrieval%' OR p.cmdline LIKE '%codeium%' OR p.cmdline LIKE '%github.copilot%' OR p.cmdline LIKE '%llama-server%' OR p.cmdline LIKE '%vllm.entrypoints%' OR p.cmdline LIKE '%mcp-server%' OR p.cmdline LIKE '%@modelcontextprotocol%' )",
+        "interval": 3600,
+        "platform": "darwin",
+        "timeout": 180,
+        "snapshot": true,
+        "ecs_mapping": [
+          {
+            "key": "event.category",
+            "value": {
+              "value": [
+                "network",
+                "process"
+              ]
+            }
+          },
+          {
+            "key": "event.type",
+            "value": {
+              "value": [
+                "connection"
+              ]
+            }
+          },
+          {
+            "key": "process.name",
+            "value": {
+              "field": "process_name"
+            }
+          },
+          {
+            "key": "process.executable",
+            "value": {
+              "field": "process_path"
+            }
+          },
+          {
+            "key": "process.command_line",
+            "value": {
+              "field": "cmdline"
+            }
+          },
+          {
+            "key": "process.pid",
+            "value": {
+              "field": "pid"
+            }
+          },
+          {
+            "key": "user.name",
+            "value": {
+              "field": "username"
+            }
+          },
+          {
+            "key": "destination.ip",
+            "value": {
+              "field": "remote_address"
+            }
+          },
+          {
+            "key": "destination.port",
+            "value": {
+              "field": "remote_port"
+            }
+          },
+          {
+            "key": "source.port",
+            "value": {
+              "field": "local_port"
+            }
+          },
+          {
+            "key": "source.ip",
+            "value": {
+              "field": "local_address"
+            }
+          },
+          {
+            "key": "network.transport",
+            "value": {
+              "field": "transport_protocol"
+            }
+          },
+          {
+            "key": "process.start",
+            "value": {
+              "field": "start_time"
+            }
+          },
+          {
+            "key": "tags",
+            "value": {
+              "value": [
+                "osquery",
+                "ai_discovery",
+                "network_connections",
+                "shadow_ai",
+                "genai_detection",
+                "macos"
+              ]
+            }
+          },
+          {
+            "key": "event.action",
+            "value": {
+              "value": "osquery.ai_process_network_summary"
+            }
+          }
+        ]
       }
     ]
   },
