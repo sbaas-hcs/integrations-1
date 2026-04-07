@@ -123,7 +123,7 @@ streams:
         type: text
         title: Tags
         multi: true
-        required: true
+        required: false
         show_user: true
         default:          
 # Ensures agents have permissions to write data to `logs-*-*`
